@@ -1,6 +1,8 @@
 # ReFund - Research Funding Application
 
 ## How to run
+Change the username and password in application.properties
+
 `./gradlew bootRun`
 
 Server starts on `localhost:8080`
@@ -12,3 +14,4 @@ Open two terminals:
 2) `./gradlew bootRun`
 
 Now whenever you save changes (automatically or manually), the server will be restarted
+
