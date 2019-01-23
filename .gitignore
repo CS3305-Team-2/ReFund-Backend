@@ -5,5 +5,10 @@
 build
 
 .settings
+<<<<<<< HEAD
 .vscode
 .bin 
+=======
+
+bin
+>>>>>>> b6cb5667f99a0a356b44635f81be1d5abefe0801
