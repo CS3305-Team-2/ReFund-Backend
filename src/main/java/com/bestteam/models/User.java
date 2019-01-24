@@ -1,21 +1,18 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.JoinTable;
 
 @Entity
 @Table(name="User")
 public class User {
     @Id
-    @Column(name="id")
+    @GeneratedValue
     private int id;
 
     @Column(name="first_name")
@@ -48,11 +45,105 @@ public class User {
     @Column(name="orcid")
     private String orcid;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinTable(name="uesr_to_type",)
+    @ManyToOne
+    @JoinColumn(name="type")
     private UserType type;
 
-
-
     public User() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public String getOrcid() {
+        return orcid;
+    }
+    
+    public void setOrcid(String orcid) {
+        this.orcid = orcid;
+    }
+
+    public String getPhoneCountryCode() {
+        return phoneCountryCode;
+    }
+
+    public void setPhoneCountryCode(String phoneCountryCode) {
+        this.phoneCountryCode = phoneCountryCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }
