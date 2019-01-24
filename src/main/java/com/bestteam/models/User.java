@@ -13,7 +13,7 @@ import javax.persistence.Column;
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(name="first_name")
     private String firstName;
@@ -51,11 +51,11 @@ public class User {
 
     public User() {}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -145,5 +145,23 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", jobTitle='" + getJobTitle() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", suffix='" + getSuffix() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
+            ", orcid='" + getOrcid() + "'" +
+            ", type='" + getType() + "'" +
+            "}";
     }
 }
