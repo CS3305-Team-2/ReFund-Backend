@@ -126,7 +126,7 @@ public class User {
     public String getOrcid() {
         return orcid;
     }
-    
+
     public void setOrcid(String orcid) {
         this.orcid = orcid;
     }

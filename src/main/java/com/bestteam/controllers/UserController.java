@@ -15,7 +15,7 @@ public class UserController {
 
     @Autowired
     private UserRepository repository;
-    
+
     @GetMapping("/user")
     public List<User> getTypes() {
         List<User> list = new ArrayList<>();
