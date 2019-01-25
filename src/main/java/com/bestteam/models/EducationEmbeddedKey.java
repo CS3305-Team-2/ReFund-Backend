@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
+import java.util.Objects;
+
 
 @Embeddable
 public class EducationEmbeddedKey implements Serializable {
@@ -58,12 +60,5 @@ public class EducationEmbeddedKey implements Serializable {
     public int hashCode() {
         return Objects.hash(getId(), getUserId());
     }
-
-
-
-
-
-
-
 
 }
