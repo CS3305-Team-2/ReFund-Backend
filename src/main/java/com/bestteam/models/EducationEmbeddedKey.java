@@ -16,6 +16,13 @@ public class EducationEmbeddedKey implements Serializable {
     private Long userId;
 
 
+    public EducationEmbeddedKey() {
+    }
+
+    public EducationEmbeddedKey(Long id, Long userId) {
+        this.id = id;
+        this.userId = userId;
+    }
 
 	public Long getId() {
 		return id;
@@ -37,4 +44,26 @@ public class EducationEmbeddedKey implements Serializable {
 	public String toString() {
 		return "EducationEmbeddedKey [id=" + id + ", userID=" + userId + "]";
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EducationEmbeddedKey)) return false;
+        EducationEmbeddedKey that = (EducationEmbeddedKey) o;
+        return Objects.equals(getId(), that.getId()) &&
+               Objects.equals(getUserId(), that.getUserId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUserId());
+    }
+
+
+
+
+
+
+
+
 }
