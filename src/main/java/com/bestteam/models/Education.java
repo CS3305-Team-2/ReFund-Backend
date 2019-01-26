@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.MapsId;
+import javax.persistence.NotNull;
 
 
 @Entity
@@ -23,9 +24,13 @@ public class Education {
     @ManyToOne
     private User user;
 
+    @NotNull
     private String degree;
+    @NotNull
     private String field;
+    @NotNull
     private String institution;
+    @NotNull
     private String location;
     private int year;
 

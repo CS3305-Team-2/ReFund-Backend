@@ -12,9 +12,12 @@ import java.util.Objects;
 public class EducationEmbeddedKey implements Serializable {
 
     @GeneratedValue
+    @Column(insertable=false, updatable=false)
+    @NotNull
     private Long id;
 
-    @Column(name="user_id")
+    @Column(name="user_id", insertable=false, updatable=false)
+    @NotNull
     private Long userId;
 
 
