@@ -1,11 +1,14 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 
 @Entity
@@ -15,33 +18,44 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     @Column(name="first_name")
     private String firstName;
 
+    @NotNull
     @Column(name="last_name")
     private String lastName;
 
+    @NotNull
+    @Email
     @Column(name="email")
     private String email;
 
+    @NotNull
     @Column(name="pass")
     private String password;
 
+    @NotNull
     @Column(name="job_title")
     private String jobTitle;
 
+    @NotNull
     @Column(name="title")
     private String title;
 
+    @NotNull
     @Column(name="suffix")
     private String suffix;
 
+    @NotNull
     @Column(name="phone_number")
     private String phoneNumber;
 
+    @NotNull
     @Column(name="phone_country_code")
     private String phoneCountryCode;
 
+    @NotNull
     @Column(name="orcid")
     private String orcid;
 
