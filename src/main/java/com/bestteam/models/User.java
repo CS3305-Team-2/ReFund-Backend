@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 
@@ -50,6 +54,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name="type")
     private UserType type;
+
+    @OneToMany
+    private List<Education> educations;
 
     public User() {}
 

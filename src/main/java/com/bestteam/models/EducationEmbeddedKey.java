@@ -19,6 +19,7 @@ public class EducationEmbeddedKey implements Serializable {
     @NotNull
     private Long educationId;
 
+    @Column(name="user_id")
     @JoinColumn(name="user_id",insertable=false, updatable=false, nullable=false)
     @NotNull
     private Long userId;
