@@ -7,12 +7,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.GenerationType;
 
 @Entity
 @Table(name="User")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
     @Column(name="first_name")

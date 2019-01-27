@@ -14,13 +14,14 @@ import javax.persistence.MapsId;
 import javax.validation.constraints.NotNull;
 
 
-@Entity
+@Entity(name="Education")
 @Table(name="Education")
+
 public class Education {
     @EmbeddedId
     private EducationEmbeddedKey key;
 
-    @MapsId("id")
+    @MapsId("educationId")
     @ManyToOne
     private User user;
 

@@ -16,9 +16,11 @@ public class EducationEmbeddedKey implements Serializable {
 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id",insertable=false, updatable=false)
+    @NotNull
     private Long educationId;
 
     @Column(name="user_id")
+    @NotNull
     private Long userId;
 
 
