@@ -1,21 +1,24 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import javax.persistence.Column;
 
 @Entity
 @Table(name="User")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -43,19 +46,15 @@ public class User {
     @Column(name="title")
     private String title;
 
-    @NotNull
     @Column(name="suffix")
     private String suffix;
 
-    @NotNull
     @Column(name="phone_number")
     private String phoneNumber;
 
-    @NotNull
     @Column(name="phone_country_code")
     private String phoneCountryCode;
 
-    @NotNull
     @Column(name="orcid")
     private String orcid;
 
@@ -110,7 +109,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.withDefaults().hashToString(10, password.toCharArray());
     }
 
     public String getJobTitle() {

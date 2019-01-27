@@ -31,9 +31,10 @@ public class UserController {
         return (List<User>)repository.findAll();
     }
     
+    // TODO more than this lmao
     @PostMapping
     public void createUser(@Valid @RequestBody User user) {
-        System.out.println(user);
+        repository.save(user);
     }
 
     @GetMapping("/{userId}")
