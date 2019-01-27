@@ -19,11 +19,27 @@ import javax.validation.constraints.NotNull;
 
 public class Education {
     @EmbeddedId
+    // @JoinColumn(name="user_id")
     private EducationEmbeddedKey key;
 
-    @MapsId("educationId")
+    // @MapsId("educationId")
+    // @ManyToOne
+    // private User user;
+
+
+
+    // @ManyToOne
+    // @JoinColumn(name="user_id", insertable = false, updatable = false)
+    // // @org.hibernate.annotations.ForeignKey(name = "FK_user_id")
+    // private User user;
+
+
     @ManyToOne
+    // @JoinColumn(name="user_id")
     private User user;
+    private User getUser() {return user;}
+    private void setUser(User user) {this.user = user;}
+
 
     @NotNull
     private String degree;
