@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import javax.persistence.GenerationType;
 
 
 @Embeddable

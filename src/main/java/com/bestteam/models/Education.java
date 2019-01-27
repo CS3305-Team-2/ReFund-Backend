@@ -20,9 +20,9 @@ public class Education {
     @EmbeddedId
     private EducationEmbeddedKey key;
 
-    // @MapsId("id")
-    // @ManyToOne
-    // private User user;
+    @MapsId("id")
+    @ManyToOne
+    private User user;
 
     @NotNull
     private String degree;
