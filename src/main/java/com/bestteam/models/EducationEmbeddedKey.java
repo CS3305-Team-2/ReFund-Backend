@@ -5,28 +5,23 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
-import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
 
-
+@SuppressWarnings("serial")
 @Embeddable
 public class EducationEmbeddedKey implements Serializable {
 
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id",insertable=false, updatable=false, nullable=false)
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
     private Long educationId;
 
-    @Column(name="user_id")
-    @JoinColumn(name="user_id",insertable=false, updatable=false, nullable=false)
     @NotNull
+    @Column(name="user_id")
     private Long userId;
 
-
-    public EducationEmbeddedKey() {
-    }
+    public EducationEmbeddedKey() {}
 
     public EducationEmbeddedKey(Long educationId, Long userId) {
         this.educationId = educationId;
@@ -49,23 +44,11 @@ public class EducationEmbeddedKey implements Serializable {
 		this.userId = userId;
 	}
 
-	@Override
-	public String toString() {
-		return "EducationEmbeddedKey [educationId=" + educationId + ", userID=" + userId + "]";
-	}
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EducationEmbeddedKey)) return false;
-        EducationEmbeddedKey that = (EducationEmbeddedKey) o;
-        return Objects.equals(getEducationId(), that.getEducationId()) &&
-               Objects.equals(getUserId(), that.getUserId());
+    public String toString() {
+        return "{" +
+            " educationId='" + getEducationId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            "}";
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getEducationId(), getUserId());
-    }
-
 }
