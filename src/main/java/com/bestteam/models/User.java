@@ -1,18 +1,26 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+
+import com.bestteam.models.Education;
 
 @Entity
 @Table(name="User")
@@ -61,6 +69,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name="type")
     private UserType type;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private List<Education> educations = new ArrayList<>();
 
     public User() {}
 
@@ -139,7 +151,7 @@ public class User {
     public String getOrcid() {
         return orcid;
     }
-    
+
     public void setOrcid(String orcid) {
         this.orcid = orcid;
     }
@@ -158,6 +170,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Education> getEducations() {
+        return this.educations;
+    }
+
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
     }
 
     @Override
