@@ -74,6 +74,6 @@ public class Employment {
                ",institution='" + getInstitution() + "'" +
                ",location='" + getLocation() + "'" +
                ",years='" + getYears() + "'" +
-               "}"
+               "}";
     }
 }
