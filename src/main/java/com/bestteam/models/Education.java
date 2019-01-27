@@ -1,6 +1,6 @@
 package com.bestteam.models;
 
-import com.bestteam.models.EducationEmbeddedKey;
+import com.bestteam.models.EducationIdentity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="Education")
 public class Education {
     @EmbeddedId
-    private EducationEmbeddedKey key;
+    private EducationIdentity educationIdentity;
 
     @NotNull
     private String degree;
@@ -28,12 +28,12 @@ public class Education {
 
     private int year;
 
-    public EducationEmbeddedKey getKey() {
-        return this.key;
+    public EducationIdentity getKey() {
+        return this.educationIdentity;
     }
 
-    public void setKey(EducationEmbeddedKey key) {
-        this.key = key;
+    public void setKey(EducationIdentity key) {
+        this.educationIdentity = key;
     }
 
     public String getDegree() {

@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 
 @SuppressWarnings("serial")
 @Embeddable
-public class EducationEmbeddedKey implements Serializable {
+public class EducationIdentity implements Serializable {
 
     @NotNull
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,9 +21,9 @@ public class EducationEmbeddedKey implements Serializable {
     @Column(name="user_id")
     private Long userId;
 
-    public EducationEmbeddedKey() {}
+    public EducationIdentity() {}
 
-    public EducationEmbeddedKey(Long educationId, Long userId) {
+    public EducationIdentity(Long educationId, Long userId) {
         this.educationId = educationId;
         this.userId = userId;
     }
