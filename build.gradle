@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
@@ -13,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'gs-rest-service'
+    baseName = 'refund-backend'
     version =  '0.1.0'
 }
 
@@ -34,6 +35,7 @@ configurations {
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile("at.favre.lib:bcrypt:0.7.0") 
     compile 'mysql:mysql-connector-java'
     compile 'javax.xml.bind:jaxb-api'
     compile 'org.javassist:javassist'

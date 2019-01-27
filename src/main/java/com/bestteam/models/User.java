@@ -6,9 +6,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
@@ -18,24 +23,30 @@ import javax.persistence.GenerationType;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    private Long id;
 
+    @NotNull
     @Column(name="first_name")
     private String firstName;
 
+    @NotNull
     @Column(name="last_name")
     private String lastName;
 
+    @NotNull
+    @Email
     @Column(name="email")
     private String email;
 
+    @NotNull
     @Column(name="pass")
     private String password;
 
+    @NotNull
     @Column(name="job_title")
     private String jobTitle;
 
+    @NotNull
     @Column(name="title")
     private String title;
 
@@ -60,11 +71,11 @@ public class User {
 
     public User() {}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -105,7 +116,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.withDefaults().hashToString(10, password.toCharArray());
     }
 
     public String getJobTitle() {
@@ -154,5 +165,23 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", jobTitle='" + getJobTitle() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", suffix='" + getSuffix() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
+            ", orcid='" + getOrcid() + "'" +
+            ", type='" + getType() + "'" +
+            "}";
     }
 }
