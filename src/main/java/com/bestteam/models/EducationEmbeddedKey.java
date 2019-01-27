@@ -8,35 +8,34 @@ import javax.persistence.GeneratedValue;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
 
 
 @Embeddable
 public class EducationEmbeddedKey implements Serializable {
 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(insertable=false, updatable=false)
-    @NotNull
-    private Long id;
+    @Column(name="id",insertable=false, updatable=false)
+    private Long educationId;
 
-    @Column(name="user_id", insertable=false, updatable=false)
-    @NotNull
+    @Column(name="user_id")
     private Long userId;
 
 
     public EducationEmbeddedKey() {
     }
 
-    public EducationEmbeddedKey(Long id, Long userId) {
-        this.id = id;
+    public EducationEmbeddedKey(Long educationId, Long userId) {
+        this.educationId = educationId;
         this.userId = userId;
     }
 
-	public Long getId() {
-		return id;
+	public Long getEducationId() {
+		return educationId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setEducationId(Long educationId) {
+		this.educationId = educationId;
 	}
 
 	public Long getUserId() {
@@ -49,7 +48,7 @@ public class EducationEmbeddedKey implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EducationEmbeddedKey [id=" + id + ", userID=" + userId + "]";
+		return "EducationEmbeddedKey [educationId=" + educationId + ", userID=" + userId + "]";
 	}
 
     @Override
@@ -57,13 +56,13 @@ public class EducationEmbeddedKey implements Serializable {
         if (this == o) return true;
         if (!(o instanceof EducationEmbeddedKey)) return false;
         EducationEmbeddedKey that = (EducationEmbeddedKey) o;
-        return Objects.equals(getId(), that.getId()) &&
+        return Objects.equals(getEducationId(), that.getEducationId()) &&
                Objects.equals(getUserId(), that.getUserId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUserId());
+        return Objects.hash(getEducationId(), getUserId());
     }
 
 }
