@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.MapsId;
-import javax.persistence.NotNull;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -20,9 +20,9 @@ public class Education {
     @EmbeddedId
     private EducationEmbeddedKey key;
 
-    @MapsId("id")
-    @ManyToOne
-    private User user;
+    // @MapsId("id")
+    // @ManyToOne
+    // private User user;
 
     @NotNull
     private String degree;

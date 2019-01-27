@@ -6,12 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
 
 
 @Embeddable
 public class EducationEmbeddedKey implements Serializable {
 
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(insertable=false, updatable=false)
     @NotNull
     private Long id;
