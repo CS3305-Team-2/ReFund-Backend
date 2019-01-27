@@ -35,10 +35,9 @@ configurations {
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile("at.favre.lib:bcrypt:0.7.0") 
+    compile "at.favre.lib:bcrypt:0.7.0"
     compile 'mysql:mysql-connector-java'
     compile 'javax.xml.bind:jaxb-api'
-    compile 'org.javassist:javassist'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly "org.springframework.boot:spring-boot-devtools"
 }
