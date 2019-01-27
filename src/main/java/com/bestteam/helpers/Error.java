@@ -4,18 +4,18 @@ import java.time.Instant;
 
 public class Error {
   private Instant timestamp;
-  private String message;
+  private String[] errors;
 
-  public Error(String message) {
+  public Error(String[] errors) {
     this.timestamp = Instant.now();
-    this.message = message;
+    this.errors = errors;
   }
 
   public Instant getTimestamp() {
     return timestamp;
   }
   
-  public String getMessage() {
-    return message;
+  public String[] getErrors() {
+    return errors;
   }  
 }
