@@ -67,4 +67,13 @@ public class Employment {
 		this.years = years;
 	}
 
+	@Override
+	public String toString() {
+        return "{" +
+               ",id='" + getId() + "'" +
+               ",institution='" + getInstitution() + "'" +
+               ",location='" + getLocation() + "'" +
+               ",years='" + getYears() + "'" +
+               "}"
+    }
 }
