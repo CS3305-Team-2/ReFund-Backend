@@ -1,4 +1,4 @@
-# ReFund - Research Funding Application
+![logo](./logo.png)
 
 ## How to run
 Change the username and password in application.properties
@@ -14,4 +14,3 @@ Open two terminals:
 2) `./gradlew bootRun`
 
 Now whenever you save changes (automatically or manually), the server will be restarted
-
