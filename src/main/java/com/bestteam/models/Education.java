@@ -79,7 +79,7 @@ public class Education {
     @Override
     public String toString() {
         return "{" +
-            " key='" + getKey() + "'" +
+            " key='" + getEducationIdentity() + "'" +
             ", degree='" + getDegree() + "'" +
             ", field='" + getField() + "'" +
             ", institution='" + getInstitution() + "'" +
