@@ -11,24 +11,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
-<<<<<<< HEAD
-
-import java.util.ArrayList;
-import java.util.List;
-=======
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import java.util.ArrayList;
 import java.util.List;
 
->>>>>>> 4ef810b678766993d6b31b92da03cfce62cad142
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import com.bestteam.models.Education;
+import com.bestteam.models.Employment;
 
 @Entity
 @Table(name="User")
@@ -81,6 +76,10 @@ public class User {
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     private List<Education> educations = new ArrayList<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private List<Employment> employments = new ArrayList<>();
 
     public User() {}
 
@@ -188,6 +187,14 @@ public class User {
         this.educations = educations;
     }
 
+    public List<Employment> getEmployments() {
+        return this.employments;
+    }
+
+    public void setEmployments(List<Employment> educations) {
+        this.employments = employments;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -203,6 +210,8 @@ public class User {
             ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
             ", orcid='" + getOrcid() + "'" +
             ", type='" + getType() + "'" +
+            ", educations='" + getEducations() + "'" +
+            ", employments='" + getEmployments() + "'" +
             "}";
     }
 }

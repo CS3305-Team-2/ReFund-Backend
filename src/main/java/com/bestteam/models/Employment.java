@@ -1,16 +1,11 @@
 package com.bestteam.models;
 
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-<<<<<<< HEAD
-import javax.persistence.GenerationType;
-import javax.persistence.EmbeddedId;
-=======
->>>>>>> 4ef810b678766993d6b31b92da03cfce62cad142
 
 @Entity
 @Table(name="Employment")

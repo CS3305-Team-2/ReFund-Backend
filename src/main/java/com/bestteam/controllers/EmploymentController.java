@@ -13,10 +13,13 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-// import com.bestteam.exceptions.UserNotFoundException;
+import com.bestteam.exceptions.EmploymentNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.Employment;
 import com.bestteam.repository.EmploymentRepository;
+import com.bestteam.models.EmploymentIdentity;
+
+
 
 @RestController
 @RequestMapping("/employment")
@@ -35,14 +38,14 @@ public class EmploymentController {
     public void createEmployment(@Valid @RequestBody Employment employment) {
         repository.save(employment);
     }
-    //
-    // @GetMapping("/{userId}")
-    // public Response<User> getUser(@PathVariable("userId") Long userId) {
-    //     Optional<User> user = repository.findById(userId);
-    //     if (!user.isPresent()) {
-    //         throw new UserNotFoundException(userId.toString());
-    //     }
-    //     return new Response<>(user.get());
-    // }
+
+    @GetMapping("/{employmentId}")
+    public Response<Employment> getEmployment(@PathVariable("employmentId") EmploymentIdentity employmentId) {
+        Optional<Employment> employment = repository.findById(employmentId);
+        if (!employment.isPresent()) {
+            throw new EmploymentNotFoundException(employment.toString());
+        }
+        return new Response<>(employment.get());
+    }
 
 }
