@@ -9,16 +9,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 
 import com.bestteam.models.Education;
 
