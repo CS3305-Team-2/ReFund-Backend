@@ -28,11 +28,11 @@ public class Education {
 
     private int year;
 
-    public EducationIdentity getKey() {
+    public EducationIdentity getEducationIdentity() {
         return this.educationIdentity;
     }
 
-    public void setKey(EducationIdentity key) {
+    public void setEducationIdentity(EducationIdentity key) {
         this.educationIdentity = key;
     }
 
