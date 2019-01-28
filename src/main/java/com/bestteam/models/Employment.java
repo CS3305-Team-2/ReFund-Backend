@@ -1,18 +1,15 @@
 package com.bestteam.models;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Employment")
 public class Employment {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private EmploymentIdentity employmentIdentity;
 
     @NotNull
     private String institution;
@@ -23,24 +20,22 @@ public class Employment {
     @NotNull
     private int years;
 
-    public Employment() {
-        super();
-    }
+    public Employment() {}
 
-    public Employment(Long id, String institution, String location, int years) {
-        super();
-        this.id = id;
+    public Employment(EmploymentIdentity employmentIdentity, String institution, String location, int years) {
+        this.employmentIdentity = employmentIdentity;
         this.institution = institution;
         this.location = location;
         this.years = years;
     }
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public EmploymentIdentity getEmploymentIdentity() {
+        return this.employmentIdentity;
+    }
+
+    public void setEmploymentIdentity(EmploymentIdentity employmentIdentity) {
+        this.employmentIdentity = employmentIdentity;
+    }
 
 	public String getInstitution() {
 		return institution;
@@ -69,7 +64,7 @@ public class Employment {
 	@Override
 	public String toString() {
         return "{" +
-               ",id='" + getId() + "'" +
+               ",id='" + getEmploymentIdentity() + "'" +
                ",institution='" + getInstitution() + "'" +
                ",location='" + getLocation() + "'" +
                ",years='" + getYears() + "'" +
