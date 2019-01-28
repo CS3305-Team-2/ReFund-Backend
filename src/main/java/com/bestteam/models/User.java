@@ -16,6 +16,8 @@ import javax.persistence.Column;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -75,11 +77,11 @@ public class User {
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private List<Education> educations = new ArrayList<>();
+    private Set<Education> educations = new LinkedHashSet<>();
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private List<Employment> employments = new ArrayList<>();
+    private Set<Employment> employments = new LinkedHashSet<>();
 
     public User() {}
 
@@ -179,19 +181,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Education> getEducations() {
+    public Set<Education> getEducations() {
         return this.educations;
     }
 
-    public void setEducations(List<Education> educations) {
+    public void setEducations(Set<Education> educations) {
         this.educations = educations;
     }
 
-    public List<Employment> getEmployments() {
+    public Set<Employment> getEmployments() {
         return this.employments;
     }
 
-    public void setEmployments(List<Employment> educations) {
+    public void setEmployments(Set<Employment> educations) {
         this.employments = employments;
     }
 
