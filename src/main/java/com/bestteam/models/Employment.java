@@ -7,13 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
+import javax.persistence.EmbeddedId;
 
 @Entity
 @Table(name="Employment")
 public class Employment {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private EmploymentIdentity employmentIdentity;
 
     @NotNull
     private String institution;
@@ -24,23 +24,21 @@ public class Employment {
     @NotNull
     private int years;
 
-    public Employment() {
-        super();
-    }
+    public Employment() {}
 
-    public Employment(Long id, String institution, String location, int years) {
+    public Employment(EmploymentIdentity employmentIdentity , String institution, String location, int years) {
         super();
-        this.id = id;
+        this.employmentIdentity = employmentIdentity;
         this.institution = institution;
         this.location = location;
         this.years = years;
     }
-	public Long getId() {
-		return id;
+	public EmploymentIdentity getEmploymentIdentity() {
+		return employmentIdentity;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setEmploymentIdentity(EmploymentIdentity employmentIdentity) {
+		this.employmentIdentity = employmentIdentity;
 	}
 
 	public String getInstitution() {
@@ -70,7 +68,7 @@ public class Employment {
 	@Override
 	public String toString() {
         return "{" +
-               ",id='" + getId() + "'" +
+               ",employmentIdentity='" + getEmploymentIdentity() + "'" +
                ",institution='" + getInstitution() + "'" +
                ",location='" + getLocation() + "'" +
                ",years='" + getYears() + "'" +

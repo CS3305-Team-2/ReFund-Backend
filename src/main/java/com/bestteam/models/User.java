@@ -1,12 +1,18 @@
 package com.bestteam.models;
 
+import com.bestteam.models.Employment;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
@@ -61,6 +67,11 @@ public class User {
     @ManyToOne
     @JoinColumn(name="type")
     private UserType type;
+
+    @OneToMany
+    @JoinColumn(name="user_id")
+    private List<Employment> employments = new ArrayList<>();
+
 
     public User() {}
 
@@ -139,7 +150,7 @@ public class User {
     public String getOrcid() {
         return orcid;
     }
-    
+
     public void setOrcid(String orcid) {
         this.orcid = orcid;
     }
