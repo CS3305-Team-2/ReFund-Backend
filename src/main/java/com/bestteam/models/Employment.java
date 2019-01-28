@@ -6,8 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+<<<<<<< HEAD
 import javax.persistence.GenerationType;
 import javax.persistence.EmbeddedId;
+=======
+>>>>>>> 4ef810b678766993d6b31b92da03cfce62cad142
 
 @Entity
 @Table(name="Employment")
@@ -33,7 +36,8 @@ public class Employment {
         this.location = location;
         this.years = years;
     }
-	public EmploymentIdentity getEmploymentIdentity() {
+
+    public EmploymentIdentity getEmploymentIdentity() {
 		return employmentIdentity;
 	}
 

@@ -3,6 +3,7 @@ package com.bestteam.models;
 import com.bestteam.models.Employment;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,15 +11,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+<<<<<<< HEAD
 
 import java.util.ArrayList;
 import java.util.List;
+=======
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> 4ef810b678766993d6b31b92da03cfce62cad142
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-import javax.persistence.Column;
+import com.bestteam.models.Education;
 
 @Entity
 @Table(name="User")
@@ -68,10 +78,9 @@ public class User {
     @JoinColumn(name="type")
     private UserType type;
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private List<Employment> employments = new ArrayList<>();
-
+    private List<Education> educations = new ArrayList<>();
 
     public User() {}
 
@@ -169,6 +178,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Education> getEducations() {
+        return this.educations;
+    }
+
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
     }
 
     @Override

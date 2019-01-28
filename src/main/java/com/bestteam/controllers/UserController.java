@@ -44,5 +44,4 @@ public class UserController {
         }
         return new Response<>(user.get());
     }
-
 }
