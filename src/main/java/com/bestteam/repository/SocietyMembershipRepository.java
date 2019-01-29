@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface SocietyMembershipRepository extends CrudRepository<SocietyMembership, SocietyMembershipIdentity> {
-    List<SocietyMembership> findBySocietyMembershipentityUserId(Long userId);
+    List<SocietyMembership> findBySocietyMembershipIdentityUserId(Long userId);
 }
