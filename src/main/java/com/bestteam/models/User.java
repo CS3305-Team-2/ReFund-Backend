@@ -87,7 +87,7 @@ public class User {
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private Set<Award> Awards = new LinkedHashSet<>();
+    private Set<Award> awards = new LinkedHashSet<>();
 
     public User() {}
 
