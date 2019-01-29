@@ -23,7 +23,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.bestteam.models.Education;
 import com.bestteam.models.Employment;
 import com.bestteam.models.SocietyMembership;
-import com.bestteam.models.Award;
+import com.bestteam.models.Awards;
 
 @Entity
 @Table(name="User")
@@ -87,7 +87,7 @@ public class User {
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private Set<Award> awards = new LinkedHashSet<>();
+    private Set<Awards> awards = new LinkedHashSet<>();
 
     public User() {}
 
@@ -211,11 +211,11 @@ public class User {
         this.societyMemberships = societyMemberships;
     }
 
-    public Set<Award> getAwards() {
+    public Set<Awards> getAwards() {
         return this.awards;
     }
 
-    public void setAwards(Set<Award> awards) {
+    public void setAwards(Set<Awards> awards) {
         this.awards = awards;
     }
 

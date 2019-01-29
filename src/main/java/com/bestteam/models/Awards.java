@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name="Award")
-public class Award {
+@Table(name="Awards")
+public class Awards {
     @EmbeddedId
-    private AwardIdentity awardIdentity;
+    private AwardsIdentity awardsIdentity;
 
     @NotNull
     private int year;
@@ -27,12 +27,12 @@ public class Award {
     @NotNull
     private String details;
 
-    public AwardIdentity getAwardIdentity() {
-        return awardIdentity;
+    public AwardsIdentity getAwardsIdentity() {
+        return awardsIdentity;
     }
 
-    public void setAwardIdentity(AwardIdentity awardIdentity) {
-        this.awardIdentity = awardIdentity;
+    public void setAwardsIdentity(AwardsIdentity awardsIdentity) {
+        this.awardsIdentity = awardsIdentity;
     }
 
     public int getYear() {
@@ -59,13 +59,13 @@ public class Award {
         this.details = details;
     }
 
-    public Award() {
+    public Awards() {
         super();
     }
 
-    public Award(AwardIdentity awardIdentity, int year, String awardingBody, String details) {
+    public Awards(AwardsIdentity awardsIdentity, int year, String awardingBody, String details) {
         super();
-        this.awardIdentity = awardIdentity;
+        this.awardsIdentity = awardsIdentity;
         this.year = year;
         this.awardingBody = awardingBody;
         this.details = details;
@@ -74,7 +74,7 @@ public class Award {
     @Override
 	public String toString() {
         return "{" +
-               ",awardIdentity='" + getAwardIdentity() + "'" +
+               ",awardsIdentity='" + getAwardsIdentity() + "'" +
                ",year='" + getYear() + "'" +
                ",awardingBody='" + getAwardingBody() + "'" +
                ",details='" + getDetails() + "'" +

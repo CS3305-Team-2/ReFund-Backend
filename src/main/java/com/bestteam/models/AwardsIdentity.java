@@ -10,30 +10,30 @@ import javax.persistence.GenerationType;
 
 @SuppressWarnings("serial")
 @Embeddable
-public class AwardIdentity implements Serializable {
+public class AwardsIdentity implements Serializable {
 
     @NotNull
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", insertable=false, updatable=false, nullable=false)
-    private Long awardId;
+    private Long awardsId;
 
     @NotNull
     @Column(name="user_id")
     private Long userId;
 
-    public AwardIdentity() {}
+    public AwardsIdentity() {}
 
-    public AwardIdentity(Long awardId, Long userId) {
-        this.awardId = awardId;
+    public AwardsIdentity(Long awardsId, Long userId) {
+        this.awardsId = awardsId;
         this.userId = userId;
     }
 
-	public Long getAwardId() {
-		return awardId;
+	public Long getAwardsId() {
+		return awardsId;
 	}
 
-	public void setAwardId(Long awardId) {
-		this.awardId = awardId;
+	public void setAwardsId(Long awardsId) {
+		this.awardsId = awardsId;
 	}
 
 	public Long getUserId() {
@@ -47,7 +47,7 @@ public class AwardIdentity implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " awardId='" + getAwardId() + "'" +
+            " awardsId='" + getAwardsId() + "'" +
             ", userId='" + getUserId() + "'" +
             "}";
     }
