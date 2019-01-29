@@ -1,7 +1,7 @@
 package com.bestteam.models;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -64,7 +64,7 @@ public class Employment {
 	@Override
 	public String toString() {
         return "{" +
-               ",id='" + getEmploymentIdentity() + "'" +
+               ",employmentIdentity='" + getEmploymentIdentity() + "'" +
                ",institution='" + getInstitution() + "'" +
                ",location='" + getLocation() + "'" +
                ",years='" + getYears() + "'" +
