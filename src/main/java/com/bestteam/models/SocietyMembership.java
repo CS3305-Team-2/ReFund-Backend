@@ -1,11 +1,12 @@
 package com.bestteam.models;
 
-
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name="SocietyMembership")
@@ -14,63 +15,79 @@ public class SocietyMembership {
     private SocietyMembershipIdentity societyMembershipIdentity;
 
     @NotNull
-    private String institution;
+    @Column(name="start_date")
+    private String startDate;
 
     @NotNull
-    private String location;
+    @Column(name="end_date")
+    private String endDate;
 
     @NotNull
-    private int years;
+    private String name;
 
-    public SocietyMembership() {}
+    @NotNull
+    private String type;
 
-    public SocietyMembership(SocietyMembershipIdentity societyMembershipIdentity , String institution, String location, int years) {
-        super();
-        this.societyMembershipIdentity = societyMembershipIdentity;
-        this.institution = institution;
-        this.location = location;
-        this.years = years;
-    }
+    @NotNull
+    private String status;
 
     public SocietyMembershipIdentity getSocietyMembershipIdentity() {
-		return societyMembershipIdentity;
-	}
+        return societyMembershipIdentity;
+    }
 
-	public void setSocietyMembershipIdentity(SocietyMembershipIdentity societyMembershipIdentity) {
-		this.societyMembershipIdentity = societyMembershipIdentity;
-	}
+    public void setSocietyMembershipIdentity(SocietyMembershipIdentity societyMembershipIdentity) {
+        this.societyMembershipIdentity = societyMembershipIdentity;
+    }
 
-	public String getInstitution() {
-		return institution;
-	}
+    public String getStartDate() {
+        return startDate;
+    }
 
-	public void setInstitution(String institution) {
-		this.institution = institution;
-	}
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getEndDate() {
+        return endDate;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
-	public int getYears() {
-		return years;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setYears(int years) {
-		this.years = years;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 	@Override
 	public String toString() {
         return "{" +
                ",societyMembershipIdentity='" + getSocietyMembershipIdentity() + "'" +
-               ",institution='" + getInstitution() + "'" +
-               ",location='" + getLocation() + "'" +
-               ",years='" + getYears() + "'" +
+               ",start_date='" + getStartDate() + "'" +
+               ",end_date='" + getEndDate() + "'" +
+               ",name='" + getName() + "'" +
+               ",type='" + getType() + "'" +
+               ",status='" + getStatus() + "'" +
                "}";
     }
 }

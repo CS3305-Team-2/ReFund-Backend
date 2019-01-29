@@ -26,6 +26,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import com.bestteam.models.Education;
 import com.bestteam.models.Employment;
+import com.bestteam.models.SocietyMembership;
 
 @Entity
 @Table(name="User")
@@ -198,7 +199,15 @@ public class User {
     }
 
     public void setEmployments(Set<Employment> educations) {
-        this.employments = employments;
+        this.societyMemberships  = societyMemberships;
+    }
+
+    public Set<SocietyMembership> getSocietyMemberships() {
+        return this.societyMemberships;
+    }
+
+    public void setSocietyMemberships(Set<SocietyMembership> societyMemberships) {
+        this.societyMemberships = societyMemberships;
     }
 
     @Override
@@ -218,6 +227,7 @@ public class User {
             ", type='" + getType() + "'" +
             ", educations='" + getEducations() + "'" +
             ", employments='" + getEmployments() + "'" +
+            ", societyMemberships='" + getSocietyMemberships() + "'" +
             "}";
     }
 }
