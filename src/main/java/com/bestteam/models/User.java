@@ -23,6 +23,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.bestteam.models.Education;
 import com.bestteam.models.Employment;
 import com.bestteam.models.SocietyMembership;
+import com.bestteam.models.Award;
 
 @Entity
 @Table(name="User")
