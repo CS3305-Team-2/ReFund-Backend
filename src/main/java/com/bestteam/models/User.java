@@ -206,6 +206,14 @@ public class User {
         this.societyMemberships = societyMemberships;
     }
 
+    public Set<Award> getAwards() {
+        return this.awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -224,6 +232,7 @@ public class User {
             ", educations='" + getEducations() + "'" +
             ", employments='" + getEmployments() + "'" +
             ", societyMemberships='" + getSocietyMemberships() + "'" +
+            ", awards='" + getAwards() + "'" +
             "}";
     }
 }
