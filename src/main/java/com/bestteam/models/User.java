@@ -85,6 +85,10 @@ public class User {
     @JoinColumn(name="user_id")
     private Set<SocietyMembership> societyMemberships = new LinkedHashSet<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<Award> Awards = new LinkedHashSet<>();
+
     public User() {}
 
     public Long getId() {
