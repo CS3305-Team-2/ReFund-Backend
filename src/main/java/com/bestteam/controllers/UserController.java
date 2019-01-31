@@ -19,7 +19,7 @@ import com.bestteam.models.User;
 import com.bestteam.repository.UserRepository;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
