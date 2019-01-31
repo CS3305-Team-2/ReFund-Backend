@@ -20,7 +20,9 @@ import com.bestteam.models.User;
 import com.bestteam.models.Awards;
 import com.bestteam.models.Employment;
 import com.bestteam.models.Education;
+import com.bestteam.models.SocietyMembership;
 import com.bestteam.repository.UserRepository;
+import com.bestteam.repository.SocietyMembershipRepository;
 import com.bestteam.repository.EducationRepository;
 import com.bestteam.repository.AwardsRepository;
 import com.bestteam.repository.EmploymentRepository;
@@ -40,6 +42,9 @@ public class UserController {
 
     @Autowired
     private EmploymentRepository employmentRepository;
+
+    @Autowired
+    private SocietyMembershipRepository societyMembershipRepository;
 
     @GetMapping
     public List<User> getUserCollection() {
@@ -79,6 +84,12 @@ public class UserController {
     public Response<List<Employment>> getUserEmployments(@PathVariable("userId") Long userId) {
         List<Employment> list = new ArrayList<>();
         employmentRepository.findByEmploymentIdentityUserId(userId).forEach(list::add);
+        return new Response<>(list);
+    }
+    @GetMapping("/{userId}/societymemberships")
+    public Response<List<SocietyMembership>> getUserSocietyMemberships(@PathVariable("userId") Long userId) {
+        List<SocietyMembership> list = new ArrayList<>();
+        societyMembershipRepository.findBySocietyMembershipIdentityUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
 }
