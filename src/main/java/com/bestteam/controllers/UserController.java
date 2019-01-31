@@ -17,9 +17,11 @@ import javax.validation.Valid;
 import com.bestteam.exceptions.UserNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.User;
+import com.bestteam.models.Awards;
 import com.bestteam.models.Education;
 import com.bestteam.repository.UserRepository;
 import com.bestteam.repository.EducationRepository;
+import com.bestteam.repository.AwardsRepository;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,6 +32,9 @@ public class UserController {
 
     @Autowired
     private EducationRepository educationRepository;
+
+    @Autowired
+    private AwardsRepository awardsRepository;
 
     @GetMapping
     public List<User> getUserCollection() {
@@ -55,6 +60,13 @@ public class UserController {
     public Response<List<Education>> getUserEducations(@PathVariable("userId") Long userId) {
         List<Education> list = new ArrayList<>();
         educationRepository.findByEducationIdentityUserId(userId).forEach(list::add);
+        return new Response<>(list);
+    }
+
+    @GetMapping("/{userId}/awards")
+    public Response<List<Awards>> getUserAwards(@PathVariable("userId") Long userId) {
+        List<Awards> list = new ArrayList<>();
+        awardsRepository.findByAwardsIdentityUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
 }
