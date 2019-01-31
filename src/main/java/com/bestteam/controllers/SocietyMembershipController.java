@@ -17,12 +17,10 @@ import com.bestteam.exceptions.SocietyMembershipNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.SocietyMembership;
 import com.bestteam.repository.SocietyMembershipRepository;
-import com.bestteam.models.SocietyMembership;
 import com.bestteam.models.SocietyMembershipIdentity;
 
-
 @RestController
-@RequestMapping("/societyMembership")
+@RequestMapping("/api/societyMembership")
 public class SocietyMembershipController {
 
     @Autowired
@@ -47,5 +45,4 @@ public class SocietyMembershipController {
         }
         return new Response<>(societyMembership.get());
     }
-
 }

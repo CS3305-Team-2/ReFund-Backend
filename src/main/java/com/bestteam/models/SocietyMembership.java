@@ -2,11 +2,9 @@ package com.bestteam.models;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name="SocietyMembership")
