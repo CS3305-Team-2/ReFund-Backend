@@ -194,8 +194,8 @@ public class User {
         return this.employments;
     }
 
-    public void setEmployments(Set<Employment> educations) {
-        this.educations  = educations;
+    public void setEmployments(Set<Employment> employments) {
+        this.employments  = employments;
     }
 
     public Set<SocietyMembership> getSocietyMemberships() {
