@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import com.bestteam.models.Education;
+import com.bestteam.models.Employment;
 
 @Entity
 @Table(name="User")
@@ -72,7 +73,11 @@ public class User {
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private List<Education> educations = new ArrayList<>();
+    private Set<Education> educations = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<Employment> employments = new LinkedHashSet<>();
 
     public User() {}
 
@@ -172,12 +177,20 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Education> getEducations() {
+    public Set<Education> getEducations() {
         return this.educations;
     }
 
-    public void setEducations(List<Education> educations) {
+    public void setEducations(Set<Education> educations) {
         this.educations = educations;
+    }
+
+    public Set<Employment> getEmployments() {
+        return this.employments;
+    }
+
+    public void setEmployments(Set<Employment> employments) {
+        this.employments = employments;
     }
 
     @Override
@@ -195,6 +208,8 @@ public class User {
             ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
             ", orcid='" + getOrcid() + "'" +
             ", type='" + getType() + "'" +
+            ", educations='" + getEducations() + "'" +
+            ", employments='" + getEmployments() + "'" +
             "}";
     }
 }

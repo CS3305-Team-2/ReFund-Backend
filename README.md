@@ -1,6 +1,8 @@
 ![logo](./logo.png)
 
 ## How to run
+Install Java 9
+
 Change the username and password in application.properties
 
 `./gradlew bootRun`
