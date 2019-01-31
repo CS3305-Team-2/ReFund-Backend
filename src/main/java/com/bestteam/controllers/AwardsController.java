@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.bestteam.exceptions.AwardsNotFoundException;
 import com.bestteam.helpers.Response;
-import com.bestteam.models.Awards;
-import com.bestteam.repository.AwardsRepository;
+import com.bestteam.exceptions.AwardsNotFoundException;
 import com.bestteam.models.Awards;
 import com.bestteam.models.AwardsIdentity;
+import com.bestteam.repository.AwardsRepository;
 
 
 @RestController
-@RequestMapping("/awards")
+@RequestMapping("/api/awards")
 public class AwardsController {
 
     @Autowired
@@ -39,13 +39,11 @@ public class AwardsController {
         repository.save(awards);
     }
 
-    @GetMapping("/{awardsId}")
-    public Response<Awards> getAwards(@PathVariable("awardsId") AwardsIdentity awardsId) {
-        Optional<Awards> awards = repository.findById(awardsId);
-        if (!awards.isPresent()) {
-            throw new AwardsNotFoundException(awards.toString());
-        }
-        return new Response<>(awards.get());
+    @GetMapping("/{userId}")
+    public Response<List<Awards>> getAwards(@PathVariable("userId") Long userId) {
+        List<Awards> list = new ArrayList<>();
+        repository.findByAwardsIdentityUserId(userId).forEach(list::add);
+        return new Response<>(list);
     }
 
 }
