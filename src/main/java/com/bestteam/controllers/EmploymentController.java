@@ -20,7 +20,7 @@ import com.bestteam.repository.EmploymentRepository;
 import com.bestteam.models.EmploymentIdentity;
 
 @RestController
-@RequestMapping("/employment")
+@RequestMapping("/api/employment")
 public class EmploymentController {
 
     @Autowired
