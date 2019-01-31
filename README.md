@@ -1,4 +1,4 @@
-# ReFund - Research Funding Application
+![logo](./logo.png)
 
 ## How to run
 Install Java 9
@@ -16,4 +16,3 @@ Open two terminals:
 2) `./gradlew bootRun`
 
 Now whenever you save changes (automatically or manually), the server will be restarted
-

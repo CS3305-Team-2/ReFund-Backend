@@ -19,8 +19,6 @@ import com.bestteam.models.Employment;
 import com.bestteam.repository.EmploymentRepository;
 import com.bestteam.models.EmploymentIdentity;
 
-
-
 @RestController
 @RequestMapping("/employment")
 public class EmploymentController {
@@ -47,5 +45,4 @@ public class EmploymentController {
         }
         return new Response<>(employment.get());
     }
-
 }

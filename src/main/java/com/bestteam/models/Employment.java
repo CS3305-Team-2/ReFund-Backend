@@ -1,8 +1,6 @@
 package com.bestteam.models;
 
-
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,8 +22,7 @@ public class Employment {
 
     public Employment() {}
 
-    public Employment(EmploymentIdentity employmentIdentity , String institution, String location, int years) {
-        super();
+    public Employment(EmploymentIdentity employmentIdentity, String institution, String location, int years) {
         this.employmentIdentity = employmentIdentity;
         this.institution = institution;
         this.location = location;
@@ -33,12 +30,12 @@ public class Employment {
     }
 
     public EmploymentIdentity getEmploymentIdentity() {
-		return employmentIdentity;
-	}
+        return this.employmentIdentity;
+    }
 
-	public void setEmploymentIdentity(EmploymentIdentity employmentIdentity) {
-		this.employmentIdentity = employmentIdentity;
-	}
+    public void setEmploymentIdentity(EmploymentIdentity employmentIdentity) {
+        this.employmentIdentity = employmentIdentity;
+    }
 
 	public String getInstitution() {
 		return institution;

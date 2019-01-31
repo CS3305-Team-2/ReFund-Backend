@@ -1,7 +1,5 @@
 package com.bestteam.models;
 
-import com.bestteam.models.Employment;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -14,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -199,7 +195,7 @@ public class User {
     }
 
     public void setEmployments(Set<Employment> educations) {
-        this.societyMemberships  = societyMemberships;
+        this.educations  = educations;
     }
 
     public Set<SocietyMembership> getSocietyMemberships() {

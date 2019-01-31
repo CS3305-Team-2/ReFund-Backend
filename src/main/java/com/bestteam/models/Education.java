@@ -7,7 +7,6 @@ import javax.persistence.Table;
 import javax.persistence.EmbeddedId;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name="Education")
 public class Education {

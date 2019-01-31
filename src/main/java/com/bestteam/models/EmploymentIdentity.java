@@ -32,8 +32,8 @@ public class EmploymentIdentity implements Serializable {
 		return employmentId;
 	}
 
-	public void setEmploymentId(Long employmentId) {
-		this.employmentId = employmentId;
+	public void setEmploymentId(Long educationId) {
+		this.employmentId = educationId;
 	}
 
 	public Long getUserId() {
@@ -47,7 +47,7 @@ public class EmploymentIdentity implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " employmentId='" + getEmploymentId() + "'" +
+            " educationId='" + getEmploymentId() + "'" +
             ", userId='" + getUserId() + "'" +
             "}";
     }
