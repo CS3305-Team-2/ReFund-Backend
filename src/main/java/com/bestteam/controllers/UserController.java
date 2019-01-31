@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -68,28 +67,20 @@ public class UserController {
 
     @GetMapping("/{userId}/educations")
     public Response<List<Education>> getUserEducations(@PathVariable("userId") Long userId) {
-        List<Education> list = new ArrayList<>();
-        educationRepository.findByEducationIdentityUserId(userId).forEach(list::add);
-        return new Response<>(list);
+        return new Response<>(educationRepository.findByEducationIdentityUserId(userId));
     }
 
     @GetMapping("/{userId}/awards")
     public Response<List<Awards>> getUserAwards(@PathVariable("userId") Long userId) {
-        List<Awards> list = new ArrayList<>();
-        awardsRepository.findByAwardsIdentityUserId(userId).forEach(list::add);
-        return new Response<>(list);
+        return new Response<>(awardsRepository.findByAwardsIdentityUserId(userId));
     }
 
     @GetMapping("/{userId}/employments")
     public Response<List<Employment>> getUserEmployments(@PathVariable("userId") Long userId) {
-        List<Employment> list = new ArrayList<>();
-        employmentRepository.findByEmploymentIdentityUserId(userId).forEach(list::add);
-        return new Response<>(list);
+        return new Response<>(employmentRepository.findByEmploymentIdentityUserId(userId));
     }
     @GetMapping("/{userId}/societymemberships")
     public Response<List<SocietyMembership>> getUserSocietyMemberships(@PathVariable("userId") Long userId) {
-        List<SocietyMembership> list = new ArrayList<>();
-        societyMembershipRepository.findBySocietyMembershipIdentityUserId(userId).forEach(list::add);
-        return new Response<>(list);
+        return new Response<>(societyMembershipRepository.findBySocietyMembershipIdentityUserId(userId));
     }
 }
