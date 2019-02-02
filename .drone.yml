@@ -10,7 +10,7 @@ pipeline:
     host: leela.netsoc.co
     username: strum355
     port: 22
-    secrents: [ ssh_password ]
+    secrets: [ ssh_password ]
     script:
       - docker pull strum355/refund-backend
       - docker stop noah-refund

@@ -1,15 +1,16 @@
-FROM openjdk:8-jdk-alpine as BUILDER
+FROM gradle:5.1.1-jdk8-alpine as BUILDER
+
+USER root
 
 ENV APP_HOME=/refund
 
 WORKDIR $APP_HOME
 
-COPY build.gradle settings.gradle gradlew $APP_HOME/
-COPY gradle $APP_HOME/gradle
-
+COPY build.gradle settings.gradle gradlew ./
+COPY gradle ./gradle
 COPY . .
 
-RUN ./gradlew build
+RUN gradle build
 
 FROM openjdk:8-jre-alpine
 
