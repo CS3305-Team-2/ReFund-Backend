@@ -25,4 +25,4 @@ COPY --from=BUILDER ${APP_HOME}/build/libs/${ARTIFACT} .
 
 VOLUME [ "${APP_HOME}/application.properties" ]
 
-ENTRYPOINT [ "java", "-jar", "${ARTIFACT}", "--spring.config.location=${APP_HOME}/application.properties"]
+ENTRYPOINT [ "java", "-jar", "refund-backend.jar", "--spring.config.location=/refund/application.properties"]
