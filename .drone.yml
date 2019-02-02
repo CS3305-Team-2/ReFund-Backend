@@ -1,0 +1,17 @@
+pipeline:
+  build:
+    image: plugins/docker
+    tag: latest
+    dockerfile: Dockerfile
+    repo: strum355/refund-backend
+    secrets: [ docker_username, docker_password ]
+  ssh:
+    image: appleboy/drone-ssh
+    host: leela.netsoc.co
+    username: strum355
+    port: 22
+    secrents: [ ssh_password ]
+    script:
+      - docker pull strum355/refund-backend
+      - docker stop noah-refund
+      - docker run -d -p 5555:8080 -v (pwd)/UCC/CS3305/java/application.properties:/refund/application.properties strum355/refund-backend

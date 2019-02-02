@@ -1,0 +1,6 @@
+.vscode
+.gradle
+.settings
+bin
+build
+*.sql
