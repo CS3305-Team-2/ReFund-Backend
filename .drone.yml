@@ -21,4 +21,17 @@ pipeline:
       - docker run -d -p 5555:8080 --name noah-refund -v (pwd)/UCC/CS3305/java/application.properties:/refund/application.properties strum355/refund-backend
     when:
       event: [ push, tag ]
-      branch: master      
+      branch: master
+  webhook:
+    image: plugins/slack
+    settings:
+      icon_url: https://cdn.worldvectorlogo.com/logos/drone.svg
+      webhook:
+        from_secret: slack_webhook
+      channel: back-end 
+      template: >
+        {{#success build.status}}
+          Build {{build.number}} succeeded. Good job.
+        {{else}}
+          Build {{build.number}} failed. Fix me please.
+        {{/success}}
