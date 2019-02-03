@@ -34,3 +34,6 @@ pipeline:
       {{else}}
         Build {{build.number}} failed. Fix me please.
       {{/success}}
+    when:
+      event: [ push, tag ]
+      branch: master      
