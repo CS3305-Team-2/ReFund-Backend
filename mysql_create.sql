@@ -132,6 +132,8 @@ CREATE TABLE `TeamMembers` (
 	PRIMARY KEY (`id`),
     FOREIGN KEY team_member_to_grant(primary_attribution)
     REFERENCES `Grants`(`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE `TeamToMembers` (
@@ -139,9 +141,14 @@ CREATE TABLE `TeamToMembers` (
 	`member_id` INT NOT NULL,
 	PRIMARY KEY (`team_id`,`member_id`),
     FOREIGN KEY team_member_to_team_member(`member_id`)
-    REFERENCES `TeamMembers`(`id`),
+    REFERENCES `TeamMembers`(`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
     FOREIGN KEY team_to_team(`team_id`)
     REFERENCES `Teams`(`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+ 
 );
 
 CREATE TABLE `Teams` (
