@@ -118,3 +118,34 @@ CREATE TABLE Funding
     ON UPDATE CASCADE
     ON DELETE CASCADE   
 );
+
+
+
+
+CREATE TABLE `TeamMembers` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(30) NOT NULL,
+    `start_date` datetime NOT NULL,
+    `end_date` datetime NOT NULL,
+    `position_in_team` VARCHAR(60) NOT NULL,
+    `primary_attribution` INT NOT NULL,
+	PRIMARY KEY (`id`),
+    FOREIGN KEY team_member_to_grant(primary_attribution)
+    REFERENCES `Grants`(`id`)
+);
+
+CREATE TABLE `TeamToMembers` (
+	`team_id` INT NOT NULL,
+	`member_id` INT NOT NULL,
+	PRIMARY KEY (`team_id`,`member_id`),
+    FOREIGN KEY team_member_to_team_member(`member_id`)
+    REFERENCES `TeamMembers`(`id`),
+    FOREIGN KEY team_to_team(`team_id`)
+    REFERENCES `Teams`(`id`)
+);
+
+CREATE TABLE `Teams` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
