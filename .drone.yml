@@ -4,10 +4,14 @@ pipeline:
     tag: latest
     dockerfile: Dockerfile
     repo: strum355/refund-backend
-    secrets: [ docker_username, docker_password ]
+    secrets: [ docker_username, docker_password, mysql_user, mysql_pass, mysql_url ]
+    build_args_from_env:
+      - mysql_user
+      - mysql_pass
+      - mysql_url
     when:
       event: [ push, tag ]
-      branch: master    
+      branch: master          
   ssh:
     image: appleboy/drone-ssh
     host: leela.netsoc.co
@@ -18,10 +22,10 @@ pipeline:
       - docker pull strum355/refund-backend
       - docker stop noah-refund
       - docker rm noah-refund
-      - docker run -d -p 5555:8080 --name noah-refund -v (pwd)/UCC/CS3305/java/application.properties:/refund/application.properties strum355/refund-backend
+      - docker run -d -p 5555:8080 --name noah-refund -v ~/UCC/CS3305/java/application.properties:/refund/application.properties strum355/refund-backend
     when:
       event: [ push, tag ]
-      branch: master
+      branch: master            
   webhook:
     image: plugins/slack
     secrets: [ slack_webhook ]
