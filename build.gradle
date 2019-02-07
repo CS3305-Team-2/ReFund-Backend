@@ -35,20 +35,21 @@ configurations {
     }
 }
 
-def props = new Properties()
-file("src/main/resources/application.properties").withInputStream { props.load(it) }
-
 task startSSHTunnel(type: SpawnProcessTask) {
+    def props = new Properties()
+    file("src/main/resources/application.properties").withInputStream { props.load(it) }
     def host = props.getProperty("ssh.host")
     def port = props.getProperty("ssh.port")
     def user = props.getProperty("ssh.user")
     command "sshpass -p ${props.getProperty('ssh.pass')} ssh -v -oConnectTimeout=30 -oStrictHostKeyChecking=no -l ${user} -L${port}:localhost:${port} ${user}@${host}"
-    ready 'Authentication succeeded' // this is printed by the SSH session's debug trace when connection has been successful
+    ready 'Authentication succeeded'
 }
 
 task stopSSHTunnel(type: KillProcessTask)
 
 task sshWrapper(dependsOn: ['startSSHTunnel'], type: Test) {
+    def props = new Properties()
+    file("src/main/resources/application.properties").withInputStream { props.load(it) }
     def port = props.getProperty("ssh.port")
     systemProperty "service..endpoint",  "localhost:${port}"
 }
