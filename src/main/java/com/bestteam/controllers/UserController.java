@@ -53,6 +53,9 @@ public class UserController {
     // TODO more than this lmao
     @PostMapping
     public void createUser(@Valid @RequestBody User user) {
+        if(repository.existsByOrcid(user.getOrcid())) {
+            
+        }
         repository.save(user);
     }
 

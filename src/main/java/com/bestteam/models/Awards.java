@@ -3,13 +3,9 @@ package com.bestteam.models;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Entity;
-import javax.persistence.Column;
 
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name="Awards")
@@ -26,6 +22,15 @@ public class Awards {
 
     @NotNull
     private String details;
+
+    public Awards() {}
+
+    public Awards(AwardsIdentity awardsIdentity, int year, String awardingBody, String details) {
+        this.awardsIdentity = awardsIdentity;
+        this.year = year;
+        this.awardingBody = awardingBody;
+        this.details = details;
+    }
 
     public AwardsIdentity getAwardsIdentity() {
         return awardsIdentity;
@@ -56,18 +61,6 @@ public class Awards {
     }
 
     public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public Awards() {
-        super();
-    }
-
-    public Awards(AwardsIdentity awardsIdentity, int year, String awardingBody, String details) {
-        super();
-        this.awardsIdentity = awardsIdentity;
-        this.year = year;
-        this.awardingBody = awardingBody;
         this.details = details;
     }
 

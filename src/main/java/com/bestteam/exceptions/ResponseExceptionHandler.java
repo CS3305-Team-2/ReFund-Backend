@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.bestteam.helpers.Error;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResponseExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionHandler.class);
+
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Error> catchAllHandler(Exception e) {
         Error error = new Error(new String[]{"Unknown error"});
+        logger.error(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -51,5 +57,11 @@ public class ResponseExceptionHandler {
         e.getBindingResult().getFieldErrors().forEach((err) -> errors.add(err.getField() + " " + err.getDefaultMessage()));
         Error error = new Error(errors.toArray(new String[0]));
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(LoginException.class)
+    public final ResponseEntity<Error> loginFailed(LoginException e) {
+        Error error = new Error(new String[]{e.getMessage()});
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 }

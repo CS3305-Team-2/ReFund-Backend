@@ -66,6 +66,7 @@ public class User {
     @Column(name="phone_country_code")
     private String phoneCountryCode;
 
+    @NotNull
     @Column(name="orcid")
     private String orcid;
 
@@ -137,6 +138,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = BCrypt.withDefaults().hashToString(10, password.toCharArray());
+    }
+
+    public boolean checkPassword(String password) {
+        return BCrypt.verifyer().verify(password.toCharArray(), this.password.toCharArray()).verified;
     }
 
     public String getJobTitle() {
