@@ -35,7 +35,10 @@ public class SessionController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("JWT-TOKEN", Jwts.builder().claim("role", user.get().getType().toString()).signWith(JWTKey.getKey()).compact());
-        return ResponseEntity.ok().headers(headers).build();
+        headers.add("JWT-TOKEN", Jwts.builder()
+            .claim("role", user.get().getType().toString())
+            .claim("uid", user.get().getId())
+            .signWith(JWTKey.getKey()).compact());
+        return ResponseEntity.ok().headers(headers).body(user.get());
     }
 }
