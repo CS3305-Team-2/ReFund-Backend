@@ -1,11 +1,17 @@
--- ALTER TABLE `Funding` RENAME TO `Grant`;
+ALTER TABLE `Funding` RENAME TO `Grant`;
 
-ALTER TABLE `TeamMembers` DROP FOREIGN KEY FK_team_member_to_grant;
-ALTER TABLE `TeamMembers` ADD CONSTRAINT team_member_to_grant
-                              FOREIGN KEY `primary_attribution`
-                              REFERENCES `Grant`(`id`)
-                              ON UPDATE CASCADE
-                              ON DELETE CASCADE;
+ALTER TABLE `TeamMembers`
+DROP FOREIGN KEY team_member_to_grant;
+
+ALTER TABLE `TeamMembers`
+DROP INDEX team_member_to_grant;
+
+ALTER TABLE `TeamMembers`
+ADD FOREIGN KEY `team_member_to_grant`(`primary_attribution`)
+REFERENCES `Grant`(`id`)
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
 
 
 
@@ -17,11 +23,11 @@ CREATE TABLE `Impact`
     `primary_beneficiary` INT NOT NULL,
     `primary_attribution` INT NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY impacts_to_user(`primary_beneficiary`)
+    FOREIGN KEY `impacts_to_user`(`primary_beneficiary`)
     REFERENCES `User`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-    FOREIGN KEY impacts_to_grants(`primary_attribution`)
+    FOREIGN KEY `impacts_to_grants`(`primary_attribution`)
     REFERENCES `Grant`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -45,12 +51,8 @@ CREATE TABLE `Presentations`
     `primary_attribution` INT NOT NULL,
     `event_type` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY funding_to_grant(`primary_attribution`)
+    FOREIGN KEY `funding_to_grant`(`primary_attribution`)
     REFERENCES `Grant`(`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    FOREIGN KEY presentation_to_event_type(`event_type`)
-    REFERENCES `EventTypes`(`name`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
