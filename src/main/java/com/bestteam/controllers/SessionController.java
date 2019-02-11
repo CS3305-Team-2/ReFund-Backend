@@ -2,15 +2,18 @@ package com.bestteam.controllers;
 
 import java.util.Optional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import com.bestteam.exceptions.LoginException;
 import com.bestteam.helpers.JWTKey;
+import com.bestteam.helpers.Response;
 import com.bestteam.models.LoginUser;
 import com.bestteam.models.User;
 import com.bestteam.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +27,7 @@ public class SessionController {
     private UserRepository repository;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(LoginUser loginUser) {
+    public Response<User> login(LoginUser loginUser, HttpServletResponse response) {
         Optional<User> user = repository.findByOrcid(loginUser.getOrcid());
         if(!user.isPresent()) {
             throw new LoginException("username not found");
@@ -34,11 +37,7 @@ public class SessionController {
             throw new LoginException("incorrect password");
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("JWT-TOKEN", Jwts.builder()
-            .claim("role", user.get().getType().toString())
-            .claim("uid", user.get().getId())
-            .signWith(JWTKey.getKey()).compact());
-        return ResponseEntity.ok().headers(headers).body(user.get());
+        response.addCookie(new Cookie("JWT-TOKEN", Jwts.builder().claim("role", user.get().getType().toString()).signWith(JWTKey.getKey()).compact()));
+        return new Response<User>(user.get());
     }
 }
