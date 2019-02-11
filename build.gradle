@@ -31,6 +31,7 @@ bootJar {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 sourceCompatibility = 1.8
@@ -95,11 +96,15 @@ dependencies {
     compile "at.favre.lib:bcrypt:0.7.0"
     compile 'mysql:mysql-connector-java'
     compile 'javax.xml.bind:jaxb-api'
+    
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
     compile 'io.jsonwebtoken:jjwt-api:0.10.5'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.5'
     runtime 'org.bouncycastle:bcprov-jdk15on:1.60'
     runtime 'io.jsonwebtoken:jjwt-jackson:0.10.5'
-
+    
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly "org.springframework.boot:spring-boot-devtools"
 }
