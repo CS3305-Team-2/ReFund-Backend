@@ -1,9 +1,12 @@
-ALTER TABLE `Funding` RENAME TO `Grant`;
+-- ALTER TABLE `Funding` RENAME TO `Grant`;
 
-ALTER TABLE `TeamMembers` drop CONSTRAINT team_member_to_grant;
-ALTER TABLE `TeamMembers` add CONSTRAINT team_member_to_grant
-                        FOREIGN KEY `primary_attribution`
-                        REFERENCES `Grant`(`id`);
+ALTER TABLE `TeamMembers` DROP FOREIGN KEY FK_team_member_to_grant;
+ALTER TABLE `TeamMembers` ADD CONSTRAINT team_member_to_grant
+                              FOREIGN KEY `primary_attribution`
+                              REFERENCES `Grant`(`id`)
+                              ON UPDATE CASCADE
+                              ON DELETE CASCADE;
+
 
 
 CREATE TABLE `Impact`
@@ -25,6 +28,13 @@ CREATE TABLE `Impact`
 );
 
 
+CREATE TABLE `EventTypes`
+(
+    `id` INT AUTO_INCREMENT,
+    `name` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `Presentations`
 (
     `id` INT AUTO_INCREMENT,
@@ -43,11 +53,4 @@ CREATE TABLE `Presentations`
     REFERENCES `EventTypes`(`name`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
-);
-
-CREATE TABLE `EventTypes`
-(
-    `id` INT AUTO_INCREMENT,
-    `name` VARCHAR(30) NOT NULL,
-    PRIMARY KEY (`id`)
 );
