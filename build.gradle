@@ -98,7 +98,6 @@ dependencies {
     compile 'javax.xml.bind:jaxb-api'
     
     compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
     compile 'io.jsonwebtoken:jjwt-api:0.10.5'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.5'
