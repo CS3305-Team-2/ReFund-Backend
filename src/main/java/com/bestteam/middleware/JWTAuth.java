@@ -1,12 +1,10 @@
 package com.bestteam.middleware;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,20 +14,20 @@ import com.bestteam.helpers.JWTKey;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpStatus;
-
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;
 
-public class JWTAuth implements Filter {
-    @Override
-    public void init(final FilterConfig filterConfig) {}
+public class JWTAuth extends OncePerRequestFilter {
+    private List<String> exludes = Arrays.asList(
+        "/api/docs/"
+    );
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
         try {
-            Cookie[] cookies = req.getCookies();
+            Cookie[] cookies = request.getCookies();
             if(cookies == null) cookies = new Cookie[]{};
             boolean found = false;
             for(int i = 0; i < cookies.length && !found; i++) {
@@ -37,23 +35,29 @@ public class JWTAuth implements Filter {
             }
             
             if(!found || cookies.length == 0) {
-                writeError(res, "no JWT token sent");
+                writeError(response, "no JWT token sent");
                 return;
             }
 
             Jwts.parser().setSigningKey(JWTKey.getKey()).parse(cookies[0].getValue());
         } catch(SignatureException e) {
             try {
-                writeError(res, "invalid JWT token");
+                writeError(response, "invalid JWT token");
             } catch(IOException ioe) {
-                res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
                 return;
             }
-            res.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
         } catch(IOException ioe) {
-            res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return;
         }
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        AntPathMatcher matcher = new AntPathMatcher();
+        return exludes.stream().anyMatch(p -> matcher.match(p, request.getServletPath()));
     }
 
     private void writeError(HttpServletResponse res, String message) throws IOException {
@@ -63,7 +67,4 @@ public class JWTAuth implements Filter {
         res.setContentLength(errorString.length());
         res.getWriter().write(errorString);
     }
-
-    @Override
-    public void destroy() {}
 }
