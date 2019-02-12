@@ -65,7 +65,7 @@ flyway {
     /* licenseKey = '' */
 }
 
-task startSSHTunnel(type: SpawnProcessTask) { 
+task startSSHTunnel(type: SpawnProcessTask) {
     command "sshpass -p ${props.getProperty('ssh.pass')} ssh -v -oConnectTimeout=30 -oStrictHostKeyChecking=no -l ${ssh_user} -L${ssh_port}:localhost:${ssh_port} ${ssh_user}@${ssh_host}"
     ready 'Authentication succeeded'
 }
@@ -76,18 +76,18 @@ task sshWrapper(dependsOn: ['startSSHTunnel'], type: Test) {
     systemProperty "service..endpoint",  "localhost:${ssh_port}"
 }
 
-bootRun.dependsOn sshWrapper
-bootRun.finalizedBy stopSSHTunnel
+//bootRun.dependsOn sshWrapper
+//bootRun.finalizedBy stopSSHTunnel
 
 if(!is_ci) {
-    flywayMigrate.dependsOn sshWrapper
-    flywayMigrate.finalizedBy stopSSHTunnel
+    // flywayMigrate.dependsOn sshWrapper
+    // flywayMigrate.finalizedBy stopSSHTunnel
 
-    flywayRepair.dependsOn sshWrapper
-    flywayRepair.finalizedBy stopSSHTunnel
+    // flywayRepair.dependsOn sshWrapper
+    // flywayRepair.finalizedBy stopSSHTunnel
 
-    flywayUndo.dependsOn sshWrapper
-    flywayUndo.finalizedBy stopSSHTunnel
+    // flywayUndo.dependsOn sshWrapper
+    // flywayUndo.finalizedBy stopSSHTunnel
 }
 
 dependencies {
