@@ -3,13 +3,9 @@ package com.bestteam.models;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.validation.constraints.NotNull;
@@ -31,15 +27,15 @@ public class Impact {
 
     @NotNull
     @Column(name="primary_beneficiary")
-    private String primaryBeneficiary;
+    private Long primaryBeneficiary;
 
     @NotNull
     @Column(name="primary_attribution")
-    private String primaryAttribution;
+    private Long primaryAttribution;
 
 	public Impact() {}
 
-	public Impact(Long id, String title, String category, String primaryBeneficiary, String primaryAttribution) {
+	public Impact(Long id, String title, String category, Long primaryBeneficiary, Long primaryAttribution) {
 		this.id = id;
 		this.title = title;
 		this.category = category;
@@ -71,19 +67,19 @@ public class Impact {
 		this.category = category;
 	}
 
-	public String getPrimaryBeneficiary() {
+	public Long getPrimaryBeneficiary() {
 		return primaryBeneficiary;
 	}
 
-	public void setPrimaryBeneficiary(String primaryBeneficiary) {
+	public void setPrimaryBeneficiary(Long primaryBeneficiary) {
 		this.primaryBeneficiary = primaryBeneficiary;
 	}
 
-	public String getPrimaryAttribution() {
+	public Long getPrimaryAttribution() {
 		return primaryAttribution;
 	}
 
-	public void setPrimaryAttribution(String primaryAttribution) {
+	public void setPrimaryAttribution(Long primaryAttribution) {
 		this.primaryAttribution = primaryAttribution;
 	}
     @Override
