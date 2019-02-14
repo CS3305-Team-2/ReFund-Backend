@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.bestteam.exceptions.ImpactNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.Impact;
 import com.bestteam.repository.ImpactRepository;
@@ -25,17 +24,16 @@ public class ImpactController {
     @Autowired
     private ImpactRepository repository;
 
-    @GetMapping
-    public List<Impact> getImpactCollection() {
-        return (List<Impact>)repository.findAll();
+    @GetMapping("/{userId}")
+    public Response<List<Impact>> getImpactsForUser(@PathVariable("userId") Long userId) {
+        List<Impact> list = new ArrayList<>();
+        repository.findByImpactIdentityUserId(userId).forEach(list::add);
+        return new Response<>(list);
     }
 
-    @GetMapping("/{impactId}")
-    public Response<Impact> getImpact(@PathVariable("impactId") Long impactId) {
-        Optional<Impact> impact = repository.findById(impactId);
-        if (!impact.isPresent()) {
-            throw new ImpactNotFoundException(impactId.toString());
-        }
-        return new Response<>(impact.get());
+    // TODO more than this lmao
+    @PostMapping
+    public void createImpact(@Valid @RequestBody Impact impact) {
+        repository.save(impact);
     }
 }

@@ -1,21 +1,20 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 
 import javax.validation.constraints.NotNull;
+
+import com.bestteam.models.ImpactIdentity;
 
 @Entity
 @Table(name="Impact")
 public class Impact {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+
+    @EmbeddedId
+    private ImpactIdentity impactIdentity;
 
     @NotNull
     @Column(name="title")
@@ -35,20 +34,20 @@ public class Impact {
 
 	public Impact() {}
 
-	public Impact(Long id, String title, String category, Long primaryBeneficiary, Long primaryAttribution) {
-		this.id = id;
+	public Impact(ImpactIdentity impactIdentity, String title, String category, Long primaryBeneficiary, Long primaryAttribution) {
+		this.impactIdentity = impactIdentity;
 		this.title = title;
 		this.category = category;
 		this.primaryBeneficiary = primaryBeneficiary;
 		this.primaryAttribution = primaryAttribution;
 	}
 
-	public Long getId() {
-		return id;
+	public ImpactIdentity getImpactIdentity() {
+		return impactIdentity;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(ImpactIdentity impactIdentity) {
+		this.impactIdentity = impactIdentity;
 	}
 
 	public String getTitle() {
@@ -85,7 +84,7 @@ public class Impact {
     @Override
     public String toString() {
         return "{" +
-        " id='" + getId() + "'" +
+        " impactIdentity='" + getImpactIdentity() + "'" +
         ", title='" + getTitle() + "'" +
         ", category='" + getCategory() + "'" +
         ", primary_beneficiary='" + getPrimaryBeneficiary() + "'" +
