@@ -1,16 +1,16 @@
-ALTER TABLE `Funding` RENAME TO `Grant`;
+-- ALTER TABLE `Funding` RENAME TO `Grant`;
 
-ALTER TABLE `TeamMembers`
-DROP FOREIGN KEY team_member_to_grant;
+-- ALTER TABLE `TeamMembers`
+-- DROP FOREIGN KEY team_member_to_grant;
 
-ALTER TABLE `TeamMembers`
-DROP INDEX team_member_to_grant;
+-- ALTER TABLE `TeamMembers`
+-- DROP INDEX team_member_to_grant;
 
-ALTER TABLE `TeamMembers`
-ADD FOREIGN KEY `team_member_to_grant`(`primary_attribution`)
-REFERENCES `Grant`(`id`)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+-- ALTER TABLE `TeamMembers`
+-- ADD FOREIGN KEY `team_member_to_grant`(`primary_attribution`)
+-- REFERENCES `Grant`(`id`)
+-- ON UPDATE CASCADE
+-- ON DELETE CASCADE;
 
 
 
