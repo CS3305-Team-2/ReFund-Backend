@@ -29,12 +29,12 @@ FROM openjdk:8-jre-alpine
 ENV ARTIFACT=refund-backend.jar
 ENV APP_HOME=/refund 
 
-RUN mkdir ${APP_HOME}
+RUN mkdir -p ${APP_HOME}/uploads
 
 WORKDIR ${APP_HOME}
 
 COPY --from=BUILDER ${APP_HOME}/build/libs/${ARTIFACT} .
 
-VOLUME [ "${APP_HOME}/application.properties" ]
+VOLUME [ "${APP_HOME}/application.properties", "${APP_HOME}/uploads" ]
 
 ENTRYPOINT [ "java", "-jar", "refund-backend.jar", "--spring.config.location=/refund/application.properties"]

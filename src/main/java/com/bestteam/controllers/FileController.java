@@ -1,4 +1,4 @@
-package com.bestteam.controller;
+package com.bestteam.controllers;
 
 import com.bestteam.helpers.UploadFileResponse;
 import com.bestteam.helpers.FileStorageService;
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

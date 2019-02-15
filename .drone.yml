@@ -22,7 +22,7 @@ pipeline:
       - docker pull strum355/refund-backend
       - docker stop noah-refund
       - docker rm noah-refund
-      - docker run -d -p 5555:8080 --name noah-refund -v ~/UCC/CS3305/java/application.properties:/refund/application.properties strum355/refund-backend
+      - docker run -d -p 5555:8080 --name noah-refund -v ~/UCC/CS3305/java/application.properties:/refund/application.properties -v /UCC/CS3305/java/uploads:/refund/uploads strum355/refund-backend
     when:
       event: [ push, tag ]
       branch: master            
