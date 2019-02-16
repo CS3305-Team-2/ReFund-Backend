@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 public class JWTAuth extends OncePerRequestFilter {
     private List<String> exludes = Arrays.asList(
-        "/api/docs/"
+        "/api/docs/", "/api/login"
     );
 
     @Override
