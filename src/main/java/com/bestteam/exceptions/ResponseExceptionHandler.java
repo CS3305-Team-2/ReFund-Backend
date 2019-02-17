@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import com.bestteam.helpers.Error;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,18 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @ControllerAdvice
 @RestController
 public class ResponseExceptionHandler {
-
-    private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionHandler.class);
-
-
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Error> catchAllHandler(Exception e) {
-        Error error = new Error(new String[]{"Unknown error"});
-        logger.error(e.getMessage());
+        String message = e.getMessage() == null ? "Unknown Error" : e.getMessage();
+        Error error = new Error(new String[]{message});
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // TODO more shtuff here
     @ExceptionHandler(ConstraintViolationException.class)
     public final ResponseEntity<Error> constraintViolated(ConstraintViolationException e) {
         Error error;
@@ -42,6 +35,12 @@ public class ResponseExceptionHandler {
         } else {
             error = new Error(new String[]{"idk fam"});
         }
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadSearchException.class)
+    public final ResponseEntity<Error> badSearch(BadSearchException e) {
+        Error error = new Error(new String[]{e.getMessage()});
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

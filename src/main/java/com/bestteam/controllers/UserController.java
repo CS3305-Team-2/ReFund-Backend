@@ -30,9 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.bestteam.exceptions.BadSearchException;
 import com.bestteam.exceptions.UserNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.User;
@@ -41,6 +43,7 @@ import com.bestteam.models.Employment;
 import com.bestteam.models.Education;
 import com.bestteam.models.SocietyMembership;
 import com.bestteam.repository.UserRepository;
+import com.google.common.collect.Sets;
 import com.mashape.unirest.http.Unirest;
 import com.bestteam.repository.SocietyMembershipRepository;
 import com.bestteam.repository.EducationRepository;
@@ -69,11 +72,13 @@ public class UserController {
     @Autowired
     private Environment env;
 
-    HttpRequestExecutor executor = null;
-    OAuth2AuthorizationProvider provider = null;
-    OAuth2ClientCredentials credentials = null;
-    OAuth2Client client = null;
-    OAuth2AccessToken token = null;
+    private HttpRequestExecutor executor = null;
+    private OAuth2AuthorizationProvider provider = null;
+    private OAuth2ClientCredentials credentials = null;
+    private OAuth2Client client = null;
+    private OAuth2AccessToken token = null;
+
+    private Set<String> searchTerms = Sets.newHashSet("given-names", "family-name", "other-names", "credit-name", "email");
 
     @GetMapping
     public List<User> getUserCollection() {
@@ -94,8 +99,12 @@ public class UserController {
         client = new BasicOAuth2Client(provider, credentials, new LazyUri(new Precoded("http://localhost")));
     }
 
-    @GetMapping("/search/orcid")
+    @GetMapping("/search")
     public Response<String> getOrcid(@RequestParam("field") String field, @RequestParam("value") String value) throws Exception {
+        if(!searchTerms.contains(field)) {
+            throw new BadSearchException(field + " not valid search term");
+        }
+
         if(executor == null) init();
 
         if(token == null) {

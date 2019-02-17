@@ -59,12 +59,6 @@ public class JWTAuth extends OncePerRequestFilter {
         }
     }
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        AntPathMatcher matcher = new AntPathMatcher();
-        return exludes.stream().anyMatch(p -> matcher.match(p, request.getServletPath()));
-    }
-
     private void writeError(HttpServletResponse res, String message) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Error error = new Error(new String[]{message});
