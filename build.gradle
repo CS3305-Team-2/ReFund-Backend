@@ -105,5 +105,9 @@ dependencies {
     runtime 'io.jsonwebtoken:jjwt-jackson:0.10.5'
     
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-    developmentOnly "org.springframework.boot:spring-boot-devtools"
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    compile 'org.dmfs:oauth2-essentials:0.10'
+    compile 'org.dmfs:httpurlconnection-executor:0.16.2'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
 }

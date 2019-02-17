@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 public class JWTAuth extends OncePerRequestFilter {
     private List<String> exludes = Arrays.asList(
-        "/api/docs/", "/api/login"
+        "/", "/api/docs/", "/api/login"
     );
 
     @Override
@@ -40,6 +40,11 @@ public class JWTAuth extends OncePerRequestFilter {
             }
 
             Jwts.parser().setSigningKey(JWTKey.getKey()).parse(cookies[0].getValue());
+            try {
+                chain.doFilter(request, response);
+            } catch(Exception e) {
+
+            }
         } catch(SignatureException e) {
             try {
                 writeError(response, "invalid JWT token");
