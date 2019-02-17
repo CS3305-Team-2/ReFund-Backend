@@ -16,3 +16,5 @@ ALTER TABLE `Impact`
 MODIFY `id` INT,
 DROP PRIMARY KEY,
 ADD PRIMARY KEY (`id`, `primary_beneficiary`);
+
+ALTER TABLE `Grant` RENAME TO `Grants`;
