@@ -22,7 +22,7 @@ CREATE TABLE `Impact`
     `category` VARCHAR(60) NOT NULL,
     `primary_beneficiary` INT NOT NULL,
     `primary_attribution` INT NOT NULL,
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`id`,`primary_beneficiary`),
     FOREIGN KEY `impacts_to_user`(`primary_beneficiary`)
     REFERENCES `User`(`id`)
     ON UPDATE CASCADE
