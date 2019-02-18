@@ -24,6 +24,7 @@ public class ResponseExceptionHandler {
     public final ResponseEntity<Error> catchAllHandler(Exception e) {
         String message = e.getMessage() == null ? "Unknown Error" : e.getMessage();
         Error error = new Error(new String[]{message});
+        e.printStackTrace();
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

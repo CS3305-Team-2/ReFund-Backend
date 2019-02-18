@@ -105,7 +105,7 @@ public class UserController {
             throw new BadSearchException(field + " not valid search term");
         }
 
-        if(executor == null) init();
+        if(executor == null || client == null || credentials == null || provider == null) init();
 
         if(token == null) {
             token = new ClientCredentialsGrant(client, new BasicScope("/read-public")).accessToken(executor);
@@ -113,10 +113,10 @@ public class UserController {
             token = new TokenRefreshGrant(client, token).accessToken(executor);
         }
         
-        return new Response<String>(Unirest.get("https://pub.orcid.org/v2.1/search?q=" + field + ":" + value)
+        return new Response<String>(Unirest.get("https://pub.orcid.org/v2.1/search")
             .header("Authorization", "Bearer " + token.accessToken())
             .header("Accept", "application/json")
-            .queryString("q", "family-name:Santschi")
+            .queryString("q", field + ":" + value)
             .asJson().getBody().getObject().toString());
     }
 
