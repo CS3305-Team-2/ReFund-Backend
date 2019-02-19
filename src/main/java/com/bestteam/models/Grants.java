@@ -13,8 +13,8 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Grant")
-public class Grant {
+@Table(name="Grants")
+public class Grants {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -43,9 +43,9 @@ public class Grant {
     @Column(name="status")
     private String status;
 
-    public Grant() {}
+    public Grants() {}
 
-    public Grant(Long id, String startDate, String endDate, int amount, String fundingBody, String fundingProgramme, String status) {
+    public Grants(Long id, String startDate, String endDate, int amount, String fundingBody, String fundingProgramme, String status) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

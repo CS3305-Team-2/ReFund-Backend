@@ -13,34 +13,34 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.bestteam.exceptions.GrantNotFoundException;
-import com.bestteam.models.Grant;
+import com.bestteam.exceptions.GrantsNotFoundException;
+import com.bestteam.models.Grants;
 import com.bestteam.helpers.Response;
-import com.bestteam.repository.GrantRepository;
+import com.bestteam.repository.GrantsRepository;
 
 @RestController
 @RequestMapping("/api/grants")
-public class GrantController {
+public class GrantsController {
 
     @Autowired
-    private GrantRepository repository;
+    private GrantsRepository repository;
 
     @GetMapping
-    public List<Grant> getGrantCollection() {
-        return (List<Grant>)repository.findAll();
+    public List<Grants> getGrantsCollection() {
+        return (List<Grants>)repository.findAll();
     }
 
     // TODO more than this lmao
     @PostMapping
-    public void createGrant(@Valid @RequestBody Grant grant) {
+    public void createGrants(@Valid @RequestBody Grants grant) {
         repository.save(grant);
     }
 
     @GetMapping("/{grantId}")
-    public Response<Grant> getGrant(@PathVariable("grantId") Long grantId) {
-        Optional<Grant> grant = repository.findById(grantId);
+    public Response<Grants> getGrants(@PathVariable("grantId") Long grantId) {
+        Optional<Grants> grant = repository.findById(grantId);
         if (!grant.isPresent()) {
-            throw new GrantNotFoundException(grantId.toString());
+            throw new GrantsNotFoundException(grantId.toString());
         }
         return new Response<>(grant.get());
     }
