@@ -2,23 +2,14 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        /* maven {
-            url "https://repo.flywaydb.org/repo"
-            credentials {
-                username ''
-                password 'flyway'
-            }
-        } */
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE"
-        /* classpath "org.flywaydb.pro:flyway-gradle-plugin:5.2.4" */
     }
 }
 
 plugins {
     id "com.wiredforcode.spawn" version "0.8.2"
-    id "org.flywaydb.flyway" version "5.2.4"
 }
 
 apply plugin: 'java'
@@ -50,20 +41,6 @@ file("src/main/resources/application.properties").withInputStream { props.load(i
 def ssh_host = props.getProperty("ssh.host")
 def ssh_port = props.getProperty("ssh.port")
 def ssh_user = props.getProperty("ssh.user")
-def mysql_user = props.getProperty("spring.datasource.username")
-def mysql_pass = props.getProperty("spring.datasource.password")
-def mysql_url = props.getProperty("spring.datasource.url")
-
-// this will be the case if we copied the application.properties template as defined in the Dockerfile
-// in development, this will be set to not 'username'
-def is_ci = props.getProperty("ssh.user") == "username"
-
-flyway {
-    user = ((is_ci) ? System.getenv("MYSQL_USER") : mysql_user)
-    url = ((is_ci) ? System.getenv("MYSQL_URL") : mysql_url)
-    password = ((is_ci) ? System.getenv("MYSQL_PASS") : mysql_pass)
-    /* licenseKey = '' */
-}
 
 task startSSHTunnel(type: SpawnProcessTask) {
     command "sshpass -p ${props.getProperty('ssh.pass')} ssh -v -oConnectTimeout=30 -oStrictHostKeyChecking=no -l ${ssh_user} -L${ssh_port}:localhost:${ssh_port} ${ssh_user}@${ssh_host}"
@@ -76,19 +53,8 @@ task sshWrapper(dependsOn: ['startSSHTunnel'], type: Test) {
     systemProperty "service..endpoint",  "localhost:${ssh_port}"
 }
 
-// bootRun.dependsOn sshWrapper
-// bootRun.finalizedBy stopSSHTunnel
-
-if(!is_ci) {
-    // flywayMigrate.dependsOn sshWrapper
-    // flywayMigrate.finalizedBy stopSSHTunnel
-
-    // flywayRepair.dependsOn sshWrapper
-    // flywayRepair.finalizedBy stopSSHTunnel
-
-    // flywayUndo.dependsOn sshWrapper
-    // flywayUndo.finalizedBy stopSSHTunnel
-}
+bootRun.dependsOn sshWrapper
+bootRun.finalizedBy stopSSHTunnel
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"

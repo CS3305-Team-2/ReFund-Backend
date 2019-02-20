@@ -12,16 +12,6 @@ COPY . .
 
 RUN cp src/main/resources/application.properties.template src/main/resources/application.properties
 
-ARG mysql_user
-ARG mysql_pass
-ARG mysql_url
-
-ENV MYSQL_USER=${mysql_user}
-ENV MYSQL_PASS=${mysql_pass}
-ENV MYSQL_URL=${mysql_url}
-
-RUN gradle flywayMigrate -i
-
 RUN gradle build
 
 FROM openjdk:8-jre-alpine
