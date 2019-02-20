@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.bestteam.exceptions.GrantsNotFoundException;
+import com.bestteam.exceptions.GrantNotFoundException;
 import com.bestteam.models.Grants;
 import com.bestteam.helpers.Response;
 import com.bestteam.repository.GrantsRepository;
@@ -40,7 +40,7 @@ public class GrantsController {
     public Response<Grants> getGrants(@PathVariable("grantId") Long grantId) {
         Optional<Grants> grant = repository.findById(grantId);
         if (!grant.isPresent()) {
-            throw new GrantsNotFoundException(grantId.toString());
+            throw new GrantNotFoundException(grantId.toString());
         }
         return new Response<>(grant.get());
     }
