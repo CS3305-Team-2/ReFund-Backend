@@ -116,6 +116,7 @@ public class UserController {
         return new Response<String>(Unirest.get("https://pub.orcid.org/v2.1/search")
             .header("Authorization", "Bearer " + token.accessToken())
             .header("Accept", "application/json")
+            .header("Access-Control-Allow-Origin", "*")
             .queryString("q", field + ":" + value)
             .asJson().getBody().getObject().toString());
     }
