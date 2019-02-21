@@ -5,6 +5,9 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 
 import javax.validation.constraints.NotNull;
@@ -18,11 +21,11 @@ public class Grants {
 
     @NotNull
     @Column(name="start_date")
-    private String startDate;
+    private Date startDate;
 
     @NotNull
     @Column(name="end_date")
-    private String endDate;
+    private Date endDate;
 
     @NotNull
     @Column(name="amount")
@@ -40,9 +43,13 @@ public class Grants {
     @Column(name="status")
     private String status;
 
+    @NotNull
+    @Column(name="primary_attribution")
+    private String primaryAttribution;
+
     public Grants() {}
 
-    public Grants(Long id, String startDate, String endDate, int amount, String fundingBody, String fundingProgramme, String status) {
+    public Grants(Long id, Date startDate, Date endDate, int amount, String fundingBody, String fundingProgramme, String status) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -60,19 +67,19 @@ public class Grants {
         this.id = id;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -106,6 +113,14 @@ public class Grants {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPrimaryAttribution() {
+        return primaryAttribution;
+    }
+
+    public void setPrimaryAttribution(String primaryAttribution) {
+        this.primaryAttribution = primaryAttribution;
     }
 
     @Override
