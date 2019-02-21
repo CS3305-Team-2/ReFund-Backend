@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import javax.validation.constraints.NotNull;
 
 @Entity

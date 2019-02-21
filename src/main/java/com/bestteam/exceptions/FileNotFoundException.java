@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 @SuppressWarnings("serial")
-public class MyFileNotFoundException extends RuntimeException {
-    public MyFileNotFoundException(String message) {
+public class FileNotFoundException extends RuntimeException {
+    public FileNotFoundException(String message) {
         super(message);
     }
 
-    public MyFileNotFoundException(String message, Throwable cause) {
+    public FileNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

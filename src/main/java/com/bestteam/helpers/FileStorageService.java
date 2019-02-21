@@ -1,7 +1,7 @@
 package com.bestteam.helpers;
 
 import com.bestteam.exceptions.FileStorageException;
-import com.bestteam.exceptions.MyFileNotFoundException;
+import com.bestteam.exceptions.FileNotFoundException;
 import com.bestteam.helpers.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -60,10 +60,10 @@ public class FileStorageService {
             if(resource.exists()) {
                 return resource;
             } else {
-                throw new MyFileNotFoundException("File not found " + fileName);
+                throw new FileNotFoundException("File not found " + fileName);
             }
         } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File not found " + fileName, ex);
+            throw new FileNotFoundException("File not found " + fileName, ex);
         }
     }
 }
