@@ -13,5 +13,9 @@ CREATE TABLE `Project`
     FOREIGN KEY pi_to_team_member(`pi`)
     REFERENCES `TeamMember`(`id`)
     ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    FOREIGN KEY attribution_to_grant(`primary_attribution`)
+    REFERENCES `Grants`(`id`)
+    ON UPDATE CASCADE
     ON DELETE CASCADE
-)
+);

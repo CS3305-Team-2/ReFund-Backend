@@ -2,10 +2,8 @@ package com.bestteam.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -15,16 +13,14 @@ import javax.validation.constraints.NotNull;
 @Table(name="TeamMember")
 public class TeamMember {
     @EmbeddedId
-    private TeamMemberIdentity identity;
+    private TeamMemberIdentity teamMemberIdentity;
 
     @NotNull
     @Column(name="start_date")  
-    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @NotNull
     @Column(name="end_date")  
-    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @NotNull
@@ -34,18 +30,18 @@ public class TeamMember {
     public TeamMember() {}
 
     public TeamMember(TeamMemberIdentity identity, Date startDate, Date endDate, String role) {
-        this.identity = identity;
+        this.teamMemberIdentity = identity;
         this.startDate = startDate;
         this.endDate = endDate;
         this.role = role;
     }
 
     public TeamMemberIdentity getIdentity() {
-        return this.identity;
+        return this.teamMemberIdentity;
     }
 
     public void setIdentity(TeamMemberIdentity identity) {
-        this.identity = identity;
+        this.teamMemberIdentity = identity;
     }
 
     public Date getStartDate() {

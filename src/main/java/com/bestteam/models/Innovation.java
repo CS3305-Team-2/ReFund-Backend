@@ -33,7 +33,8 @@ public class Innovation {
     private Long primaryAttribution;
 
     public Innovation() {}
-public Innovation(InnovationIdentity innovationIdentity, String title, String type, Long year, Long primaryAttribution) {
+
+    public Innovation(InnovationIdentity innovationIdentity, String title, String type, Long year, Long primaryAttribution) {
         this.innovationIdentity = innovationIdentity;
         this.title = title;
         this.type = type;

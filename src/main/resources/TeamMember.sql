@@ -10,4 +10,4 @@ CREATE TABLE `TeamMember`
     REFERENCES `User`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
-)
+);

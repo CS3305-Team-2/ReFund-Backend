@@ -23,6 +23,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.bestteam.models.Education;
 import com.bestteam.models.Employment;
 import com.bestteam.models.SocietyMembership;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.bestteam.models.Awards;
 
 @Entity
@@ -45,6 +46,7 @@ public class User {
     @Column(name="email")
     private String email;
 
+    @JsonIgnore
     @NotNull
     @Column(name="pass")
     private String password;
@@ -89,6 +91,11 @@ public class User {
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     private Set<Awards> awards = new LinkedHashSet<>();
+
+    //@JsonIgnore
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<TeamMember> members = new LinkedHashSet<>();
 
     public User() {}
 
@@ -224,6 +231,14 @@ public class User {
         this.awards = awards;
     }
 
+    public Set<TeamMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<TeamMember> members) {
+        this.members = members;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -243,6 +258,7 @@ public class User {
             ", employments='" + getEmployments() + "'" +
             ", societyMemberships='" + getSocietyMemberships() + "'" +
             ", awards='" + getAwards() + "'" +
+            ", members='" + getMembers() + "'" +
             "}";
     }
 }
