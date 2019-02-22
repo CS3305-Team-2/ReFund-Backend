@@ -10,4 +10,4 @@ CREATE TABLE `MemberToProject`
     REFERENCES `Project`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
-)
+);
