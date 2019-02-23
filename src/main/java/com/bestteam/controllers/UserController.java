@@ -86,10 +86,10 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@Valid @RequestBody User user) {
+    public Response<User> createUser(@Valid @RequestBody User user) {
         if(repository.existsByOrcid(user.getOrcid())) {
         }
-        repository.save(user);
+        return new Response<>(repository.save(user));
     }
 
     private void init() {

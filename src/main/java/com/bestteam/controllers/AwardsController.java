@@ -29,7 +29,6 @@ public class AwardsController {
         return (List<Awards>)repository.findAll();
     }
 
-    // TODO more than this lmao
     @PostMapping
     public void createAwards(@Valid @RequestBody Awards awards) {
         repository.save(awards);

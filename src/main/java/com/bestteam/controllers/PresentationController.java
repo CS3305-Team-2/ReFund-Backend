@@ -31,7 +31,6 @@ public class PresentationController {
         return new Response<>(list);
     }
 
-    // TODO more than this lmao
     @PostMapping
     public void createPresentation(@Valid @RequestBody Presentation presentation) {
         repository.save(presentation);

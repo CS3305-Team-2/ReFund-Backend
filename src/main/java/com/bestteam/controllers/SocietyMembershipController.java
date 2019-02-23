@@ -31,7 +31,6 @@ public class SocietyMembershipController {
         return (List<SocietyMembership>)repository.findAll();
     }
 
-    // TODO more than this lmao
     @PostMapping
     public void createSocietyMembership(@Valid @RequestBody SocietyMembership societyMembership) {
         repository.save(societyMembership);

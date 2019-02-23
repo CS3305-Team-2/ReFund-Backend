@@ -23,7 +23,11 @@ public class ResponseExceptionHandler {
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Error> catchAllHandler(Exception e) {
         String message = e.getMessage() == null ? "Unknown Error" : e.getMessage();
-        Error error = new Error(new String[]{message});
+        ArrayList<String> messages = new ArrayList<>();
+        for(String split: message.split("\n")) {
+            messages.add(split);
+        }
+        Error error = new Error(messages.toArray(new String[]{}));
         e.printStackTrace();
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

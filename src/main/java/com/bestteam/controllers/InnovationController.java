@@ -31,7 +31,6 @@ public class InnovationController {
         return new Response<>(list);
     }
 
-    // TODO more than this lmao
     @PostMapping
     public void createInnovation(@Valid @RequestBody Innovation innovation) {
         repository.save(innovation);

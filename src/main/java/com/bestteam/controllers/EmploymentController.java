@@ -31,7 +31,6 @@ public class EmploymentController {
         return (List<Employment>)repository.findAll();
     }
 
-    // TODO more than this lmao
     @PostMapping
     public void createEmployment(@Valid @RequestBody Employment employment) {
         repository.save(employment);

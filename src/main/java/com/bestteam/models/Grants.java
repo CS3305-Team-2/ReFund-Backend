@@ -43,9 +43,8 @@ public class Grants {
     @Column(name="status")
     private String status;
 
-    @NotNull
-    @Column(name="primary_attribution")
-    private String primaryAttribution;
+    @Column(name="url")
+    private String url;
 
     public Grants() {}
 
@@ -115,12 +114,12 @@ public class Grants {
         this.status = status;
     }
 
-    public String getPrimaryAttribution() {
-        return primaryAttribution;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPrimaryAttribution(String primaryAttribution) {
-        this.primaryAttribution = primaryAttribution;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -133,8 +132,7 @@ public class Grants {
             ", fundingBody='" + getFundingBody() + "'" +
             ", fundingProgramme='" + getFundingProgramme() + "'" +
             ", status='" + getStatus() + "'" +
+            ", url='" + getUrl() + "'" +
             "}";
     }
-
-
 }

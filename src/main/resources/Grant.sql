@@ -6,6 +6,6 @@ CREATE TABLE `Grants`
 	`amount` INT NOT NULL,
 	`funding_body` VARCHAR(50) NOT NULL,
 	`funding_programme` VARCHAR(50) NOT NULL,
-	`status` VARCHAR(50) NOT NULL,
-	`primary_attribution` INT NOT NULL,
+	`status` VARCHAR(20) NOT NULL,
+    `url` TINYTEXT NOT NULL,
 );

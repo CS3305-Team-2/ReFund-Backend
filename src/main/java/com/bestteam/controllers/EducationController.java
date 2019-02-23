@@ -31,7 +31,6 @@ public class EducationController {
         return new Response<>(list);
     }
         
-    // TODO more than this lmao
     @PostMapping
     public void createEducation(@Valid @RequestBody Education education) {
         repository.save(education);

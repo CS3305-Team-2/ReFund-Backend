@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
@@ -39,6 +42,8 @@ public class Project {
     @NotNull
     @Column(name="budget")
     private Long budget;
+
+    //private Set<
 
     public Project() {}
 

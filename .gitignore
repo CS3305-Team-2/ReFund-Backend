@@ -13,3 +13,4 @@ src/main/resources/application.properties
 post.json
 .pid.lock
 uploads
+*.pdf

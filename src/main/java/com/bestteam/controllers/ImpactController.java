@@ -30,8 +30,6 @@ public class ImpactController {
         repository.findByImpactIdentityUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
-
-    // TODO more than this lmao
     @PostMapping
     public void createImpact(@Valid @RequestBody Impact impact) {
         repository.save(impact);
