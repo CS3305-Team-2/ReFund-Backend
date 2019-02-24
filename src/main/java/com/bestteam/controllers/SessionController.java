@@ -27,9 +27,9 @@ public class SessionController {
 
     @PostMapping("/login")
     public Response<User> login(LoginUser loginUser, HttpServletResponse response) {
-        Optional<User> user = repository.findByOrcid(loginUser.getOrcid());
+        Optional<User> user = repository.findByEmail(loginUser.getEmail());
         if(!user.isPresent()) {
-            throw new LoginException("username not found");
+            throw new LoginException("user with email not found");
         }
 
         if(!user.get().checkPassword(loginUser.getPassword())) {

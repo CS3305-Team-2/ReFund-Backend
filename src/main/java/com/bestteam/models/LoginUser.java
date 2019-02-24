@@ -1,20 +1,20 @@
 package com.bestteam.models;
 
 public class LoginUser {
-    private String orcid;
+    private String email;
     private String password;
 
-    public LoginUser(String orcid, String password) {
-        this.orcid = orcid;
+    public LoginUser(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getOrcid() {
-        return this.orcid;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setOrcid(String orcid) {
-        this.orcid = orcid;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -28,7 +28,7 @@ public class LoginUser {
     @Override
     public String toString() {
         return "{" +
-            " orcid='" + getOrcid() + "'" +
+            " email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
             "}";
     }
