@@ -27,7 +27,6 @@ public class Proposal {
     @Enumerated(EnumType.STRING)
     private ProposalStatus status;
 
-    @NotNull
     @Column(name="file_location")
     private String fileLocation;
 
@@ -37,11 +36,11 @@ public class Proposal {
 
     @NotNull
     @Column(name="project_id")
-    private String projectId;
+    private Long projectId;
 
 	public Proposal() {}
 
-	public Proposal(Long id, ProposalStatus status, String fileLocation, String primaryAttribution, String projectId) {
+	public Proposal(Long id, ProposalStatus status, String fileLocation, String primaryAttribution, Long projectId) {
 		this.id = id;
 		this.status = status;
 		this.fileLocation = fileLocation;
@@ -81,11 +80,11 @@ public class Proposal {
 		this.primaryAttribution = primaryAttribution;
 	}
 
-	public String getProjectId() {
+	public Long getProjectId() {
 		return projectId;
 	}
 
-	public void setProjectId(String projectId) {
+	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
 
