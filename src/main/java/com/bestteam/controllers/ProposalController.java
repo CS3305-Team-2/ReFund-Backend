@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.bestteam.exceptions.GrantNotFoundException;
+import com.bestteam.exceptions.ProposalNotFoundException;
 import com.bestteam.models.Proposal;
 import com.bestteam.helpers.Response;
 import com.bestteam.helpers.UploadFileResponse;
@@ -66,7 +66,7 @@ public class ProposalController {
     public Response<Proposal> getProposal(@PathVariable("proposalId") Long proposalId) {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
-            throw new GrantNotFoundException(proposalId.toString());
+            throw new ProposalNotFoundException(proposalId.toString());
         }
         return new Response<>(proposal.get());
     }

@@ -33,7 +33,7 @@ insert into `Proposal` values (
     1,
     "TITLE",
     20,
-    "NRP",
+    "PRIORITY_AREA_A",
     "kegak",
     "ethi",
     "aoo",

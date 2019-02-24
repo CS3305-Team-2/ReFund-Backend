@@ -1,12 +1,13 @@
 package com.bestteam.helpers;
 
 public enum ProposalStatus {
-    UNDER_REVIEW("underReview"),
-    DRAFT("draft"),
-    WITH_THE_RO("withTheRo"),
-    APPROVED("approved");
-    
+    UNDER_REVIEW("Under review"),
+    DRAFT("Draft"),
+    WITH_THE_RO("With the RO"),
+    APPROVED("Approved");
+
     private String content;
+
     ProposalStatus(String content){
         this.content = content;
     }
