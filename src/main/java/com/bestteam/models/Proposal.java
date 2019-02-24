@@ -148,7 +148,7 @@ public class Proposal {
 	}
 
 	public void setTitle(String title) {
-        if (title.length()>30){
+        if (title.split("\\s+").length>30){
             throw new WordCountOverLimitException("Title", id.toString());
         }
 		this.title = title;
@@ -175,7 +175,7 @@ public class Proposal {
 	}
 
 	public void setLegalRemitAlignment(String legalRemitAlignment) {
-        if (legalRemitAlignment.length()>250){
+        if (legalRemitAlignment.split("\\s+").length>250){
             throw new WordCountOverLimitException("Legal Remit Alignment", id.toString());
         }
 		this.legalRemitAlignment = legalRemitAlignment;
@@ -218,7 +218,7 @@ public class Proposal {
 	}
 
 	public void setScientificAbstract(String scientificAbstract) {
-        if (scientificAbstract.length()>200){
+        if (scientificAbstract.split("\\s+").length>200){
             throw new WordCountOverLimitException("Scientific Abstract", id.toString());
         }
 		this.scientificAbstract = scientificAbstract;
@@ -229,7 +229,7 @@ public class Proposal {
 	}
 
 	public void setLayAbtract(String layAbtract) {
-        if (layAbtract.length()>100){
+        if (layAbtract.split("\\s+").length>100){
             throw new WordCountOverLimitException("Lay Abstract", id.toString());
         }
 		this.layAbtract = layAbtract;
