@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import com.bestteam.helpers.JWTKey;
 import com.bestteam.helpers.Response;
@@ -14,6 +15,8 @@ import com.bestteam.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +39,11 @@ public class ProjectController {
         
         Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(cookies[0].getValue()).getBody().get("user");
         return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
+    }
+
+    @PostMapping
+    public Response<Project> createProject(@Valid @RequestBody Project project) {
+        return new Response<>(repository.save(project));
     }
 
     @GetMapping("/{projectId}")
