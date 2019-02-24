@@ -24,14 +24,6 @@ public class Project {
     private Long pi;
 
     @NotNull
-    @Column(name="ro_approved")
-    private boolean roApproved;
-
-    @NotNull
-    @Column(name="sfi_approved")
-    private boolean sfiApproved;
-
-    @NotNull
     @Column(name="is_research_center")
     private boolean isResearchCenter;
 
@@ -47,11 +39,9 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, Long pi, boolean roApproved, boolean sfiApproved, boolean isResearchCenter, Long primaryAttribution, Long budget) {
+    public Project(Long id, Long pi, boolean isResearchCenter, Long primaryAttribution, Long budget) {
         this.id = id;
         this.pi = pi;
-        this.roApproved = roApproved;
-        this.sfiApproved = sfiApproved;
         this.isResearchCenter = isResearchCenter;
         this.primaryAttribution = primaryAttribution;
         this.budget = budget;
@@ -71,30 +61,6 @@ public class Project {
 
     public void setPi(Long pi) {
         this.pi = pi;
-    }
-
-    public boolean isRoApproved() {
-        return this.roApproved;
-    }
-
-    public boolean getRoApproved() {
-        return this.roApproved;
-    }
-
-    public void setRoApproved(boolean roApproved) {
-        this.roApproved = roApproved;
-    }
-
-    public boolean isSfiApproved() {
-        return this.sfiApproved;
-    }
-
-    public boolean getSfiApproved() {
-        return this.sfiApproved;
-    }
-
-    public void setSfiApproved(boolean sfiApproved) {
-        this.sfiApproved = sfiApproved;
     }
 
     public boolean isIsResearchCenter() {
@@ -130,8 +96,6 @@ public class Project {
         return "{" +
             " id='" + getId() + "'" +
             ", pi='" + getPi() + "'" +
-            ", roApproved='" + isRoApproved() + "'" +
-            ", sfiApproved='" + isSfiApproved() + "'" +
             ", isResearchCenter='" + isIsResearchCenter() + "'" +
             ", primaryAttribution='" + getPrimaryAttribution() + "'" +
             ", budget='" + getBudget() + "'" +

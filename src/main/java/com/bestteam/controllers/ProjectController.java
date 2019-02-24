@@ -22,13 +22,6 @@ public class ProjectController {
 
     @GetMapping
     public Response<List<Project>> getProjects(@RequestParam(value="sfi", required=false) Boolean sfiApproved, @RequestParam(value="ro", required=false) Boolean roApproved) {
-        if (sfiApproved != null && roApproved != null) {
-            return new Response<>(repository.findBySfiApprovedAndRoApproved(sfiApproved, roApproved));
-        } else if (sfiApproved == null && roApproved != null) {
-            return new Response<>(repository.findByRoApproved(roApproved));
-        } else if (roApproved == null && sfiApproved != null) {
-            return new Response<>(repository.findBySfiApproved(sfiApproved));
-        }
         List<Project> projects = new ArrayList<>();
         repository.findAll().forEach(projects::add);
         return new Response<>(projects);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import com.bestteam.exceptions.GrantNotFoundException;
 import com.bestteam.models.Proposal;
 import com.bestteam.helpers.Response;
 import com.bestteam.helpers.UploadFileResponse;
+import com.bestteam.helpers.ProposalStatus;
 import com.bestteam.repository.ProposalRepository;
 
 @RestController
@@ -35,8 +37,13 @@ public class ProposalController {
     private FileController fileController;
 
     @GetMapping
-    public List<Proposal> getProposalCollection() {
-        return (List<Proposal>)repository.findAll();
+    public Response<List<Proposal>> getProposals (@RequestParam(value="status", required=false) ProposalStatus status) {
+        if (status != null) {
+            return new Response<>(repository.findByStatus(status));
+        }
+        List<Proposal> proposals = new ArrayList<>();
+        repository.findAll().forEach(proposals::add);
+        return new Response<>(proposals);
     }
 
     // @PostMapping

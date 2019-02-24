@@ -5,10 +5,13 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 
 import java.util.Date;
 
-import javax.persistence.Column;
+import com.bestteam.helpers.ProposalStatus;
 
 import javax.validation.constraints.NotNull;
 
@@ -21,7 +24,8 @@ public class Proposal {
 
     @NotNull
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ProposalStatus status;
 
     @NotNull
     @Column(name="file_location")
@@ -37,7 +41,7 @@ public class Proposal {
 
 	public Proposal() {}
 
-	public Proposal(Long id, String status, String fileLocation, String primaryAttribution, String projectId) {
+	public Proposal(Long id, ProposalStatus status, String fileLocation, String primaryAttribution, String projectId) {
 		this.id = id;
 		this.status = status;
 		this.fileLocation = fileLocation;
@@ -53,11 +57,11 @@ public class Proposal {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public ProposalStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ProposalStatus status) {
 		this.status = status;
 	}
 
