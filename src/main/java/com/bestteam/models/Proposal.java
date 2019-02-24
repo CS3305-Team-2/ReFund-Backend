@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
-import java.util.Date;
-
 import com.bestteam.helpers.ProposalStatus;
 
 import javax.validation.constraints.NotNull;

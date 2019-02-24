@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,14 +19,15 @@ public class ProjectController {
     @Autowired
     private ProjectRepository repository;
 
+    //TODO filter
     @GetMapping
-    public Response<List<Project>> getProjects(@RequestParam(value="sfi", required=false) Boolean sfiApproved, @RequestParam(value="ro", required=false) Boolean roApproved) {
+    public Response<List<Project>> getProjects() {
         List<Project> projects = new ArrayList<>();
         repository.findAll().forEach(projects::add);
         return new Response<>(projects);
     }
 
-    @GetMapping("/{projectId")
+    @GetMapping("/{projectId}")
     public Response<Project> getProject(@PathVariable("projectId") Long projectId) {
         return new Response<>(repository.findById(projectId).get());
     }

@@ -9,7 +9,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -35,17 +36,20 @@ public class Project {
     @Column(name="budget")
     private Long budget;
 
-    //private Set<
+    @OneToOne
+    @JoinColumn(name="proposal_id", nullable=true, referencedColumnName="id")
+    private Proposal proposal;
 
     public Project() {}
 
-    public Project(Long id, Long pi, boolean isResearchCenter, Long primaryAttribution, Long budget) {
+    public Project(Long id, Long pi, boolean isResearchCenter, Long primaryAttribution, Long budget, Proposal proposal) {
         this.id = id;
         this.pi = pi;
         this.isResearchCenter = isResearchCenter;
         this.primaryAttribution = primaryAttribution;
         this.budget = budget;
-    }
+        this.proposal = proposal;
+    }    
 
     public Long getId() {
         return this.id;
@@ -67,11 +71,7 @@ public class Project {
         return this.isResearchCenter;
     }
 
-    public boolean getIsResearchCenter() {
-        return this.isResearchCenter;
-    }
-
-    public void setIsResearchCenter(boolean isResearchCenter) {
+    public void setResearchCenter(boolean isResearchCenter) {
         this.isResearchCenter = isResearchCenter;
     }
 
@@ -91,6 +91,14 @@ public class Project {
         this.budget = budget;
     }
 
+    public Proposal getProposal() {
+        return proposal;
+    }
+
+    public void setProposal(Proposal proposal) {
+        this.proposal = proposal;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -99,6 +107,7 @@ public class Project {
             ", isResearchCenter='" + isIsResearchCenter() + "'" +
             ", primaryAttribution='" + getPrimaryAttribution() + "'" +
             ", budget='" + getBudget() + "'" +
+            ", proposal='" + getProposal() + "'" +
             "}";
     }
 }

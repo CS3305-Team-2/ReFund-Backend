@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -37,10 +36,11 @@ public class ProposalController {
     private FileController fileController;
 
     @GetMapping
-    public Response<List<Proposal>> getProposals (@RequestParam(value="status", required=false) ProposalStatus status) {
+    public Response<List<Proposal>> getProposals(@RequestParam(value="status") ProposalStatus status) {
         if (status != null) {
             return new Response<>(repository.findByStatus(status));
         }
+        //TODO filter
         List<Proposal> proposals = new ArrayList<>();
         repository.findAll().forEach(proposals::add);
         return new Response<>(proposals);
@@ -57,9 +57,9 @@ public class ProposalController {
             proposal.setFileLocation(resp.getFileName());
         } catch(Exception e) {
             repository.delete(proposal);
+            throw e;
         }
         return new Response<>(repository.save(proposal));
-        //return new Response<>(data);
     }
 
     @GetMapping("/{proposalId}")
