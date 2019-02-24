@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -39,6 +40,9 @@ public class Project {
     @OneToOne
     @JoinColumn(name="proposal_id", nullable=true, referencedColumnName="id")
     private Proposal proposal;
+
+    /* @ManyToMany
+    private Set<TeamMember> teamMembers; */
 
     public Project() {}
 

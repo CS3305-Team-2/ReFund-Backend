@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.ApiParam;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,7 @@ public class GrantsController {
     }
 
     @PostMapping
-    public Response<Grants> createGrants(@RequestParam("file") @Valid @NotNull @NotBlank MultipartFile file, @RequestPart("grant") @Valid Grants grant) {
+    public Response<Grants> createGrants(@ApiParam("A pdf file only please.") @RequestParam("file") @Valid @NotNull @NotBlank MultipartFile file, @ApiParam("A Grant object") @RequestPart("grant") @Valid Grants grant) {
         try {
             grant.setUrl(""); // setting to empty string because column is NOT NULL
             grant = repository.save(grant);

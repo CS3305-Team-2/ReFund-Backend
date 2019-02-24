@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 
@@ -21,11 +21,11 @@ public class Grants {
 
     @NotNull
     @Column(name="start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull
     @Column(name="end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @NotNull
     @Column(name="amount")
@@ -48,7 +48,7 @@ public class Grants {
 
     public Grants() {}
 
-    public Grants(Long id, Date startDate, Date endDate, int amount, String fundingBody, String fundingProgramme, String status) {
+    public Grants(Long id, LocalDate startDate, LocalDate endDate, int amount, String fundingBody, String fundingProgramme, String status) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -66,19 +66,19 @@ public class Grants {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

@@ -3,6 +3,10 @@ package com.bestteam.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import com.bestteam.helpers.JWTKey;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.Project;
 import com.bestteam.repository.ProjectRepository;
@@ -13,18 +17,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.jsonwebtoken.Jwts;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController {
     @Autowired
     private ProjectRepository repository;
 
-    //TODO filter
     @GetMapping
-    public Response<List<Project>> getProjects() {
-        List<Project> projects = new ArrayList<>();
-        repository.findAll().forEach(projects::add);
-        return new Response<>(projects);
+    @ApiOperation(value="/api/project", notes="Returns the list of projects where user is the Principal Instigator", authorizations={
+        @Authorization(value="user ID from JWT token")
+    })
+    public Response<List<Project>> getProjects(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        
+        Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(cookies[0].getValue()).getBody().get("user");
+        return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
     }
 
     @GetMapping("/{projectId}")
