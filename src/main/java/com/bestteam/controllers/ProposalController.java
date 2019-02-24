@@ -46,19 +46,21 @@ public class ProposalController {
         return new Response<>(proposals);
     }
 
-    // @PostMapping
-    // public Response<Proposal> createProposal(@RequestParam("file") @Valid @NotNull @NotBlank MultipartFile file, @RequestPart("proposal") @Valid Proposal proposal) {
-    //     try {
-    //         proposal.setUrl(""); // setting to empty string because column is NOT NULL
-    //         proposal = repository.save(proposal);
-    //         UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
-    //         proposal.setUrl(resp.getFileName());
-    //     } catch(Exception e) {
-    //         repository.delete(proposal);
-    //     }
-    //     return new Response<>(repository.save(proposal));
-    //     //return new Response<>(data);
-    // }
+    @PostMapping
+    public Response<Proposal> createProposal(
+    @RequestParam("file") @Valid @NotNull @NotBlank MultipartFile file,
+    @RequestPart("proposal") @Valid Proposal proposal) {
+        try {
+            proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
+            proposal = repository.save(proposal);
+            UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+            proposal.setFileLocation(resp.getFileName());
+        } catch(Exception e) {
+            repository.delete(proposal);
+        }
+        return new Response<>(repository.save(proposal));
+        //return new Response<>(data);
+    }
 
     @GetMapping("/{proposalId}")
     public Response<Proposal> getProposal(@PathVariable("proposalId") Long proposalId) {
