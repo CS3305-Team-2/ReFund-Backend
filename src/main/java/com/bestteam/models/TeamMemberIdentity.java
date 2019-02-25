@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 @SuppressWarnings("serial")
 @Embeddable
 public class TeamMemberIdentity implements Serializable {
-    @NotNull
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;

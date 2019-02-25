@@ -13,7 +13,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
     public List<Project> getProjectByPi(Long pi);
 
     @Query(
-        value="SELECT projects.* FROM Project AS projects JOIN MemberToProject AS memtoproj ON memtoproj.project_id = projects.id JOIN TeamMember AS teammem ON teammem.id = memtoproj.member_id JOIN User AS user ON user.id = teammem.user_id WHERE user.id = ?1 GROUP BY projects.id",
+        value=" SELECT projects.* FROM Project AS projects JOIN TeamMember as teammem ON projects.id = teammem.project_id JOIN User AS user ON user.id = teammem.user_id WHERE user.id = ?1 GROUP BY projects.id",
         nativeQuery=true)
     public List<Project> findAllAssociatedProjects(Long userId);
 }

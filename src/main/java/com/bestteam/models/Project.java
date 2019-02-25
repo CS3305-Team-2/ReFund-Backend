@@ -1,16 +1,19 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -41,8 +44,9 @@ public class Project {
     @JoinColumn(name="proposal_id", nullable=true, referencedColumnName="id")
     private Proposal proposal;
 
-    /* @ManyToMany
-    private Set<TeamMember> teamMembers; */
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="project_id")
+    private Set<TeamMember> teamMembers = new HashSet<>();
 
     public Project() {}
 
@@ -101,6 +105,14 @@ public class Project {
 
     public void setProposal(Proposal proposal) {
         this.proposal = proposal;
+    }
+
+    public Set<TeamMember> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(Set<TeamMember> teamMembers) {
+        this.teamMembers = teamMembers;
     }
 
     @Override

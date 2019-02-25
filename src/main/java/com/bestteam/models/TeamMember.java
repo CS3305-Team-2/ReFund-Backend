@@ -27,6 +27,9 @@ public class TeamMember {
     @Column(name="role")
     private String role;
 
+    @Column(name="project_id")
+    private Long projectId;
+
     public TeamMember() {}
 
     public TeamMember(TeamMemberIdentity identity, Date startDate, Date endDate, String role) {
@@ -36,12 +39,12 @@ public class TeamMember {
         this.role = role;
     }
 
-    public TeamMemberIdentity getIdentity() {
-        return this.teamMemberIdentity;
+    public TeamMemberIdentity getTeamMemberIdentity() {
+        return teamMemberIdentity;
     }
 
-    public void setIdentity(TeamMemberIdentity identity) {
-        this.teamMemberIdentity = identity;
+    public void setTeamMemberIdentity(TeamMemberIdentity teamMemberIdentity) {
+        this.teamMemberIdentity = teamMemberIdentity;
     }
 
     public Date getStartDate() {
@@ -68,13 +71,22 @@ public class TeamMember {
         this.role = role;
     }
 
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
         return "{" +
-            " identity='" + getIdentity() + "'" +
+            " teamMemberIdentity='" + getTeamMemberIdentity() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", role='" + getRole() + "'" +
+            ", projectId='" + getProjectId() + "'" +
             "}";
-    }
+    }    
 }
