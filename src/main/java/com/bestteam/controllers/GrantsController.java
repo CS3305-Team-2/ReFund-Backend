@@ -2,6 +2,7 @@ package com.bestteam.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,17 @@ public class GrantsController {
             throw e;
         }
         return new Response<>(repository.save(grant));
+    }
+
+    @PatchMapping("/{grantId}/{status}")
+    public void updateStatus(@PathVariable("grantId") Long grantId, @PathVariable("status") String status) {
+        Optional<Grants> grant = repository.findById(grantId);
+        if (!grant.isPresent()) {
+            throw new GrantNotFoundException(grantId.toString());
+        }
+
+        grant.get().setStatus(status);
+        repository.save(grant.get());
     }
 
     @GetMapping("/{grantId}")
