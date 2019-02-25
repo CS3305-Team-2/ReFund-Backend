@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
 @Table(name="Project")
@@ -28,7 +29,7 @@ public class Project {
     @Column(name="pi")
     private Long pi;
 
-    @NotNull
+    @Null
     @Column(name="is_research_center")
     private boolean isResearchCenter;
 

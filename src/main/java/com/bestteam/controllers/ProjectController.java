@@ -44,6 +44,11 @@ public class ProjectController {
     })
     public Response<List<Project>> getProjects(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if(cookies.length == 0 || !cookies[0].getName().startsWith("JWT")) {
+            ArrayList<Project> projects = new ArrayList<>();
+            repository.findAll().forEach(projects::add);
+            return new Response<>(projects);
+        }
         Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(cookies[0].getValue()).getBody().get("user");
         return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
     }
@@ -62,6 +67,26 @@ public class ProjectController {
         teamMemberRepo.save(teamMember);
         project.get().getTeamMembers().add(teamMember);
         return new Response<>(project.get());
+    }
+
+    @PatchMapping("/{projectId}/markAsRc")
+    public void markAsResearchCenter(@PathVariable("projectId") Long projectId) {
+        Optional<Project> project = repository.findById(projectId);
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(projectId);
+        }
+        project.get().setResearchCenter(true);
+        repository.save(project.get());
+    }
+
+    @PatchMapping("/{projectId}/markAsNotRc")
+    public void markAsNotResearchCenter(@PathVariable("projectId") Long projectId) {
+        Optional<Project> project = repository.findById(projectId);
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(projectId);
+        }
+        project.get().setResearchCenter(false);
+        repository.save(project.get());
     }
 
     @PostMapping
