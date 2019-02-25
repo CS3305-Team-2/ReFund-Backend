@@ -74,7 +74,7 @@ public class Proposal {
 
     @NotNull
     @Column(name="lay_abstract")
-    private String layAbtract;
+    private String layAbstract;
 
     @Column(name="file_location")
     private String fileLocation;
@@ -91,7 +91,7 @@ public class Proposal {
                     String legalRemitAlignment, String ethicalIssues,
                     String applicantLocationStatement,
                     String coApplicantsList, String collaboratorsList,
-                    String scientificAbstract, String layAbtract,
+                    String scientificAbstract, String layAbstract,
                     String fileLocation, boolean declaration) {
 		this.id = id;
 		this.status = status;
@@ -106,7 +106,7 @@ public class Proposal {
 		this.coApplicantsList = coApplicantsList;
 		this.collaboratorsList = collaboratorsList;
 		this.scientificAbstract = scientificAbstract;
-		this.layAbtract = layAbtract;
+		this.layAbstract = layAbstract;
 		this.fileLocation = fileLocation;
 		this.declaration = declaration;
 	}
@@ -224,15 +224,15 @@ public class Proposal {
 		this.scientificAbstract = scientificAbstract;
 	}
 
-	public String getLayAbtract() {
-		return layAbtract;
+	public String getLayAbstract() {
+		return layAbstract;
 	}
 
-	public void setLayAbtract(String layAbtract) {
-        if (layAbtract.split("\\s+").length>100){
+	public void setLayAbstract(String layAbstract) {
+        if (layAbstract.split("\\s+").length>100){
             throw new WordCountOverLimitException("Lay Abstract", id.toString());
         }
-		this.layAbtract = layAbtract;
+		this.layAbstract = layAbstract;
 	}
 
 	public String getFileLocation() {
@@ -271,7 +271,7 @@ public class Proposal {
             ", coApplicantsList='" + getCoApplicantsList() + "'" +
             ", collaboratorsList='" + getCollaboratorsList() + "'" +
             ", scientificAbstract='" + getScientificAbstract() + "'" +
-            ", layAbtract='" + getLayAbtract() + "'" +
+            ", layAbtract='" + getLayAbstract() + "'" +
             ", fileLocation='" + getFileLocation() + "'" +
             ", declaration='" + getDeclaration() + "'" +
             "}";
