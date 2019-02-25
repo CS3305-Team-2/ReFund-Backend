@@ -27,59 +27,46 @@ public class Proposal {
     @Enumerated(EnumType.STRING)
     private ProposalStatus status;
 
-    @NotNull
     @Column(name="primary_attribution")
     private String primaryAttribution;
 
-    @NotNull
     @Column(name="project_id")
     private Long projectId;
 
-    @NotNull
     @Column(name="title")
     private String title;
 
-    @NotNull
     @Column(name="duration")
     private Long duration;
 
-    @NotNull
     @Column(name="nrp_area")
     @Enumerated(EnumType.STRING)
     private NRPArea nrpArea;
 
-    @NotNull
     @Column(name="legal_remit_alignment")
     private String legalRemitAlignment;
 
-    @NotNull
     @Column(name="ethical_issues")
     private String ethicalIssues;
 
-    @NotNull
     @Column(name="applicant_location_statement")
     private String applicantLocationStatement;
 
-    @NotNull
     @Column(name="co_applicants_list")
     private String coApplicantsList;
 
-    @NotNull
     @Column(name="collaborators_list")
     private String collaboratorsList;
 
-    @NotNull
     @Column(name="scientific_abstract")
     private String scientificAbstract;
 
-    @NotNull
     @Column(name="lay_abstract")
     private String layAbstract;
 
     @Column(name="file_location")
     private String fileLocation;
 
-    @NotNull
     @Column(name="declaration")
     private boolean declaration;
 

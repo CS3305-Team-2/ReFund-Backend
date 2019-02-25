@@ -1,20 +1,20 @@
 CREATE TABLE `Proposal` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`status` VARCHAR(30) NOT NULL,
-	`primary_attribution` INT NOT NULL,
-	`project_id` INT NOT NULL,
-    `title` TEXT NOT NULL,
-    `duration` INT NOT NULL,
-    `nrp_area` TEXT NOT NULL,
-    `legal_remit_alignment` TEXT NOT NULL,
-    `ethical_issues` TEXT NOT NULL,
-    `applicant_location_statement` TEXT NOT NULL,
-    `co_applicants_list` TEXT NOT NULL,
-    `collaborators_list` TEXT NOT NULL,
-    `scientific_abstract` TEXT NOT NULL,
-    `lay_abstract` TEXT NOT NULL,
-    `file_location` VARCHAR(60) NOT NULL UNIQUE,
-    `declaration` BOOLEAN NOT NULL,
+	`primary_attribution` INT,
+	`project_id` INT,
+    `title` TEXT,
+    `duration` INT ,
+    `nrp_area` TEXT ,
+    `legal_remit_alignment` TEXT ,
+    `ethical_issues` TEXT ,
+    `applicant_location_statement` TEXT ,
+    `co_applicants_list` TEXT ,
+    `collaborators_list` TEXT ,
+    `scientific_abstract` TEXT ,
+    `lay_abstract` TEXT ,
+    `file_location` VARCHAR(60)  UNIQUE,
+    `declaration` BOOLEAN ,
     PRIMARY KEY (`id`),
     FOREIGN KEY `proposal_to_grants`(`primary_attribution`)
     REFERENCES `Grants`(`id`)
@@ -48,20 +48,20 @@ insert into `Proposal` values (
 CREATE TABLE `Proposal` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`status` VARCHAR(30) NOT NULL,
-	`primary_attribution` INT NOT NULL,
-	`project_id` INT NOT NULL,
-    `title` TEXT NOT NULL, -- 30 words
-    `duration` INT NOT NULL, -- months
-    `nrp_area` TEXT NOT NULL, --enum needed
-    `legal_remit_alignment` TEXT NOT NULL, -- 250 words
-    `ethical_issues` TEXT NOT NULL, -- not sure
-    `application_location_statement` TEXT NOT NULL, --not sure
-    `co_applications_list` TEXT NOT NULL, -- parse this
-    `collaborators_list` TEXT NOT NULL, --name, orgainsation, email
-    `scientific_abstract` TEXT NOT NULL, -- 200 max
-    `lay_abstract` TEXT NOT NULL, -- 100 max
-    `file_location` VARCHAR(60) NOT NULL UNIQUE,
-    `declaration` BOOLEAN NOT NULL,
+	`primary_attribution` INT ,
+	`project_id` INT ,
+    `title` TEXT , -- 30 words
+    `duration` INT , -- months
+    `nrp_area` TEXT , --enum needed
+    `legal_remit_alignment` TEXT , -- 250 words
+    `ethical_issues` TEXT , -- not sure
+    `application_location_statement` TEXT , --not sure
+    `co_applications_list` TEXT , -- parse this
+    `collaborators_list` TEXT , --name, orgainsation, email
+    `scientific_abstract` TEXT , -- 200 max
+    `lay_abstract` TEXT , -- 100 max
+    `file_location` VARCHAR(60)  UNIQUE,
+    `declaration` BOOLEAN ,
     PRIMARY KEY (`id`),
     FOREIGN KEY `proposal_to_grants`(`primary_attribution`)
     REFERENCES `Grants`(`id`)
