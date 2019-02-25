@@ -33,7 +33,7 @@ public class Project {
     @Column(name="is_research_center")
     private boolean isResearchCenter;
 
-    @NotNull
+    @Null
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
