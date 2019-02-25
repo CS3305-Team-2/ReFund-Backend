@@ -41,6 +41,11 @@ public class ProjectController {
         return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
     }
 
+    @GetMapping("/associatedTo/{userId}")
+    public Response<List<Project>> getAssociatedProjects(@PathVariable("userId") Long userId) {
+        return new Response<>(repository.findAllAssociatedProjects(userId));
+    }
+
     @PostMapping
     public Response<Project> createProject(@Valid @RequestBody Project project) {
         return new Response<>(repository.save(project));
