@@ -50,24 +50,11 @@ public class ProposalController {
 
     @PostMapping("/update")
     public Response<Proposal> updateProposalDraft(
+    @RequestParam("file") @Valid MultipartFile file,
     @RequestPart("proposal") @Valid Proposal proposal) {
         // sample update
-        //     curl -X POST -F 'file=@build.gradle' -F 'proposal=
-        // {"id": 8,
-        // "status": "DRAFT",
-        // "primaryAttribution": "1",
-        // "projectId": 1,
-        // "title": "this this this this this thsi tshi",
-        // "duration": 123234,
-        // "nrpArea": "OTHER",
-        // "legalRemitAlignment": "what",
-        // "ethicalIssues": "none",
-        // "applicantLocationStatement": "somewhere",
-        // "coApplicantsList": "lolno",
-        // "collaboratorsList": "none",
-        // "scientificAbstract": "does stuff",
-        // "layAbtract": "???",
-        // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
+// curl -X POST -F 'file=@build.gradle' -F 'proposal={"id": 8,"status": "DRAFT","primaryAttribution": "1","projectId": 1,"title": "this this this this this thsi tshi","duration": 123234,"nrpArea": "OTHER","legalRemitAlignment": "what","ethicalIssues": "none","applicantLocationStatement": "somewhere","coApplicantsList": "lolno","collaboratorsList": "none","scientificAbstract": "does stuff","layAbtract": "???","declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
+        System.out.println(file);
         Optional<Proposal> prop = repository.findById(proposal.getId());
         if (!prop.isPresent()) {
             throw new ProposalNotFoundException(proposal.getId().toString());
@@ -75,13 +62,26 @@ public class ProposalController {
         if (prop.get().getStatus() != ProposalStatus.DRAFT) {
             throw new ProposalNotDraftException(proposal.getId().toString());
         }
+        try {
+            if (file == null) {
+                proposal.setFileLocation(prop.get().getFileLocation());
+            } else {
+                proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
+                proposal = repository.save(proposal);
+                UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+                proposal.setFileLocation(resp.getFileName());
+            }
+            proposal = repository.save(proposal);
+        } catch(Exception e) {
+            throw e;
+        }
         return new Response<>(repository.save(proposal));
     }
 
 
     @PostMapping
     public Response<Proposal> createProposal(
-    @RequestParam("file") @Valid @NotNull @NotBlank MultipartFile file,
+    @RequestParam("file") @Valid MultipartFile file,
     @RequestPart("proposal") @Valid Proposal proposal) {
         try {
             proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
