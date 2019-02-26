@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -50,12 +51,25 @@ public class ProposalController {
 
     @PostMapping("/update")
     public Response<Proposal> updateProposalDraft(
-    @RequestParam("file") @Valid MultipartFile file,
+    @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
     @RequestPart("proposal") @Valid Proposal proposal) {
         // sample update
-// curl -X POST -F 'file=@build.gradle' -F 'proposal={"id": 8,"status": "DRAFT","primaryAttribution": "1","projectId": 1,"title": "this this this this this thsi tshi","duration": 123234,"nrpArea": "OTHER","legalRemitAlignment": "what","ethicalIssues": "none","applicantLocationStatement": "somewhere","coApplicantsList": "lolno","collaboratorsList": "none","scientificAbstract": "does stuff","layAbtract": "???","declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
-        System.out.println(file);
-        Optional<Proposal> prop = repository.findById(proposal.getId());
+        // curl -X POST -v -F 'file=@build.gradle' -F 'proposal=
+        // {"id": 8,
+        // "status": "DRAFT",
+        // "primaryAttribution": "1",
+        // "projectId": 1,
+        // "title": "this this this this this thsi tshi",
+        // "duration": 123234,
+        // "nrpArea": "OTHER",
+        // "legalRemitAlignment": "what",
+        // "ethicalIssues": "none",
+        // "applicantLocationStatement": "somewhere",
+        // "coApplicantsList": "lolno",
+        // "collaboratorsList": "none",
+        // "scientificAbstract": "does stuff",
+        // "layAbstract": "LAY ABSTRACT",
+        // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
         if (!prop.isPresent()) {
             throw new ProposalNotFoundException(proposal.getId().toString());
         }
@@ -81,12 +95,20 @@ public class ProposalController {
 
     @PostMapping
     public Response<Proposal> createProposal(
-    @RequestParam("file") @Valid MultipartFile file,
+    @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
     @RequestPart("proposal") @Valid Proposal proposal) {
         try {
+            if (file == null) {
+                file=new MockMultipartFile("tempFileOnServerBroooooo","temp".getBytes());
+            }
             proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
             proposal = repository.save(proposal);
-            UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+            UploadFileResponse resp;
+            if (file.getName().equals("tempFileOnServerBroooooo")) {
+                resp = fileController.uploadFile(file, "temp_proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+            } else {
+                resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+            }
             proposal.setFileLocation(resp.getFileName());
         } catch(Exception e) {
             repository.delete(proposal);

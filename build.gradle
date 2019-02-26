@@ -53,8 +53,8 @@ task sshWrapper(dependsOn: ['startSSHTunnel'], type: Test) {
     systemProperty "service..endpoint",  "localhost:${ssh_port}"
 }
 
-bootRun.dependsOn sshWrapper
-bootRun.finalizedBy stopSSHTunnel
+//bootRun.dependsOn sshWrapper
+//bootRun.finalizedBy stopSSHTunnel
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
@@ -62,14 +62,15 @@ dependencies {
     compile "at.favre.lib:bcrypt:0.7.0"
     compile 'mysql:mysql-connector-java'
     compile 'javax.xml.bind:jaxb-api'
-    
+    compile 'org.springframework.boot:spring-boot-starter-test'
+
     compile 'io.springfox:springfox-swagger2:2.9.2'
 
     compile 'io.jsonwebtoken:jjwt-api:0.10.5'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.5'
     runtime 'org.bouncycastle:bcprov-jdk15on:1.60'
     runtime 'io.jsonwebtoken:jjwt-jackson:0.10.5'
-    
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
