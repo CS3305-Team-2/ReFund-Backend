@@ -20,6 +20,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.bestteam.exceptions.ProposalNotFoundException;
+import com.bestteam.exceptions.ProposalNotDraftException;
 import com.bestteam.models.Proposal;
 import com.bestteam.helpers.Response;
 import com.bestteam.helpers.UploadFileResponse;
@@ -37,7 +38,7 @@ public class ProposalController {
     private FileController fileController;
 
     @GetMapping
-    public Response<List<Proposal>> getProposals(@RequestParam(value="status") ProposalStatus status) {
+    public Response<List<Proposal>> getProposals(@RequestParam(value="status", required=false) ProposalStatus status) {
         if (status != null) {
             return new Response<>(repository.findByStatus(status));
         }
@@ -46,6 +47,37 @@ public class ProposalController {
         repository.findAll().forEach(proposals::add);
         return new Response<>(proposals);
     }
+
+    @PostMapping("/update")
+    public Response<Proposal> updateProposalDraft(
+    @RequestPart("proposal") @Valid Proposal proposal) {
+        // sample update
+        //     curl -X POST -F 'file=@build.gradle' -F 'proposal=
+        // {"id": 8,
+        // "status": "DRAFT",
+        // "primaryAttribution": "1",
+        // "projectId": 1,
+        // "title": "this this this this this thsi tshi",
+        // "duration": 123234,
+        // "nrpArea": "OTHER",
+        // "legalRemitAlignment": "what",
+        // "ethicalIssues": "none",
+        // "applicantLocationStatement": "somewhere",
+        // "coApplicantsList": "lolno",
+        // "collaboratorsList": "none",
+        // "scientificAbstract": "does stuff",
+        // "layAbtract": "???",
+        // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
+        Optional<Proposal> prop = repository.findById(proposal.getId());
+        if (!prop.isPresent()) {
+            throw new ProposalNotFoundException(proposal.getId().toString());
+        }
+        if (prop.get().getStatus() != ProposalStatus.DRAFT) {
+            throw new ProposalNotDraftException(proposal.getId().toString());
+        }
+        return new Response<>(repository.save(proposal));
+    }
+
 
     @PostMapping
     public Response<Proposal> createProposal(

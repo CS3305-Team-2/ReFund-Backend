@@ -4,7 +4,8 @@ public enum ProposalStatus {
     UNDER_REVIEW("Under review"),
     DRAFT("Draft"),
     WITH_THE_RO("With the RO"),
-    APPROVED("Approved");
+    APPROVED("Approved"),
+    REJECTED("Rejected");
 
     private String content;
 
