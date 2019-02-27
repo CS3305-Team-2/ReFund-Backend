@@ -70,6 +70,7 @@ public class ProposalController {
         // "scientificAbstract": "does stuff",
         // "layAbstract": "LAY ABSTRACT",
         // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
+        Optional<Proposal> prop = repository.findById(proposal.getId());
         if (!prop.isPresent()) {
             throw new ProposalNotFoundException(proposal.getId().toString());
         }

@@ -53,8 +53,8 @@ task sshWrapper(dependsOn: ['startSSHTunnel'], type: Test) {
     systemProperty "service..endpoint",  "localhost:${ssh_port}"
 }
 
-//bootRun.dependsOn sshWrapper
-//bootRun.finalizedBy stopSSHTunnel
+bootRun.dependsOn sshWrapper
+bootRun.finalizedBy stopSSHTunnel
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
