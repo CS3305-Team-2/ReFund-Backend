@@ -79,4 +79,6 @@ dependencies {
     compile 'com.mashape.unirest:unirest-java:1.4.9'
 
     compile 'com.google.guava:guava:27.0.1-jre'
+
+    implementation 'com.sendgrid:sendgrid-java:4.3.0'
 }

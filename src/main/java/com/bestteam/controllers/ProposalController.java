@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -21,12 +22,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.bestteam.exceptions.ProposalNotFoundException;
+import com.bestteam.exceptions.ProjectNotFoundException;
 import com.bestteam.exceptions.ProposalNotDraftException;
+import com.bestteam.models.Project;
 import com.bestteam.models.Proposal;
+import com.bestteam.models.User;
 import com.bestteam.helpers.Response;
 import com.bestteam.helpers.UploadFileResponse;
+import com.bestteam.helpers.MailHelper;
 import com.bestteam.helpers.ProposalStatus;
+import com.bestteam.repository.ProjectRepository;
 import com.bestteam.repository.ProposalRepository;
+import com.bestteam.repository.TeamMemberRepository;
 
 @RestController
 @RequestMapping("/api/proposal")
@@ -36,6 +43,12 @@ public class ProposalController {
     private ProposalRepository repository;
 
     @Autowired
+    private TeamMemberRepository teamMemberRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
     private FileController fileController;
 
     @GetMapping
@@ -43,7 +56,6 @@ public class ProposalController {
         if (status != null) {
             return new Response<>(repository.findByStatus(status));
         }
-        //TODO filter
         List<Proposal> proposals = new ArrayList<>();
         repository.findAll().forEach(proposals::add);
         return new Response<>(proposals);
@@ -51,8 +63,8 @@ public class ProposalController {
 
     @PostMapping("/update")
     public Response<Proposal> updateProposalDraft(
-    @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
-    @RequestPart("proposal") @Valid Proposal proposal) {
+        @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
+        @RequestPart("proposal") @Valid Proposal proposal) {
         // sample update
         // curl -X POST -v -F 'file=@build.gradle' -F 'proposal=
         // {"id": 8,
@@ -96,8 +108,8 @@ public class ProposalController {
 
     @PostMapping
     public Response<Proposal> createProposal(
-    @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
-    @RequestPart("proposal") @Valid Proposal proposal) {
+        @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
+        @RequestPart("proposal") @Valid Proposal proposal) {
         try {
             if (file == null) {
                 file=new MockMultipartFile("tempFileOnServerBroooooo","temp".getBytes());
@@ -128,12 +140,24 @@ public class ProposalController {
     }
 
     @DeleteMapping("/{proposalId}/delete")
-    public Response<String> deleteProposal(@PathVariable("proposalId") Long proposalId) {
+    public Response<String> deleteProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId.toString());
         }
         repository.deleteById(proposalId);
+
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(proposal.get().getProjectId());
+        }
+
+        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+
+        MailHelper.send(
+            user.getEmail(), "Proposal Rejection", 
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted");
+
         return new Response<>("Proposal ID: " + proposalId.toString() + " deleted");
     }
 }
