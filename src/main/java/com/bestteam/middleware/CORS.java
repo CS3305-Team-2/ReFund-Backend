@@ -13,6 +13,7 @@ public class CORS extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Expose-Headers", "JWT-TOKEN");
         chain.doFilter(request, response);
     }
 }
