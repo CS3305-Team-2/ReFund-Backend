@@ -41,9 +41,9 @@ file("src/main/resources/application.properties").withInputStream { props.load(i
 def ssh_host = props.getProperty("ssh.host")
 def ssh_port = props.getProperty("ssh.port")
 def ssh_user = props.getProperty("ssh.user")
-
+def ssh_pass = props.getProperty('ssh.pass')
 task startSSHTunnel(type: SpawnProcessTask) {
-    command "sshpass -p ${props.getProperty('ssh.pass')} ssh -v -oConnectTimeout=30 -oStrictHostKeyChecking=no -l ${ssh_user} -L${ssh_port}:localhost:${ssh_port} ${ssh_user}@${ssh_host}"
+    command "sshpass -p ${ssh_pass} ssh -v -oConnectTimeout=30 -oStrictHostKeyChecking=no -l ${ssh_user} -L${ssh_port}:localhost:${ssh_port} ${ssh_user}@${ssh_host}"
     ready 'Authentication succeeded'
 }
 

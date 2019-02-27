@@ -75,7 +75,7 @@ public class ProjectController {
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(projectId);
         }
-        project.get().setResearchCenter(true);
+        project.get().setIsResearchCenter(true);
         repository.save(project.get());
     }
 
@@ -85,7 +85,7 @@ public class ProjectController {
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(projectId);
         }
-        project.get().setResearchCenter(false);
+        project.get().setIsResearchCenter(false);
         repository.save(project.get());
     }
 

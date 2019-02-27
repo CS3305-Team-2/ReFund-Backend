@@ -33,9 +33,9 @@ public class Project {
     @Column(name="is_research_center")
     private boolean isResearchCenter;
 
-    @Null
+    /* @Null
     @Column(name="primary_attribution")
-    private Long primaryAttribution;
+    private Long primaryAttribution; */
 
     @NotNull
     @Column(name="budget")
@@ -51,11 +51,11 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, Long pi, boolean isResearchCenter, Long primaryAttribution, Long budget, Proposal proposal) {
+    public Project(Long id, Long pi, boolean isResearchCenter, /* Long primaryAttribution, */ Long budget, Proposal proposal) {
         this.id = id;
         this.pi = pi;
         this.isResearchCenter = isResearchCenter;
-        this.primaryAttribution = primaryAttribution;
+        //this.primaryAttribution = primaryAttribution;
         this.budget = budget;
         this.proposal = proposal;
     }    
@@ -80,17 +80,17 @@ public class Project {
         return this.isResearchCenter;
     }
 
-    public void setResearchCenter(boolean isResearchCenter) {
+    public void setIsResearchCenter(boolean isResearchCenter) {
         this.isResearchCenter = isResearchCenter;
     }
 
-    public Long getPrimaryAttribution() {
+    /* public Long getPrimaryAttribution() {
         return this.primaryAttribution;
     }
 
     public void setPrimaryAttribution(Long primaryAttribution) {
         this.primaryAttribution = primaryAttribution;
-    }
+    } */
 
     public Long getBudget() {
         return this.budget;
@@ -122,7 +122,7 @@ public class Project {
             " id='" + getId() + "'" +
             ", pi='" + getPi() + "'" +
             ", isResearchCenter='" + isIsResearchCenter() + "'" +
-            ", primaryAttribution='" + getPrimaryAttribution() + "'" +
+            //", primaryAttribution='" + getPrimaryAttribution() + "'" +
             ", budget='" + getBudget() + "'" +
             ", proposal='" + getProposal() + "'" +
             "}";

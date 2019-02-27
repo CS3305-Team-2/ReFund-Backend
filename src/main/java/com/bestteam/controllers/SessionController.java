@@ -36,13 +36,10 @@ public class SessionController {
             throw new LoginException("incorrect password");
         }
 
-        Cookie cookie = new Cookie("JWT-TOKEN", Jwts.builder()
+        response.addHeader("JWT-TOKEN", Jwts.builder()
             .claim("role", user.get().getType().toString())
             .claim("user", user.get().getId())
             .signWith(JWTKey.getKey()).compact());
-        cookie.setPath("/");
-            
-        response.addCookie(cookie);
         return new Response<User>(user.get());
     }
 }
