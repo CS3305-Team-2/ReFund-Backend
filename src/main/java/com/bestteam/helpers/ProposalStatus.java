@@ -3,10 +3,10 @@ package com.bestteam.helpers;
 public enum ProposalStatus {
     /*
         State machine
-        Draft <--> RO Submitted -|
+        Draft <--> RO Submitted -|---> Deleted (no status, deleted from DB)
                                 |
-         |---  RO Approved <---| ---> Deleted (no status, deleted from DB)
-        |---> SFI Approved --|
+         |---  RO Approved <---| 
+        |---> SFI Approved ---|
        |  We can skip the under review part as far as im aware
        Rejected         
     */
