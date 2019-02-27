@@ -2,6 +2,7 @@ package com.bestteam.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,7 +85,7 @@ public class ProposalController {
         // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
         Optional<Proposal> prop = repository.findById(proposal.getId());
         if (!prop.isPresent()) {
-            throw new ProposalNotFoundException(proposal.getId().toString());
+            throw new ProposalNotFoundException(proposal.getId());
         }
         if (prop.get().getStatus() != ProposalStatus.DRAFT) {
             throw new ProposalNotDraftException(proposal.getId().toString());
@@ -105,6 +106,35 @@ public class ProposalController {
         return new Response<>(repository.save(proposal));
     }
 
+    @PatchMapping("/{proposalId}/reject")
+    public void rejectProposal(@PathVariable("proposalId") Long proposalId) {
+        Optional<Proposal> proposal = repository.findById(proposalId);
+        if (!proposal.isPresent()) {
+            throw new ProposalNotFoundException(proposalId);
+        }
+
+        if (proposal.get().getStatus() == ProposalStatus.RO_SUBMITTED) {
+            proposal.get().setStatus(ProposalStatus.DRAFT);
+        } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
+            proposal.get().setStatus(ProposalStatus.REJECTED);
+        }
+        repository.save(proposal.get());
+    }
+
+    @PatchMapping("/{proposalId}/approve")
+    public void approveProposal(@PathVariable("projectId") Long proposalId) {
+        Optional<Proposal> proposal = repository.findById(proposalId);
+        if (!proposal.isPresent()) {
+            throw new ProposalNotFoundException(proposalId);
+        }
+
+        if (proposal.get().getStatus() == ProposalStatus.RO_SUBMITTED) {
+            proposal.get().setStatus(ProposalStatus.RO_APPROVED);
+        } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
+            proposal.get().setStatus(ProposalStatus.SFI_APPROVED);
+        }
+        repository.save(proposal.get());
+    }
 
     @PostMapping
     public Response<Proposal> createProposal(
@@ -134,7 +164,7 @@ public class ProposalController {
     public Response<Proposal> getProposal(@PathVariable("proposalId") Long proposalId) {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
-            throw new ProposalNotFoundException(proposalId.toString());
+            throw new ProposalNotFoundException(proposalId);
         }
         return new Response<>(proposal.get());
     }
@@ -143,7 +173,7 @@ public class ProposalController {
     public Response<String> deleteProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
-            throw new ProposalNotFoundException(proposalId.toString());
+            throw new ProposalNotFoundException(proposalId);
         }
         repository.deleteById(proposalId);
 

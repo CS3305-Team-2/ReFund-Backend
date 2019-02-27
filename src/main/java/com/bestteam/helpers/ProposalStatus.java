@@ -1,24 +1,33 @@
 package com.bestteam.helpers;
 
 public enum ProposalStatus {
-    UNDER_REVIEW("Under review"),
+    /*
+        State machine
+        Draft <--> RO Submitted -|
+                                |
+         |---  RO Approved <---| ---> Deleted (no status, deleted from DB)
+        |---> SFI Approved --|
+       |  We can skip the under review part as far as im aware
+       Rejected         
+    */
     DRAFT("Draft"),
-    WITH_THE_RO("With the RO"),
-    APPROVED("Approved"),
+    RO_SUBMITTED("Submitted to RO"),
+    RO_APPROVED("RO Approved"),
+    SFI_APPROVED("SFI Approved"),
     REJECTED("Rejected");
 
     private String content;
 
-    ProposalStatus(String content){
+    ProposalStatus(String content) {
         this.content = content;
     }
 
-    public String getContent(){
+    public String getContent() {
         return content;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return content;
     }
 }
