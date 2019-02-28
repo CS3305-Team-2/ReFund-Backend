@@ -108,4 +108,18 @@ public class HostInstitution {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", name='" + getName() + "'" +
+            ", address1='" + getAddress1() + "'" +
+            ", address2='" + getAddress2() + "'" +
+            ", postCode='" + getPostCode() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", telephone='" + getTelephone() + "'" +
+            "}";
+    }
+
 }

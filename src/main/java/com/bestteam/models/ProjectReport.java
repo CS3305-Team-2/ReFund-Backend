@@ -21,47 +21,91 @@ public class ProjectReport {
     private Long projectId;
 
     @NotNull
-    @Column(name="file_url")
-    private String fileUrl;
+    @Column(name="plan_deviation")
+    private String planDeviation;
 
-    public ProjectReport() {}
+    @NotNull
+    @Column(name="three_highlights")
+    private String threeHighlights;
 
-    public ProjectReport(Long id, Long projectId, String fileUrl) {
-        this.id = id;
-        this.projectId = projectId;
-        this.fileUrl = fileUrl;
-    }
+    @NotNull
+    @Column(name="challenges")
+    private String challenges;
 
-    public Long getId() {
-        return id;
-    }
+    @NotNull
+    @Column(name="planned_activities")
+    private String plannedActivities;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public ProjectReport() {}
 
-    public Long getProjectId() {
-        return projectId;
-    }
+	public ProjectReport(Long id, Long projectId, String planDeviation,
+                         String threeHighlights, String challenges,
+                         String plannedActivities) {
+		this.id = id;
+		this.projectId = projectId;
+		this.planDeviation = planDeviation;
+		this.threeHighlights = threeHighlights;
+		this.challenges = challenges;
+		this.plannedActivities = plannedActivities;
+	}
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getFileUrl() {
-        return fileUrl;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getPlanDeviation() {
+		return planDeviation;
+	}
+
+	public void setPlanDeviation(String planDeviation) {
+		this.planDeviation = planDeviation;
+	}
+
+	public String getThreeHighlights() {
+		return threeHighlights;
+	}
+
+	public void setThreeHighlights(String threeHighlights) {
+		this.threeHighlights = threeHighlights;
+	}
+
+	public String getChallenges() {
+		return challenges;
+	}
+
+	public void setChallenges(String challenges) {
+		this.challenges = challenges;
+	}
+
+	public String getPlannedActivities() {
+		return plannedActivities;
+	}
+
+	public void setPlannedActivities(String plannedActivities) {
+		this.plannedActivities = plannedActivities;
+	}
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", projectId='" + getProjectId() + "'" +
-            ", fileUrl='" + getFileUrl() + "'" +
-            "}";
+        " id='" + getId() + "'" +
+        ", projectId='" + getProjectId() + "'" +
+        ", planDeviation='" + getPlanDeviation() + "'" +
+        ", threeHighlights='" + getThreeHighlights() + "'" +
+        ", challenges='" + getChallenges() + "'" +
+        ", plannedActivities='" + getPlannedActivities() + "'" +
+        "}";
     }
 }
