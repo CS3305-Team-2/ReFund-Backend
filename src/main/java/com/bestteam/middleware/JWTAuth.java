@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,19 +30,14 @@ public class JWTAuth extends OncePerRequestFilter {
         }
 
         try {
-            Cookie[] cookies = request.getCookies();
-            if(cookies == null) cookies = new Cookie[]{};
-            boolean found = false;
-            for(int i = 0; i < cookies.length && !found; i++) {
-                found = cookies[i].getName().matches("JWT-TOKEN");
-            }
-            
-            if(!found || cookies.length == 0) {
+            String token = request.getHeader("JWT-TOKEN");
+                        
+            if(token == null) {
                 writeError(response, "no JWT token sent");
                 return;
             }
 
-            Jwts.parser().setSigningKey(JWTKey.getKey()).parse(cookies[0].getValue());
+            Jwts.parser().setSigningKey(JWTKey.getKey()).parse(token);
             chain.doFilter(request, response);
         } catch(SignatureException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

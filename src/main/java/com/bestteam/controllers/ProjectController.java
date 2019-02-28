@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -43,13 +42,13 @@ public class ProjectController {
         @Authorization(value="user ID from JWT token")
     })
     public Response<List<Project>> getProjects(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies.length == 0 || !cookies[0].getName().startsWith("JWT")) {
+        String token = request.getHeader("JWT-TOKEN");
+        if(token == null) {
             ArrayList<Project> projects = new ArrayList<>();
             repository.findAll().forEach(projects::add);
             return new Response<>(projects);
         }
-        Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(cookies[0].getValue()).getBody().get("user");
+        Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(token).getBody().get("user");
         return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
     }
 
