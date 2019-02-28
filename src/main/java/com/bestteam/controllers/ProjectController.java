@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.bestteam.exceptions.NoJWTFound;
 import com.bestteam.exceptions.ProjectNotFoundException;
 import com.bestteam.helpers.JWTKey;
 import com.bestteam.helpers.Response;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
@@ -44,11 +44,9 @@ public class ProjectController {
     public Response<List<Project>> getProjects(HttpServletRequest request) {
         String token = request.getHeader("JWT-TOKEN");
         if(token == null) {
-            ArrayList<Project> projects = new ArrayList<>();
-            repository.findAll().forEach(projects::add);
-            return new Response<>(projects);
+            throw new NoJWTFound();
         }
-        Integer userId = (Integer)Jwts.parser().setSigningKey(JWTKey.getKey()).parseClaimsJws(token).getBody().get("user");
+        Integer userId = (Integer)JWTKey.getClaim(token, "user");
         return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
     }
 
@@ -89,7 +87,14 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Response<Project> createProject(@Valid @RequestBody Project project) {
+    public Response<Project> createProject(HttpServletRequest request, @Valid @RequestBody Project project) {
+        String token = request.getHeader("JWT-TOKEN");
+        if(token == null) {
+            throw new NoJWTFound();
+        }
+
+        Integer userId = (Integer)JWTKey.getClaim(token, "user");
+
         return new Response<>(repository.save(project));
     }
 
