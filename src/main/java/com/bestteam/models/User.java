@@ -73,7 +73,7 @@ public class User {
     @Column(name="orcid")
     private String orcid;
 
-    @NotNull
+    /* @NotNull */
     @ManyToOne
     @JoinColumn(name="host_institution_id")
     private HostInstitution hostInstitution;
