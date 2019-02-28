@@ -15,7 +15,6 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -53,13 +52,8 @@ public class ProposalController {
     private FileController fileController;
 
     @GetMapping
-    public Response<List<Proposal>> getProposals(@RequestParam(value="status", required=false) ProposalStatus status) {
-        if (status != null) {
-            return new Response<>(repository.findByStatus(status));
-        }
-        List<Proposal> proposals = new ArrayList<>();
-        repository.findAll().forEach(proposals::add);
-        return new Response<>(proposals);
+    public Response<List<Proposal>> getProposals(@RequestParam(value="status") ProposalStatus status) {
+        return new Response<>(repository.findByStatus(status));
     }
 
     @PostMapping("/update")
