@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import com.bestteam.models.Education;
+import com.bestteam.models.HostInstitution;
 import com.bestteam.models.Employment;
 import com.bestteam.models.SocietyMembership;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -73,8 +74,9 @@ public class User {
     private String orcid;
 
     @NotNull
-    @Column(name="host_institution_id")
-    private String hostInstitutionId;
+    @ManyToOne
+    @JoinColumn(name="host_institution_id")
+    private HostInstitution hostInstitution;
 
     @ManyToOne
     @JoinColumn(name="type")
@@ -187,12 +189,12 @@ public class User {
         this.orcid = orcid;
     }
 
-    public String getHostInstitutionId() {
-        return hostInstitutionId;
+    public HostInstitution getHostInstitutionId() {
+        return hostInstitution;
     }
 
-    public void setHostInstitutionId(String hostInstitutionId) {
-        this.orcid = hostInstitutionId;
+    public void setHostInstitutionId(HostInstitution hostInstitution) {
+        this.hostInstitution = hostInstitution;
     }
 
     public String getPhoneCountryCode() {
@@ -265,7 +267,7 @@ public class User {
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
             ", orcid='" + getOrcid() + "'" +
-            ", orcid='" + getHostInstitutionId() + "'" +
+            ", hostInstitution='" + getHostInstitutionId() + "'" +
             ", type='" + getType() + "'" +
             ", educations='" + getEducations() + "'" +
             ", employments='" + getEmployments() + "'" +

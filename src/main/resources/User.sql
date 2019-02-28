@@ -15,5 +15,8 @@ CREATE TABLE User
 	`host_institution_id` INT NOT NULL,
     FOREIGN KEY `user_to_type`(`type`)
     REFERENCES `UserType`(`type`)
+    ON UPDATE CASCADE,
+    FOREIGN KEY `user_to_host_institution`(`host_institution_id`)
+    REFERENCES `HostInstitution`(`id`)
     ON UPDATE CASCADE
 );
