@@ -72,6 +72,10 @@ public class User {
     @Column(name="orcid")
     private String orcid;
 
+    @NotNull
+    @Column(name="host_institution_id")
+    private String hostInstitutionId;
+
     @ManyToOne
     @JoinColumn(name="type")
     private UserType type;
@@ -183,6 +187,14 @@ public class User {
         this.orcid = orcid;
     }
 
+    public String getHostInstitutionId() {
+        return hostInstitutionId;
+    }
+
+    public void setHostInstitutionId(String hostInstitutionId) {
+        this.orcid = hostInstitutionId;
+    }
+
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
@@ -253,6 +265,7 @@ public class User {
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
             ", orcid='" + getOrcid() + "'" +
+            ", orcid='" + getHostInstitutionId() + "'" +
             ", type='" + getType() + "'" +
             ", educations='" + getEducations() + "'" +
             ", employments='" + getEmployments() + "'" +

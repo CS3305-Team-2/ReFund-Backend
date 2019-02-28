@@ -1,4 +1,4 @@
-CREATE TABLE User 
+CREATE TABLE User
 (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`type` VARCHAR(50) NOT NULL,
@@ -11,8 +11,8 @@ CREATE TABLE User
 	`suffix` VARCHAR(50),
 	`phone_number` VARCHAR(50),
 	`phone_country_code` VARCHAR(50),
-	`orcid` VARCHAR(19),
-    `host_institution` VARCHAR(50),
+    `orcid` VARCHAR(19),
+	`host_institution_id` INT NOT NULL,
     FOREIGN KEY `user_to_type`(`type`)
     REFERENCES `UserType`(`type`)
     ON UPDATE CASCADE
