@@ -33,13 +33,12 @@ public class Project {
     @Column(name="is_research_center")
     private boolean isResearchCenter;
 
-    /* @Null
-    @Column(name="primary_attribution")
-    private Long primaryAttribution; */
-
     @NotNull
     @Column(name="budget")
     private Long budget;
+
+    @Column(name="status")
+    private String status;
 
     @OneToOne
     @JoinColumn(name="proposal_id", nullable=true, referencedColumnName="id")
@@ -51,15 +50,15 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, Long pi, boolean isResearchCenter, /* Long primaryAttribution, */ Long budget, Proposal proposal) {
+    public Project(Long id, Long pi, boolean isResearchCenter, Long budget, String status, Proposal proposal) {
         this.id = id;
         this.pi = pi;
         this.isResearchCenter = isResearchCenter;
-        //this.primaryAttribution = primaryAttribution;
         this.budget = budget;
+        this.status = status;
         this.proposal = proposal;
-    }    
-
+    }
+    
     public Long getId() {
         return this.id;
     }
@@ -83,14 +82,6 @@ public class Project {
     public void setIsResearchCenter(boolean isResearchCenter) {
         this.isResearchCenter = isResearchCenter;
     }
-
-    /* public Long getPrimaryAttribution() {
-        return this.primaryAttribution;
-    }
-
-    public void setPrimaryAttribution(Long primaryAttribution) {
-        this.primaryAttribution = primaryAttribution;
-    } */
 
     public Long getBudget() {
         return this.budget;
@@ -116,15 +107,24 @@ public class Project {
         this.teamMembers = teamMembers;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", pi='" + getPi() + "'" +
             ", isResearchCenter='" + isIsResearchCenter() + "'" +
-            //", primaryAttribution='" + getPrimaryAttribution() + "'" +
             ", budget='" + getBudget() + "'" +
+            ", status='" + getStatus() + "'" +
             ", proposal='" + getProposal() + "'" +
+            ", teamMembers='" + getTeamMembers() + "'" +
             "}";
     }
 }

@@ -28,7 +28,7 @@ public class Proposal {
     private ProposalStatus status;
 
     @Column(name="primary_attribution")
-    private String primaryAttribution;
+    private Long primaryAttribution;
 
     @Column(name="project_id")
     private Long projectId;
@@ -73,7 +73,7 @@ public class Proposal {
 	public Proposal() {}
 
 	public Proposal(Long id, ProposalStatus status,
-                    String primaryAttribution, Long projectId,
+                    Long primaryAttribution, Long projectId,
                     String title, Long duration, NRPArea nrpArea,
                     String legalRemitAlignment, String ethicalIssues,
                     String applicantLocationStatement,
@@ -114,11 +114,11 @@ public class Proposal {
 		this.status = status;
 	}
 
-	public String getPrimaryAttribution() {
+	public Long getPrimaryAttribution() {
 		return primaryAttribution;
 	}
 
-	public void setPrimaryAttribution(String primaryAttribution) {
+	public void setPrimaryAttribution(Long primaryAttribution) {
 		this.primaryAttribution = primaryAttribution;
 	}
 
