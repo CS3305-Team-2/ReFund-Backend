@@ -6,4 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HostInstitutionRepository extends CrudRepository<HostInstitution, String> {}
+public interface HostInstitutionRepository extends CrudRepository<HostInstitution, Long> {}

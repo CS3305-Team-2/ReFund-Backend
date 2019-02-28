@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="HostInstitution")
 public class HostInstitution {
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
