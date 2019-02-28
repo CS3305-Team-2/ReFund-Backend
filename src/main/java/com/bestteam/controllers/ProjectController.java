@@ -1,5 +1,7 @@
 package com.bestteam.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,9 +12,11 @@ import javax.validation.Valid;
 import com.bestteam.exceptions.NoJWTFound;
 import com.bestteam.exceptions.ProjectNotFoundException;
 import com.bestteam.helpers.JWTKey;
+import com.bestteam.helpers.MailHelper;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.Project;
 import com.bestteam.models.TeamMember;
+import com.bestteam.models.User;
 import com.bestteam.repository.ProjectRepository;
 import com.bestteam.repository.TeamMemberRepository;
 import com.google.common.collect.Sets;
@@ -57,13 +61,20 @@ public class ProjectController {
     }
 
     @PatchMapping("/addTeamMember")
-    public Response<Project> addTeamMember(@Valid @RequestBody TeamMember teamMember) {
+    public Response<Project> addTeamMember(@Valid @RequestBody TeamMember teamMember) throws IOException {
         Optional<Project> project = repository.findById(teamMember.getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(teamMember.getProjectId());
         }
         teamMemberRepo.save(teamMember);
         project.get().getTeamMembers().add(teamMember);
+
+        User user = teamMemberRepo.getUserFromTeamMemberId(project.get().getPi());
+
+        MailHelper.send(
+            user.getEmail(), "Team Member added to Project", 
+            "A user has been added as a team member to your project");
+
         return new Response<>(project.get());
     }
 

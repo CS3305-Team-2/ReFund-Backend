@@ -14,4 +14,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     public boolean existsByOrcid(String orcid);
 
     public Optional<User> findByEmail(String email);
+
+    public boolean existsByEmail(String email);
 }

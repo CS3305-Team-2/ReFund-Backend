@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,9 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import com.bestteam.exceptions.BadSearchException;
+import com.bestteam.exceptions.UserExistsException;
 import com.bestteam.exceptions.UserNotFoundException;
+import com.bestteam.helpers.MailHelper;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.User;
 import com.bestteam.models.Awards;
@@ -86,10 +89,22 @@ public class UserController {
     }
 
     @PostMapping
-    public Response<User> createUser(@Valid @RequestBody User user) {
-        if(repository.existsByOrcid(user.getOrcid())) {
+    public Response<User> createUser(@Valid @RequestBody User user) throws IOException {
+        if(repository.existsByEmail(user.getEmail())) {
+            throw new UserExistsException(user.getEmail());
         }
-        return new Response<>(repository.save(user));
+        User newUser = repository.save(user);
+
+        MailHelper.send(
+            newUser.getEmail(), "Account created", 
+            "Dear " + newUser.getFirstName() + " " + newUser.getLastName() +
+            "\nWelcome to your Sesame account. Your account was automatically created when you signed up with your ORCID account " +
+            "You will be able to login with your ORCID account by clicking the same button or withy our Sesame details. We highly recommend " +
+            "that you change your password when you sign-in. It has been set to new-user-password by default." +
+            "\nKind Regards" +
+            "\nSFI Administration");
+
+        return new Response<>(newUser);
     }
 
     private void init() {

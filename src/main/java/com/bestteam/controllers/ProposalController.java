@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.ApiOperation;
+
+import org.springframework.mock.web.MockMultipartFile;
+
 import java.util.List;
 import java.io.IOException;
 import java.util.Optional;
@@ -92,7 +96,10 @@ public class ProposalController {
     }
 
     @PatchMapping("/{proposalId}/reject")
-    public void rejectProposal(@PathVariable("proposalId") Long proposalId) {
+    @ApiOperation(
+        value="/api/proposal/{proposalId}/reject", 
+        notes="If proposal state = RO_SUBMITTED, state becomes DRAFT. If proposal state = RO_APPROVED, state becomes REJECTED")
+    public void rejectProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
@@ -103,11 +110,33 @@ public class ProposalController {
         } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
             proposal.get().setStatus(ProposalStatus.REJECTED);
         }
+        
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(proposal.get().getProjectId());
+        }
+
+        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+
         repository.save(proposal.get());
+
+        String proposalStateMessage = "";
+        if(proposal.get().getStatus() == ProposalStatus.DRAFT) {
+            proposalStateMessage = "by your Host Institution. It has been returned to your dashboard as a draft where you may make edits to it.";
+        } else {
+            proposalStateMessage = "by the SFI.";
+        }
+
+        MailHelper.send(
+            user.getEmail(), "Proposal Approved", 
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage);
     }
 
     @PatchMapping("/{proposalId}/approve")
-    public void approveProposal(@PathVariable("proposalId") Long proposalId) {
+    @ApiOperation(
+        value="/api/proposal/{proposalId}/approve", 
+        notes="If proposal state = RO_SUBMITTED, state becomes RO_APPROVED. If proposal state = RO_APPROVED, state becomes SFI_APPROVED")
+    public void approveProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
@@ -118,7 +147,19 @@ public class ProposalController {
         } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
             proposal.get().setStatus(ProposalStatus.SFI_APPROVED);
         }
+
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(proposal.get().getProjectId());
+        }
+
+        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+
         repository.save(proposal.get());
+
+        MailHelper.send(
+            user.getEmail(), "Proposal Approved", 
+            "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved.");
     }
 
     @PostMapping

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bestteam.exceptions.LoginException;
 import com.bestteam.helpers.JWTKey;
+import com.bestteam.helpers.MailHelper;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.LoginUser;
 import com.bestteam.models.User;
@@ -108,6 +109,15 @@ public class SessionController {
             newUser.setTitle("Not Specified");
             newUser = repository.save(newUser);
             status = HttpStatus.CREATED;
+
+            MailHelper.send(
+                newUser.getEmail(), "Sesame Account Created", 
+                "Dear " + newUser.getFirstName() + " " + newUser.getLastName() +
+                "\nWelcome to your Sesame account. Your account was automatically created when you signed up with your ORCID account " +
+                "You will be able to login with your ORCID account by clicking the same button or withy our Sesame details. We highly recommend " +
+                "that you change your password when you sign-in. It has been set to new-user-password by default." +
+                "\nKind Regards" +
+                "\nSFI Administration");
         } else {
             newUser = repository.findByOrcid(orcid).get();
         }
