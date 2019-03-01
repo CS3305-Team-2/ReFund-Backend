@@ -116,7 +116,7 @@ public class ProposalController {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
 
         repository.save(proposal.get());
 
@@ -153,7 +153,7 @@ public class ProposalController {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
 
         repository.save(proposal.get());
 
