@@ -176,7 +176,7 @@ public class ProposalController {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(project.get().getPi());
+        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
 
         MailHelper.send(
             user.getEmail(), "Proposal Rejection", 

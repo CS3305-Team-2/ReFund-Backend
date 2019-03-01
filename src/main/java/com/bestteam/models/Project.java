@@ -25,13 +25,11 @@ public class Project {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name="pi")
-    private Long pi;
+    @Column(name="name")
+    private String name;
 
-    @Null
     @Column(name="is_research_center")
-    private boolean isResearchCenter;
+    private Boolean isResearchCenter;
 
     @NotNull
     @Column(name="budget")
@@ -50,9 +48,8 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, Long pi, boolean isResearchCenter, Long budget, String status, Proposal proposal) {
+    public Project(Long id, Boolean isResearchCenter, Long budget, String status, Proposal proposal) {
         this.id = id;
-        this.pi = pi;
         this.isResearchCenter = isResearchCenter;
         this.budget = budget;
         this.status = status;
@@ -67,19 +64,19 @@ public class Project {
         this.id = id;
     }
 
-    public Long getPi() {
-        return this.pi;
+    public String getName() {
+        return name;
     }
 
-    public void setPi(Long pi) {
-        this.pi = pi;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean isIsResearchCenter() {
+    public Boolean isIsResearchCenter() {
         return this.isResearchCenter;
     }
 
-    public void setIsResearchCenter(boolean isResearchCenter) {
+    public void setIsResearchCenter(Boolean isResearchCenter) {
         this.isResearchCenter = isResearchCenter;
     }
 
@@ -119,7 +116,6 @@ public class Project {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", pi='" + getPi() + "'" +
             ", isResearchCenter='" + isIsResearchCenter() + "'" +
             ", budget='" + getBudget() + "'" +
             ", status='" + getStatus() + "'" +

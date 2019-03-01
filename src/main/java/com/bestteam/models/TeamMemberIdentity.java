@@ -7,12 +7,12 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @SuppressWarnings("serial")
 @Embeddable
 public class TeamMemberIdentity implements Serializable {
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id")
+    /* @GeneratedValue(strategy=GenerationType.IDENTITY) */
     private Long id;
 
     @NotNull

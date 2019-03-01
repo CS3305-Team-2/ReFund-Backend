@@ -3,6 +3,7 @@ package com.bestteam.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import com.bestteam.models.Project;
 import com.bestteam.models.TeamMember;
 import com.bestteam.repository.ProjectRepository;
 import com.bestteam.repository.TeamMemberRepository;
+import com.google.common.collect.Sets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +49,7 @@ public class ProjectController {
             throw new NoJWTFound();
         }
         Integer userId = (Integer)JWTKey.getClaim(token, "user");
-        return new Response<>(repository.getProjectByPi(Long.valueOf(userId)));
+        return new Response<>(repository.findAllProjectsForPI(Long.valueOf(userId)));
     }
 
     @GetMapping("/associatedTo/{userId}")
@@ -88,14 +90,17 @@ public class ProjectController {
 
     @PostMapping
     public Response<Project> createProject(HttpServletRequest request, @Valid @RequestBody Project project) {
-        String token = request.getHeader("JWT-TOKEN");
-        if(token == null) {
-            throw new NoJWTFound();
+        project.setIsResearchCenter(false);
+        
+        Set<TeamMember> teamMembers = project.getTeamMembers();
+        project.setTeamMembers(null);
+        Project newProject = repository.save(project);
+        for(TeamMember teamMember: teamMembers) {
+            teamMember.setProjectId(newProject.getId());
         }
-
-        Integer userId = (Integer)JWTKey.getClaim(token, "user");
-
-        return new Response<>(repository.save(project));
+        Iterable<TeamMember> newTeamMembers = teamMemberRepo.saveAll(() -> teamMembers.iterator());
+        project.setTeamMembers(Sets.newHashSet(newTeamMembers));
+        return new Response<>(newProject);
     }
 
     @GetMapping("/{projectId}")
