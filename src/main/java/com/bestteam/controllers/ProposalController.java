@@ -80,6 +80,17 @@ public class ProposalController {
         return new Response<>(repository.save(proposal));
     }
 
+    @PatchMapping("/{proposalId}/submit")
+    public void submitProposal(@PathVariable("proposalId") Long proposalId) {
+        Optional<Proposal> proposal = repository.findById(proposalId);
+        if (!proposal.isPresent()) {
+            throw new ProposalNotFoundException(proposalId);
+        }
+
+        proposal.get().setStatus(ProposalStatus.RO_SUBMITTED);
+        repository.save(proposal.get());
+    }
+
     @PatchMapping("/{proposalId}/reject")
     public void rejectProposal(@PathVariable("proposalId") Long proposalId) {
         Optional<Proposal> proposal = repository.findById(proposalId);
