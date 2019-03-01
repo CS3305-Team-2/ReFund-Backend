@@ -6,10 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.Id;
 
 @Entity
 @Table(name="Education")
 public class Education {
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", insertable=false, updatable=false, nullable=false)
     private Long educationId;
