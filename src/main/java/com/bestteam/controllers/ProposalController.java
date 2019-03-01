@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 import java.io.IOException;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.bestteam.exceptions.ProposalNotFoundException;
+import com.bestteam.exceptions.ProposalWithoutFileException;
 import com.bestteam.exceptions.ProjectNotFoundException;
 import com.bestteam.exceptions.ProposalNotDraftException;
 import com.bestteam.models.Project;
@@ -56,41 +54,23 @@ public class ProposalController {
         return new Response<>(repository.findByStatus(status));
     }
 
-    @PostMapping("/update")
-    public Response<Proposal> updateProposalDraft(
-        @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
-        @RequestPart("proposal") @Valid Proposal proposal) {
-        // sample update
-        // curl -X POST -v -F 'file=@build.gradle' -F 'proposal=
-        // {"id": 8,
-        // "status": "DRAFT",
-        // "primaryAttribution": "1",
-        // "projectId": 1,
-        // "title": "this this this this this thsi tshi",
-        // "duration": 123234,
-        // "nrpArea": "OTHER",
-        // "legalRemitAlignment": "what",
-        // "ethicalIssues": "none",
-        // "applicantLocationStatement": "somewhere",
-        // "coApplicantsList": "lolno",
-        // "collaboratorsList": "none",
-        // "scientificAbstract": "does stuff",
-        // "layAbstract": "LAY ABSTRACT",
-        // "declaration": true};type=application/json' http://localhost:8080/api/proposal/update | python -mjson.tool
-        Optional<Proposal> prop = repository.findById(proposal.getId());
-        if (!prop.isPresent()) {
+    @PatchMapping("/update")
+    public Response<Proposal> updateProposalDraft(@RequestParam(name="file", required=false) @Valid MultipartFile file, @RequestPart("proposal") @Valid Proposal proposal) {
+        Optional<Proposal> oldProposal = repository.findById(proposal.getId());
+        if (!oldProposal.isPresent()) {
             throw new ProposalNotFoundException(proposal.getId());
         }
-        if (prop.get().getStatus() != ProposalStatus.DRAFT) {
-            throw new ProposalNotDraftException(proposal.getId().toString());
+        if (oldProposal.get().getStatus() != ProposalStatus.DRAFT) {
+            throw new ProposalNotDraftException(proposal.getId());
         }
         try {
+            System.out.println(file == null);
             if (file == null) {
-                proposal.setFileLocation(prop.get().getFileLocation());
+                proposal.setFileLocation(oldProposal.get().getFileLocation());
             } else {
-                proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
+                System.out.println("replacing file");
+                UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + proposal.getId() + ".pdf");
                 proposal = repository.save(proposal);
-                UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
                 proposal.setFileLocation(resp.getFileName());
             }
             proposal = repository.save(proposal);
@@ -116,7 +96,7 @@ public class ProposalController {
     }
 
     @PatchMapping("/{proposalId}/approve")
-    public void approveProposal(@PathVariable("projectId") Long proposalId) {
+    public void approveProposal(@PathVariable("proposalId") Long proposalId) {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
@@ -131,27 +111,34 @@ public class ProposalController {
     }
 
     @PostMapping
-    public Response<Proposal> createProposal(
-        @RequestParam(name="file", required=false) @Valid @NotNull @NotBlank MultipartFile file,
-        @RequestPart("proposal") @Valid Proposal proposal) {
+    public Response<Proposal> createProposal(@RequestParam(name="file", required=false) @Valid MultipartFile file, @RequestPart("proposal") @Valid Proposal proposal) {
+        Optional<Project> project = Optional.empty();
         try {
-            if (file == null) {
-                file=new MockMultipartFile("tempFileOnServerBroooooo","temp".getBytes());
+            if (file == null && proposal.getStatus() != ProposalStatus.DRAFT) {
+                throw new ProposalWithoutFileException();
             }
-            proposal.setFileLocation(""); // setting to empty string because column is NOT NULL
+            
             proposal = repository.save(proposal);
-            UploadFileResponse resp;
-            if (file.getName().equals("tempFileOnServerBroooooo")) {
-                resp = fileController.uploadFile(file, "temp_proposal_" + String.valueOf(proposal.getId()) + ".pdf");
-            } else {
-                resp = fileController.uploadFile(file, "proposal_" + String.valueOf(proposal.getId()) + ".pdf");
+            
+            if (file != null) {
+                UploadFileResponse resp = fileController.uploadFile(file, "proposal_" + proposal.getId() + ".pdf");
+                proposal.setFileLocation(resp.getFileName());
             }
-            proposal.setFileLocation(resp.getFileName());
+
+            proposal = repository.save(proposal);
+
+            project = projectRepository.findById(proposal.getProjectId());
+            if (!project.isPresent()) {
+                throw new ProjectNotFoundException(proposal.getProjectId());
+            }
+            project.get().setProposal(proposal);
+            projectRepository.save(project.get());
         } catch(Exception e) {
             repository.delete(proposal);
+            if (project.isPresent()) project.get().setProposal(null);
             throw e;
         }
-        return new Response<>(repository.save(proposal));
+        return new Response<>(proposal);
     }
 
     @GetMapping("/{proposalId}")

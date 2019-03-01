@@ -2,7 +2,7 @@ package com.bestteam.exceptions;
 
 @SuppressWarnings("serial")
 public class ProposalNotDraftException extends RuntimeException {
-    public ProposalNotDraftException(String proposalId) {
+    public ProposalNotDraftException(Long proposalId) {
         super("Proposal ID " + proposalId + " is not a draft and so cannot be edited.");
     }
 }

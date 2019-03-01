@@ -70,34 +70,6 @@ public class Proposal {
     @Column(name="declaration")
     private boolean declaration;
 
-	public Proposal() {}
-
-	public Proposal(Long id, ProposalStatus status,
-                    Long primaryAttribution, Long projectId,
-                    String title, Long duration, NRPArea nrpArea,
-                    String legalRemitAlignment, String ethicalIssues,
-                    String applicantLocationStatement,
-                    String coApplicantsList, String collaboratorsList,
-                    String scientificAbstract, String layAbstract,
-                    String fileLocation, boolean declaration) {
-		this.id = id;
-		this.status = status;
-		this.primaryAttribution = primaryAttribution;
-		this.projectId = projectId;
-		this.title = title;
-		this.duration = duration;
-		this.nrpArea = nrpArea;
-		this.legalRemitAlignment = legalRemitAlignment;
-		this.ethicalIssues = ethicalIssues;
-		this.applicantLocationStatement = applicantLocationStatement;
-		this.coApplicantsList = coApplicantsList;
-		this.collaboratorsList = collaboratorsList;
-		this.scientificAbstract = scientificAbstract;
-		this.layAbstract = layAbstract;
-		this.fileLocation = fileLocation;
-		this.declaration = declaration;
-	}
-
 	public Long getId() {
 		return id;
 	}

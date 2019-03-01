@@ -45,16 +45,6 @@ public class Project {
     @JoinColumn(name="project_id")
     private Set<TeamMember> teamMembers = new HashSet<>();
 
-    public Project() {}
-
-    public Project(Long id, Boolean isResearchCenter, Long budget, String status, Proposal proposal) {
-        this.id = id;
-        this.isResearchCenter = isResearchCenter;
-        this.budget = budget;
-        this.status = status;
-        this.proposal = proposal;
-    }
-    
     public Long getId() {
         return this.id;
     }

@@ -67,6 +67,16 @@ public class ProjectController {
         return new Response<>(project.get());
     }
 
+    @PatchMapping("/{projectId}/status/{status}")
+    public void setProjectStatus(@PathVariable("projectId") Long projectId, @PathVariable("status") String status) {
+        Optional<Project> project = repository.findById(projectId);
+        if (!project.isPresent()) {
+            throw new ProjectNotFoundException(projectId);
+        }
+        project.get().setStatus(status);
+        repository.save(project.get());
+    }
+
     @PatchMapping("/{projectId}/markAsRc")
     public void markAsResearchCenter(@PathVariable("projectId") Long projectId) {
         Optional<Project> project = repository.findById(projectId);

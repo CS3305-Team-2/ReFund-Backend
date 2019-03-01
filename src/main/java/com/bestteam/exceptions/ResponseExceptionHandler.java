@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.bestteam.helpers.Error;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,9 +39,28 @@ public class ResponseExceptionHandler {
         if (e.getSQLException() instanceof SQLIntegrityConstraintViolationException) {
             error = new Error(new String[]{"Foreign key violation"});
         } else {
-            error = new Error(new String[]{"idk fam"});
+            error = new Error(new String[]{"idk fam. Ask noah. " + e.getMessage()});
+            e.printStackTrace();
         }
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public final ResponseEntity<Error> constraintViolatedAgain(DataIntegrityViolationException e) {
+        Error error = new Error(new String[]{e.getMostSpecificCause().getMessage()});
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProposalWithoutFileException.class)
+    public final ResponseEntity<Error> noFileSentWithProposal(ProposalWithoutFileException e) {
+        Error error = new Error(new String[]{e.getMessage()});
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public final ResponseEntity<Error> fileNotFound(FileNotFoundException e) {
+        Error error = new Error(new String[]{e.getMessage()});
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadSearchException.class)
