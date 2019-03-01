@@ -37,7 +37,7 @@ public class AwardsController {
     @GetMapping("/{userId}")
     public Response<List<Awards>> getAwards(@PathVariable("userId") Long userId) {
         List<Awards> list = new ArrayList<>();
-        repository.findByAwardsIdentityUserId(userId).forEach(list::add);
+        repository.findByUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
 

@@ -27,7 +27,7 @@ public class ImpactController {
     @GetMapping("/{userId}")
     public Response<List<Impact>> getImpactsForUser(@PathVariable("userId") Long userId) {
         List<Impact> list = new ArrayList<>();
-        repository.findByImpactIdentityUserId(userId).forEach(list::add);
+        repository.findByUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
     @PostMapping

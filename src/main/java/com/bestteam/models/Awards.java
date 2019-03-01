@@ -1,17 +1,25 @@
 package com.bestteam.models;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.Id;
 
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Awards")
 public class Awards {
-    @EmbeddedId
-    private AwardsIdentity awardsIdentity;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
+    private Long awardsId;
+
+    @NotNull
+    @Column(name="user_id")
+    private Long userId;
 
     @NotNull
     private int year;
@@ -23,22 +31,21 @@ public class Awards {
     @NotNull
     private String details;
 
-    public Awards() {}
+    public Long getAwardsId() {
+		return awardsId;
+	}
 
-    public Awards(AwardsIdentity awardsIdentity, int year, String awardingBody, String details) {
-        this.awardsIdentity = awardsIdentity;
-        this.year = year;
-        this.awardingBody = awardingBody;
-        this.details = details;
-    }
+	public void setAwardsId(Long awardsId) {
+		this.awardsId = awardsId;
+	}
 
-    public AwardsIdentity getAwardsIdentity() {
-        return awardsIdentity;
-    }
+	public Long getUserId() {
+		return userId;
+	}
 
-    public void setAwardsIdentity(AwardsIdentity awardsIdentity) {
-        this.awardsIdentity = awardsIdentity;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
     public int getYear() {
         return year;
@@ -65,13 +72,13 @@ public class Awards {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         return "{" +
-               ",awardsIdentity='" + getAwardsIdentity() + "'" +
-               ",year='" + getYear() + "'" +
-               ",awardingBody='" + getAwardingBody() + "'" +
-               ",details='" + getDetails() + "'" +
-               "}";
+            " awardsId='" + getAwardsId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", year='" + getYear() + "'" +
+            ", awardingBody='" + getAwardingBody() + "'" +
+            ", details='" + getDetails() + "'" +
+            "}";
     }
-
 }

@@ -9,18 +9,11 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.SQLInsert;
 
 @Entity
 @Table(name="TeamMember")
-/* @SQLInsert(sql="INSERT INTO TeamMember (user_id, start_date, end_date, role, project_id) values (?, ?, ?, ?, ?)") */
 public class TeamMember {
-    /* @EmbeddedId
-    private TeamMemberIdentity teamMemberIdentity; */
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -44,47 +37,18 @@ public class TeamMember {
     @Column(name="project_id")
     private Long projectId;
 
-    public TeamMember() {}
-
-    public TeamMember(/* TeamMemberIdentity identity,  */Date startDate, Date endDate, String role) {
-        /* this.teamMemberIdentity = identity; */
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.role = role;
-    }
-
-    /* public TeamMemberIdentity getTeamMemberIdentity() {
-        return teamMemberIdentity;
-    }
-
-    public void setTeamMemberIdentity(TeamMemberIdentity teamMemberIdentity) {
-        this.teamMemberIdentity = teamMemberIdentity;
-    } */
-
-    /**
-     * @return the id
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the userId
-     */
     public Long getUserId() {
         return userId;
     }
 
-    /**
-     * @param userId the userId to set
-     */
     public void setUserId(Long userId) {
         this.userId = userId;
     }

@@ -1,17 +1,22 @@
 package com.bestteam.models;
 
-import com.bestteam.models.EducationIdentity;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.EmbeddedId;
+import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotNull;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
 
 @Entity
 @Table(name="Education")
 public class Education {
-    @EmbeddedId
-    private EducationIdentity educationIdentity;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
+    private Long educationId;
+
+    @NotNull
+    @Column(name="user_id")
+    private Long userId;
 
     @NotNull
     private String degree;
@@ -25,16 +30,25 @@ public class Education {
     @NotNull
     private String location;
 
+    @NotNull
     private int year;
 
-    public EducationIdentity getEducationIdentity() {
-        return this.educationIdentity;
-    }
+    public Long getEducationId() {
+		return educationId;
+	}
 
-    public void setEducationIdentity(EducationIdentity key) {
-        this.educationIdentity = key;
-    }
+	public void setEducationId(Long educationId) {
+		this.educationId = educationId;
+	}
 
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+    }
+    
     public String getDegree() {
         return this.degree;
     }
@@ -78,7 +92,8 @@ public class Education {
     @Override
     public String toString() {
         return "{" +
-            " key='" + getEducationIdentity() + "'" +
+            " educationId='" + getEducationId() + "'" +
+            ", userId='" + getUserId() + "'" +
             ", degree='" + getDegree() + "'" +
             ", field='" + getField() + "'" +
             ", institution='" + getInstitution() + "'" +

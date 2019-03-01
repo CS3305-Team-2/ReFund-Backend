@@ -1,20 +1,23 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 
 import javax.validation.constraints.NotNull;
-
-import com.bestteam.models.ImpactIdentity;
 
 @Entity
 @Table(name="Impact")
 public class Impact {
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
+    private Long impactId;
 
-    @EmbeddedId
-    private ImpactIdentity impactIdentity;
+    @NotNull
+    @Column(name="primary_beneficiary")
+    private Long userId;
 
     @NotNull
     @Column(name="title")
@@ -28,22 +31,21 @@ public class Impact {
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
-	public Impact() {}
+    public Long getImpactId() {
+        return impactId;
+    }
 
-	 public Impact(ImpactIdentity impactIdentity, String title, String category, Long primaryAttribution) {
-		this.impactIdentity = impactIdentity;
-		this.title = title;
-		this.category = category;
-		this.primaryAttribution = primaryAttribution;
-	}
+    public void setImpactId(Long impactId) {
+        this.impactId = impactId;
+    }
 
-	public ImpactIdentity getImpactIdentity() {
-		return impactIdentity;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setId(ImpactIdentity impactIdentity) {
-		this.impactIdentity = impactIdentity;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
 	public String getTitle() {
 		return title;
@@ -67,14 +69,16 @@ public class Impact {
 
 	public void setPrimaryAttribution(Long primaryAttribution) {
 		this.primaryAttribution = primaryAttribution;
-	}
+    }
+
     @Override
     public String toString() {
         return "{" +
-        " impactIdentity='" + getImpactIdentity() + "'" +
-        ", title='" + getTitle() + "'" +
-        ", category='" + getCategory() + "'" +
-        ", primary_attribution='" + getPrimaryAttribution() + "'" +
-        "}";
-    }
+            " impactId='" + getImpactId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", category='" + getCategory() + "'" +
+            ", primaryAttribution='" + getPrimaryAttribution() + "'" +
+            "}";
+    }    
 }

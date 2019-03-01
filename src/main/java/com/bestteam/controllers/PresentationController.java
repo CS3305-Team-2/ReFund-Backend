@@ -27,7 +27,7 @@ public class PresentationController {
     @GetMapping("/{userId}")
     public Response<List<Presentation>> getPresentationsForUser(@PathVariable("userId") Long userId) {
         List<Presentation> list = new ArrayList<>();
-        repository.findByPresentationIdentityUserId(userId).forEach(list::add);
+        repository.findByUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
 

@@ -131,20 +131,20 @@ public class UserController {
 
     @GetMapping("/{userId}/educations")
     public Response<List<Education>> getUserEducations(@PathVariable("userId") Long userId) {
-        return new Response<>(educationRepository.findByEducationIdentityUserId(userId));
+        return new Response<>(educationRepository.findByUserId(userId));
     }
 
     @GetMapping("/{userId}/awards")
     public Response<List<Awards>> getUserAwards(@PathVariable("userId") Long userId) {
-        return new Response<>(awardsRepository.findByAwardsIdentityUserId(userId));
+        return new Response<>(awardsRepository.findByUserId(userId));
     }
 
     @GetMapping("/{userId}/employments")
     public Response<List<Employment>> getUserEmployments(@PathVariable("userId") Long userId) {
-        return new Response<>(employmentRepository.findByEmploymentIdentityUserId(userId));
+        return new Response<>(employmentRepository.findByUserId(userId));
     }
     @GetMapping("/{userId}/societymemberships")
     public Response<List<SocietyMembership>> getUserSocietyMemberships(@PathVariable("userId") Long userId) {
-        return new Response<>(societyMembershipRepository.findBySocietyMembershipIdentityUserId(userId));
+        return new Response<>(societyMembershipRepository.findByUserId(userId));
     }
 }

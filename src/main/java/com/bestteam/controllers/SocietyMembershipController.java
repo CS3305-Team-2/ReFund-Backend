@@ -17,7 +17,6 @@ import com.bestteam.exceptions.SocietyMembershipNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.SocietyMembership;
 import com.bestteam.repository.SocietyMembershipRepository;
-import com.bestteam.models.SocietyMembershipIdentity;
 
 @RestController
 @RequestMapping("/api/societyMembership")
@@ -37,7 +36,7 @@ public class SocietyMembershipController {
     }
 
     @GetMapping("/{societyMembershipId}")
-    public Response<SocietyMembership> getSocietyMembership(@PathVariable("societyMembershipId") SocietyMembershipIdentity societyMembershipId) {
+    public Response<SocietyMembership> getSocietyMembership(@PathVariable("societyMembershipId") Long societyMembershipId) {
         Optional<SocietyMembership> societyMembership = repository.findById(societyMembershipId);
         if (!societyMembership.isPresent()) {
             throw new SocietyMembershipNotFoundException(societyMembership.toString());

@@ -1,7 +1,6 @@
 CREATE TABLE `Project` 
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `pi` INT NOT NULL,
     `is_research_center` BOOLEAN NOT NULL,
     `proposal_id` INT NOT NULL,
     `budget` INT NOT NULL,

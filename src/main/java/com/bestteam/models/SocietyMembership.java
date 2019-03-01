@@ -1,7 +1,9 @@
 package com.bestteam.models;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -9,9 +11,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="SocietyMembership")
 public class SocietyMembership {
-    @EmbeddedId
-    private SocietyMembershipIdentity societyMembershipIdentity;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
+    private Long societyMembershipId;
 
+    @NotNull
+    @Column(name="user_id")
+    private Long userId;
     @NotNull
     @Column(name="start_date")
     private String startDate;
@@ -29,12 +36,20 @@ public class SocietyMembership {
     @NotNull
     private String status;
 
-    public SocietyMembershipIdentity getSocietyMembershipIdentity() {
-        return societyMembershipIdentity;
+    public Long getSocietyMembershipId() {
+        return societyMembershipId;
     }
 
-    public void setSocietyMembershipIdentity(SocietyMembershipIdentity societyMembershipIdentity) {
-        this.societyMembershipIdentity = societyMembershipIdentity;
+    public void setSocietyMembershipId(Long societyMembershipId) {
+        this.societyMembershipId = societyMembershipId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getStartDate() {
@@ -77,15 +92,16 @@ public class SocietyMembership {
         this.status = status;
     }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
         return "{" +
-               ",societyMembershipIdentity='" + getSocietyMembershipIdentity() + "'" +
-               ",start_date='" + getStartDate() + "'" +
-               ",end_date='" + getEndDate() + "'" +
-               ",name='" + getName() + "'" +
-               ",type='" + getType() + "'" +
-               ",status='" + getStatus() + "'" +
-               "}";
+            " societyMembershipId='" + getSocietyMembershipId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", startDate='" + getStartDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
+            ", name='" + getName() + "'" +
+            ", type='" + getType() + "'" +
+            ", status='" + getStatus() + "'" +
+            "}";
     }
 }

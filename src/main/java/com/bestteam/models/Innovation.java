@@ -1,20 +1,25 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Id;
 
 import javax.validation.constraints.NotNull;
-
-import com.bestteam.models.InnovationIdentity;
 
 @Entity
 @Table(name="Innovation")
 public class Innovation {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", insertable=false, updatable=false, nullable=false)
+    private Long innovationId;
 
-    @EmbeddedId
-    private InnovationIdentity innovationIdentity;
+    @NotNull
+    @Column(name="user_id")
+    private Long userId;
 
     @NotNull
     @Column(name="title")
@@ -32,22 +37,20 @@ public class Innovation {
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
-    public Innovation() {}
-
-    public Innovation(InnovationIdentity innovationIdentity, String title, String type, Long year, Long primaryAttribution) {
-        this.innovationIdentity = innovationIdentity;
-        this.title = title;
-        this.type = type;
-        this.year = year;
-        this.primaryAttribution = primaryAttribution;
+    public Long getInnovationId() {
+        return innovationId;
     }
 
-    public InnovationIdentity getInnovationIdentity() {
-        return innovationIdentity;
+    public void setInnovationId(Long innovationId) {
+        this.innovationId = innovationId;
     }
 
-    public void setInnovationIdentity(InnovationIdentity innovationIdentity) {
-        this.innovationIdentity = innovationIdentity;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -85,11 +88,12 @@ public class Innovation {
     @Override
     public String toString() {
         return "{" +
-        " innovationIdentity='" + getInnovationIdentity() + "'" +
-        ", title='" + getTitle() + "'" +
-        ", type='" + getType() + "'" +
-        ", year='" + getYear() + "'" +
-        ", primary_attribution='" + getPrimaryAttribution() + "'" +
-        "}";
+            " innovationId='" + getInnovationId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", type='" + getType() + "'" +
+            ", year='" + getYear() + "'" +
+            ", primaryAttribution='" + getPrimaryAttribution() + "'" +
+            "}";
     }
 }

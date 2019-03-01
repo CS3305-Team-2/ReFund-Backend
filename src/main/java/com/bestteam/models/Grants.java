@@ -9,7 +9,6 @@ import javax.persistence.Column;
 
 import java.time.LocalDate;
 
-
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -45,18 +44,6 @@ public class Grants {
 
     @Column(name="url")
     private String url;
-
-    public Grants() {}
-
-    public Grants(Long id, LocalDate startDate, LocalDate endDate, int amount, String fundingBody, String fundingProgramme, String status) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.amount = amount;
-        this.fundingBody = fundingBody;
-        this.fundingProgramme = fundingProgramme;
-        this.status = status;
-    }
 
     public Long getId() {
         return id;

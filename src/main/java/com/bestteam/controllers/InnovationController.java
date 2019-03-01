@@ -27,7 +27,7 @@ public class InnovationController {
     @GetMapping("/{userId}")
     public Response<List<Innovation>> getInnovationsForUser(@PathVariable("userId") Long userId) {
         List<Innovation> list = new ArrayList<>();
-        repository.findByInnovationIdentityUserId(userId).forEach(list::add);
+        repository.findByUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
 

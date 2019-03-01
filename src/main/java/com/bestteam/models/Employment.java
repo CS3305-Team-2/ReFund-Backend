@@ -1,15 +1,22 @@
 package com.bestteam.models;
 
 import javax.persistence.Entity;
-import javax.persistence.EmbeddedId;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Employment")
 public class Employment {
-    @EmbeddedId
-    private EmploymentIdentity employmentIdentity;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="user_id")
+    private Long userId;
 
     @NotNull
     private String institution;
@@ -20,21 +27,20 @@ public class Employment {
     @NotNull
     private int years;
 
-    public Employment() {}
-
-    public Employment(EmploymentIdentity employmentIdentity, String institution, String location, int years) {
-        this.employmentIdentity = employmentIdentity;
-        this.institution = institution;
-        this.location = location;
-        this.years = years;
+    public Long getId() {
+        return id;
     }
 
-    public EmploymentIdentity getEmploymentIdentity() {
-        return this.employmentIdentity;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setEmploymentIdentity(EmploymentIdentity employmentIdentity) {
-        this.employmentIdentity = employmentIdentity;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
 	public String getInstitution() {
@@ -61,13 +67,14 @@ public class Employment {
 		this.years = years;
 	}
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
         return "{" +
-               ",employmentIdentity='" + getEmploymentIdentity() + "'" +
-               ",institution='" + getInstitution() + "'" +
-               ",location='" + getLocation() + "'" +
-               ",years='" + getYears() + "'" +
-               "}";
-    }
+            " id='" + getId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", institution='" + getInstitution() + "'" +
+            ", location='" + getLocation() + "'" +
+            ", years='" + getYears() + "'" +
+            "}";
+    }	
 }

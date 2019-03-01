@@ -38,20 +38,6 @@ public class HostInstitution {
     @Column(name="telephone")
     private String telephone;
 
-	public HostInstitution() {}
-
-	public HostInstitution(Long id, String name, String address1,
-                           String address2, String postCode,
-                           String email, String telephone) {
-		this.id = id;
-		this.name = name;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.postCode = postCode;
-		this.email = email;
-		this.telephone = telephone;
-	}
-
 	public Long getId() {
 		return id;
 	}

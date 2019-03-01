@@ -1,5 +1,5 @@
 CREATE TABLE `Proposal` (
-	`id` INT NOT NULL AUTO_INCREMENT,
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
 	`status` VARCHAR(30) NOT NULL,
 	`primary_attribution` INT,
 	`project_id` INT,
@@ -15,7 +15,6 @@ CREATE TABLE `Proposal` (
     `lay_abstract` TEXT ,
     `file_location` VARCHAR(60)  UNIQUE,
     `declaration` BOOLEAN ,
-    PRIMARY KEY (`id`),
     FOREIGN KEY `proposal_to_grants`(`primary_attribution`)
     REFERENCES `Grants`(`id`)
     ON DELETE CASCADE

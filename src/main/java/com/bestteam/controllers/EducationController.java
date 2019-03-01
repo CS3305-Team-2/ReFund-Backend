@@ -27,7 +27,7 @@ public class EducationController {
     @GetMapping("/{userId}")
     public Response<List<Education>> getEducationsForUser(@PathVariable("userId") Long userId) {
         List<Education> list = new ArrayList<>();
-        repository.findByEducationIdentityUserId(userId).forEach(list::add);
+        repository.findByUserId(userId).forEach(list::add);
         return new Response<>(list);
     }
         

@@ -17,7 +17,6 @@ import com.bestteam.exceptions.EmploymentNotFoundException;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.Employment;
 import com.bestteam.repository.EmploymentRepository;
-import com.bestteam.models.EmploymentIdentity;
 
 @RestController
 @RequestMapping("/api/employment")
@@ -37,7 +36,7 @@ public class EmploymentController {
     }
 
     @GetMapping("/{employmentId}")
-    public Response<Employment> getEmployment(@PathVariable("employmentId") EmploymentIdentity employmentId) {
+    public Response<Employment> getEmployment(@PathVariable("employmentId") Long employmentId) {
         Optional<Employment> employment = repository.findById(employmentId);
         if (!employment.isPresent()) {
             throw new EmploymentNotFoundException(employment.toString());
