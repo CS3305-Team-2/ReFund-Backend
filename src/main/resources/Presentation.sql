@@ -9,7 +9,7 @@ CREATE TABLE `Presentations`
     `event_type` VARCHAR(30) NOT NULL,
     `user_id` INT NOT NULL,
     FOREIGN KEY `funding_to_grant`(`primary_attribution`)
-    REFERENCES `Grant`(`id`)
+    REFERENCES `Grants`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY `presentation_to_user`(`user_id`)

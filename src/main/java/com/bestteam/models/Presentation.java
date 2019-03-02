@@ -6,8 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 
 import javax.validation.constraints.NotNull;
+
+import com.bestteam.helpers.PresentationType;
 
 @Entity
 @Table(name="Presentations")
@@ -43,7 +47,23 @@ public class Presentation {
 
     @NotNull
     @Column(name="event_type")
-    private String eventType;
+    @Enumerated(EnumType.STRING)
+    private PresentationType eventType;
+
+    public Presentation() {}
+
+    public Presentation(Long presentationId, Long userId, Long year,
+                        String title, String organisingBody, String location,
+                        Long primaryAttribution, PresentationType eventType) {
+        this.presentationId = presentationId;
+        this.userId = userId;
+        this.year = year;
+        this.title = title;
+        this.organisingBody = organisingBody;
+        this.location = location;
+        this.primaryAttribution = primaryAttribution;
+        this.eventType = eventType;
+    }
 
     public Long getPresentationId() {
         return presentationId;
@@ -101,11 +121,11 @@ public class Presentation {
         this.primaryAttribution = primaryAttribution;
     }
 
-    public String getEventType() {
+    public PresentationType getEventType() {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
+    public void setEventType(PresentationType eventType) {
         this.eventType = eventType;
     }
 
