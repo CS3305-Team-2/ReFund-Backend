@@ -9,7 +9,7 @@ CREATE TABLE `Impact`
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY `impacts_to_grants`(`primary_attribution`)
-    REFERENCES `Grant`(`id`)
+    REFERENCES `Grants`(`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );

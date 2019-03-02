@@ -6,7 +6,7 @@ CREATE TABLE `Innovation` (
   `year` INT NOT NULL,
   `primary_attribution` INT NOT NULL,
   FOREIGN KEY `innovation_and_commercialisation_to_grants`(`primary_attribution`)
-  REFERENCES `Grant`(`id`)
+  REFERENCES `Grants`(`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE,
   FOREIGN KEY `innovation_and_commercialisation_to_user`(`user_id`)
