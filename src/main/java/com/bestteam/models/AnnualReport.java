@@ -107,7 +107,10 @@ public class AnnualReport {
 	}
 
 	public void setPlannedActivities(String plannedActivities) {
-		this.plannedActivities = plannedActivities;
+        if (plannedActivities.split("\\s+").length>200){
+            throw new WordCountOverLimitException("Planned Activities", id.toString());
+        }
+        this.plannedActivities = plannedActivities;
 	}
 
     @Override
