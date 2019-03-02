@@ -110,6 +110,18 @@ public class User {
     @JoinColumn(name="user_id")
     private Set<Presentation> presentation = new LinkedHashSet<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<NonAcademicCollaborations> nonAcademicCollaborations = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<AcademicCollaborations> academicCollaborations = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<Publication> publication = new LinkedHashSet<>();
+
     //@JsonIgnore
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
@@ -293,6 +305,31 @@ public class User {
         this.presentation = presentation;
     }
 
+    public Set<Publication> getPublication() {
+        return this.publication;
+    }
+
+    public void setPublication(Set<Publication> publication) {
+        this.publication = publication;
+    }
+
+
+    public Set<NonAcademicCollaborations> getNonAcademicCollaborations() {
+        return this.nonAcademicCollaborations;
+    }
+
+    public void setNonAcademicCollaborations(Set<NonAcademicCollaborations> nonAcademicCollaborations) {
+        this.nonAcademicCollaborations = nonAcademicCollaborations;
+    }
+
+    public Set<AcademicCollaborations> getAcademicCollaborations() {
+        return this.academicCollaborations;
+    }
+
+    public void setAcademicCollaborations(Set<AcademicCollaborations> academicCollaborations) {
+        this.academicCollaborations = academicCollaborations;
+    }
+
     public Set<TeamMember> getMembers() {
         return members;
     }
@@ -349,9 +386,12 @@ public class User {
             ", employments='" + getEmployments() + "'" +
             ", societyMemberships='" + getSocietyMemberships() + "'" +
             ", awards='" + getAwards() + "'" +
-            ", awards='" + getImpact() + "'" +
-            ", awards='" + getInnovation() + "'" +
-            ", awards='" + getPresentation() + "'" +
+            ", impact='" + getImpact() + "'" +
+            ", innovation='" + getInnovation() + "'" +
+            ", presentation='" + getPresentation() + "'" +
+            ", publication='" + getPublication() + "'" +
+            ", academicCollaborations='" + getAcademicCollaborations() + "'" +
+            ", nonAcademicCollaborations='" + getNonAcademicCollaborations() + "'" +
             ", members='" + getMembers() + "'" +
             "}";
     }
