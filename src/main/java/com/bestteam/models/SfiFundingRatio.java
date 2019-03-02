@@ -9,8 +9,6 @@ import javax.persistence.Table;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotNull;
 
 import com.bestteam.helpers.TimePercent;
