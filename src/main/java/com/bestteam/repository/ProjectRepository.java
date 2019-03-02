@@ -16,7 +16,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
     public List<Project> findAllAssociatedProjects(Long userId);
 
     @Query(
-        value="SELECT proj.* FROM Project AS proj JOIN TeamMember AS teammem ON proj.id = teammem.project_id WHERE teammem.role = 'PI' AND teammem.id = 1",
+        value="SELECT proj.* FROM Project AS proj JOIN TeamMember AS teammem ON proj.id = teammem.project_id JOIN User AS user on teammem.user_id = user.id WHERE teammem.role = 'PI' AND user.id = ?1",
         nativeQuery=true)
     public List<Project> findAllProjectsForPI(Long piId);
 
