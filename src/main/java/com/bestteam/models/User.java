@@ -20,12 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-import com.bestteam.models.Education;
-import com.bestteam.models.HostInstitution;
-import com.bestteam.models.Employment;
-import com.bestteam.models.SocietyMembership;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.bestteam.models.Awards;
 
 @Entity
 @Table(name="User")
@@ -122,21 +117,26 @@ public class User {
     @JoinColumn(name="user_id")
     private Set<Publication> publication = new LinkedHashSet<>();
 
-    //@JsonIgnore
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private Set<AcademicCollaborations> academicCollaborations = new LinkedHashSet<>();
+    private Set<Event> event = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<CommunicationOverview> communicationOverview = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<SfiFundingRatio> sfiFundingRatio = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<EducationAndPublicEngagement> educationAndPublicEngagement = new LinkedHashSet<>();
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     private Set<TeamMember> members = new LinkedHashSet<>();
     
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private Set<NonAcademicCollaborations> nonAcademicCollaborations = new LinkedHashSet<>();
-
-    public User() {}
-
     public Long getId() {
         return id;
     }
@@ -338,32 +338,32 @@ public class User {
         this.members = members;
     }
 
-    /**
-     * @return the academicCollaborations
-     */
-    public Set<AcademicCollaborations> getAcademicCollaborations() {
-        return academicCollaborations;
+    public void setEvent(Set<Event> event) {
+        this.event = event;
     }
 
-    /**
-     * @param academicCollaborations the academicCollaborations to set
-     */
-    public void setAcademicCollaborations(Set<AcademicCollaborations> academicCollaborations) {
-        this.academicCollaborations = academicCollaborations;
-    }
-    
-    /**
-     * @return the nonAcademicCollaborations
-     */
-    public Set<NonAcademicCollaborations> getNonAcademicCollaborations() {
-        return nonAcademicCollaborations;
+    public Set<CommunicationOverview> getCommunicationOverview() {
+        return communicationOverview;
     }
 
-    /**
-     * @param nonAcademicCollaborations the nonAcademicCollaborations to set
-     */
-    public void setNonAcademicCollaborations(Set<NonAcademicCollaborations> nonAcademicCollaborations) {
-        this.nonAcademicCollaborations = nonAcademicCollaborations;
+    public void setCommunicationOverview(Set<CommunicationOverview> communicationOverview) {
+        this.communicationOverview = communicationOverview;
+    }
+
+    public Set<SfiFundingRatio> getSfiFundingRatio() {
+        return sfiFundingRatio;
+    }
+
+    public void setSfiFundingRatio(Set<SfiFundingRatio> sfiFundingRatio) {
+        this.sfiFundingRatio = sfiFundingRatio;
+    }
+
+    public Set<EducationAndPublicEngagement> getEducationAndPublicEngagement() {
+        return educationAndPublicEngagement;
+    }
+
+    public void setEducationAndPublicEngagement(Set<EducationAndPublicEngagement> educationAndPublicEngagement) {
+        this.educationAndPublicEngagement = educationAndPublicEngagement;
     }
 
     @Override
