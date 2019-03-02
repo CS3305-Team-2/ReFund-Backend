@@ -162,6 +162,10 @@ public class User {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void hashPassword() {
         this.password = BCrypt.withDefaults().hashToString(10, password.toCharArray());
     }
 

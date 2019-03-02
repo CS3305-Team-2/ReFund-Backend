@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 
-import org.springframework.mock.web.MockMultipartFile;
-
 import java.util.List;
 import java.io.IOException;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.bestteam.models;
+package com.bestteam.helpers;
 
 public class LoginUser {
     private String email;

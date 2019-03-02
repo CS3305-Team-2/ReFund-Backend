@@ -20,6 +20,7 @@ import org.dmfs.rfc5545.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,7 @@ import com.bestteam.exceptions.BadSearchException;
 import com.bestteam.exceptions.UserExistsException;
 import com.bestteam.exceptions.UserNotFoundException;
 import com.bestteam.helpers.MailHelper;
+import com.bestteam.helpers.PasswordChange;
 import com.bestteam.helpers.Response;
 import com.bestteam.models.User;
 import com.bestteam.models.Awards;
@@ -93,6 +95,9 @@ public class UserController {
         if(repository.existsByEmail(user.getEmail())) {
             throw new UserExistsException(user.getEmail());
         }
+
+        user.hashPassword();
+
         User newUser = repository.save(user);
 
         MailHelper.send(
@@ -144,6 +149,18 @@ public class UserController {
         return new Response<>(user.get());
     }
 
+    @PatchMapping("/{userId}/password")
+    public void updatePassword(@PathVariable("userId") Long userId, @RequestBody PasswordChange passwordChange) throws Exception {
+        Optional<User> user = repository.findById(userId);
+        if (user.get().checkPassword(passwordChange.getOldPassword())) {
+            user.get().setPassword(passwordChange.getNewPassword());
+            user.get().hashPassword();
+            repository.save(user.get());
+        } else {
+            throw new Exception("pass dont match");
+        }
+    }
+
     @GetMapping("/{userId}/educations")
     public Response<List<Education>> getUserEducations(@PathVariable("userId") Long userId) {
         return new Response<>(educationRepository.findByUserId(userId));
@@ -158,6 +175,7 @@ public class UserController {
     public Response<List<Employment>> getUserEmployments(@PathVariable("userId") Long userId) {
         return new Response<>(employmentRepository.findByUserId(userId));
     }
+
     @GetMapping("/{userId}/societymemberships")
     public Response<List<SocietyMembership>> getUserSocietyMemberships(@PathVariable("userId") Long userId) {
         return new Response<>(societyMembershipRepository.findByUserId(userId));
