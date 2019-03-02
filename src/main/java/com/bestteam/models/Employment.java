@@ -15,6 +15,7 @@ public class Employment {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name="user_id")
     private Long userId;
 
@@ -76,5 +77,5 @@ public class Employment {
             ", location='" + getLocation() + "'" +
             ", years='" + getYears() + "'" +
             "}";
-    }	
+    }
 }
