@@ -32,14 +32,23 @@ public class FileStorageService {
         }
     }
 
-    public String storeFile(MultipartFile file, String filename) {
+    public String storeFile(MultipartFile file, String fileName) {
         try {
             // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation = this.fileStorageLocation.resolve(filename);
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return filename;
+            return fileName;
         } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + filename + ". Please try again!", ex);
+            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+    }
+
+    public void deleteFile(String fileName) {
+        try {
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.delete(targetLocation);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not delete file " + fileName, ex);
         }
     }
 

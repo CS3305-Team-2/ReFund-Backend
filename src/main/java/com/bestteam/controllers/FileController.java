@@ -2,8 +2,6 @@ package com.bestteam.controllers;
 
 import com.bestteam.helpers.UploadFileResponse;
 import com.bestteam.helpers.FileStorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -14,15 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-/* import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors; */
 
 @RestController
 @RequestMapping("/api")
 public class FileController {
-
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -40,13 +33,10 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
-    /* @PostMapping("/uploadMultipleFiles")
-    protected List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    } */
+    @PatchMapping("/deleteFile/{fileName:.+")
+    protected void deleteFile(@PathVariable("fileName") String fileName) {
+        fileStorageService.deleteFile(fileName);
+    }
 
     @GetMapping("/downloadFile/{fileName:.+}")
     protected ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
@@ -57,9 +47,7 @@ public class FileController {
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-            logger.info("Could not determine file type.");
-        }
+        } catch (IOException ex) {}
 
         // Fallback to the default content type if type could not be determined
         if(contentType == null) {

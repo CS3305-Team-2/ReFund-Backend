@@ -50,21 +50,6 @@ public class Presentation {
     @Enumerated(EnumType.STRING)
     private PresentationType eventType;
 
-    public Presentation() {}
-
-    public Presentation(Long presentationId, Long userId, Long year,
-                        String title, String organisingBody, String location,
-                        Long primaryAttribution, PresentationType eventType) {
-        this.presentationId = presentationId;
-        this.userId = userId;
-        this.year = year;
-        this.title = title;
-        this.organisingBody = organisingBody;
-        this.location = location;
-        this.primaryAttribution = primaryAttribution;
-        this.eventType = eventType;
-    }
-
     public Long getPresentationId() {
         return presentationId;
     }

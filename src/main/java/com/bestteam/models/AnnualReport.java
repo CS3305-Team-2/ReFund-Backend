@@ -42,20 +42,6 @@ public class AnnualReport {
     @Column(name="planned_activities")
     private String plannedActivities;
 
-	public AnnualReport() {}
-
-	public AnnualReport(Long id, Long projectId, Long year,
-                         String planDeviation, String threeHighlights,
-                         String challenges, String plannedActivities) {
-		this.id = id;
-		this.projectId = projectId;
-        this.year = year;
-		this.planDeviation = planDeviation;
-		this.threeHighlights = threeHighlights;
-		this.challenges = challenges;
-		this.plannedActivities = plannedActivities;
-	}
-
 	public Long getId() {
 		return id;
 	}

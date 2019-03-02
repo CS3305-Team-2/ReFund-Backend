@@ -62,28 +62,6 @@ public class NonAcademicCollaborations {
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
-	public NonAcademicCollaborations() {}
-
-	public NonAcademicCollaborations(Long id, Long userId, LocalDate startDate,
-                                  LocalDate endDate, String institutionName,
-                                  String institutionDepartment,
-                                  String location, String nameOfCollaborator,
-                                  CollaborationGoal goalOfCollaboration,
-                                  String interactionFrequency,
-                                  Long primaryAttribution) {
-		this.id = id;
-		this.userId = userId;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.institutionName = institutionName;
-		this.institutionDepartment = institutionDepartment;
-		this.location = location;
-		this.nameOfCollaborator = nameOfCollaborator;
-		this.goalOfCollaboration = goalOfCollaboration;
-		this.interactionFrequency = interactionFrequency;
-		this.primaryAttribution = primaryAttribution;
-	}
-
 	public Long getId() {
 		return id;
 	}

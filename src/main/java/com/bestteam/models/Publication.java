@@ -51,22 +51,6 @@ public class Publication {
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
-	public Publication() {}
-
-	public Publication(Long id, Long userId, PublicationType type,
-                       String title, String journalName,
-                       PublicationStatus status, String doi,
-                       Long primaryAttribution) {
-		this.id = id;
-		this.userId = userId;
-		this.type = type;
-		this.title = title;
-		this.journalName = journalName;
-		this.status = status;
-		this.doi = doi;
-		this.primaryAttribution = primaryAttribution;
-	}
-
 	public Long getId() {
 		return id;
 	}

@@ -180,6 +180,8 @@ public class ProposalController {
             user.getEmail(), "Proposal Rejection", 
             "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted");
 
+        fileController.deleteFile(proposal.get().getFileLocation());
+
         return new Response<>("Proposal ID: " + proposalId.toString() + " deleted");
     }
 }
