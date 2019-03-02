@@ -98,6 +98,18 @@ public class User {
     @JoinColumn(name="user_id")
     private Set<Awards> awards = new LinkedHashSet<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="primary_beneficiary")
+    private Set<Impact> impact = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<Innovation> innovation = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<Presentation> presentation = new LinkedHashSet<>();
+
     //@JsonIgnore
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
@@ -245,6 +257,30 @@ public class User {
         this.awards = awards;
     }
 
+    public Set<Impact> getImpact() {
+        return this.impact;
+    }
+
+    public void setImpact(Set<Impact> impact) {
+        this.impact = impact;
+    }
+
+    public Set<Innovation> getInnovation() {
+        return this.innovation;
+    }
+
+    public void setInnovation(Set<Innovation> innovation) {
+        this.innovation = innovation;
+    }
+
+    public Set<Presentation> getPresentation() {
+        return this.presentation;
+    }
+
+    public void setPresentation(Set<Presentation> presentation) {
+        this.presentation = presentation;
+    }
+
     public Set<TeamMember> getMembers() {
         return members;
     }
@@ -273,6 +309,9 @@ public class User {
             ", employments='" + getEmployments() + "'" +
             ", societyMemberships='" + getSocietyMemberships() + "'" +
             ", awards='" + getAwards() + "'" +
+            ", awards='" + getImpact() + "'" +
+            ", awards='" + getInnovation() + "'" +
+            ", awards='" + getPresentation() + "'" +
             ", members='" + getMembers() + "'" +
             "}";
     }
