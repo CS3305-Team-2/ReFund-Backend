@@ -31,4 +31,10 @@ public class AnnualReportController {
     public Response<AnnualReport> getAnnualReport(@PathVariable("annualReportId") Long annualReportId) {
         return new Response<>(repository.findById(annualReportId).get());
     }
+
+    @PostMapping
+    public void createAnnualReport(@Valid @RequestBody AnnualReport annualReport) {
+        repository.save(annualReport);
+    }
+
 }
