@@ -19,6 +19,14 @@ public class Grants {
     private Long id;
 
     @NotNull
+    @Column(name="title")
+    private String title;
+
+    @NotNull
+    @Column(name="description")
+    private String description;
+
+    @NotNull
     @Column(name="start_date")
     private LocalDate startDate;
 
@@ -51,6 +59,22 @@ public class Grants {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDate getStartDate() {
@@ -113,6 +137,8 @@ public class Grants {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", description='" + getDescription() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", amount='" + getAmount() + "'" +
