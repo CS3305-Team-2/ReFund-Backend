@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
+
 import javax.validation.constraints.NotNull;
+
+import com.bestteam.exceptions.WordCountOverLimitException;
 
 @Entity
 @Table(name="AnnualReport")
@@ -17,8 +19,8 @@ public class AnnualReport {
     private Long id;
 
     @NotNull
-    @Column(name="user_id")
-    private Long userId;
+    @Column(name="project_id")
+    private Long projectId;
 
     @NotNull
     @Column(name="year")
@@ -42,11 +44,11 @@ public class AnnualReport {
 
 	public AnnualReport() {}
 
-	public AnnualReport(Long id, Long userId, Long year,
+	public AnnualReport(Long id, Long projectId, Long year,
                          String planDeviation, String threeHighlights,
                          String challenges, String plannedActivities) {
 		this.id = id;
-		this.userId = userId;
+		this.projectId = projectId;
         this.year = year;
 		this.planDeviation = planDeviation;
 		this.threeHighlights = threeHighlights;
@@ -62,12 +64,12 @@ public class AnnualReport {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getProjectId() {
+		return projectId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
 	public Long getYear() {
@@ -117,7 +119,7 @@ public class AnnualReport {
     public String toString() {
         return "{" +
         " id='" + getId() + "'" +
-        ", userId='" + getUserId() + "'" +
+        ", projectId='" + getProjectId() + "'" +
         ", year='" + getYear() + "'" +
         ", planDeviation='" + getPlanDeviation() + "'" +
         ", threeHighlights='" + getThreeHighlights() + "'" +

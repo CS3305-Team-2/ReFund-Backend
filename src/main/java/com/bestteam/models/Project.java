@@ -45,6 +45,10 @@ public class Project {
     @JoinColumn(name="project_id")
     private Set<TeamMember> teamMembers = new HashSet<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="project_id")
+    private Set<AnnualReport> annualReport = new HashSet<>();
+
     public Long getId() {
         return this.id;
     }
@@ -93,6 +97,14 @@ public class Project {
         this.teamMembers = teamMembers;
     }
 
+    public Set<AnnualReport> getAnnualReport() {
+        return annualReport;
+    }
+
+    public void setAnnualReport(Set<AnnualReport> annualReport) {
+        this.annualReport = annualReport;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -110,6 +122,7 @@ public class Project {
             ", status='" + getStatus() + "'" +
             ", proposal='" + getProposal() + "'" +
             ", teamMembers='" + getTeamMembers() + "'" +
+            ", annualReport='" + getAnnualReport() + "'" +
             "}";
     }
 }
