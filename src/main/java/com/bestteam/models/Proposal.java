@@ -52,11 +52,11 @@ public class Proposal {
     @Column(name="applicant_location_statement")
     private String applicantLocationStatement;
 
-    @Column(name="co_applicants_list")
+    /* @Column(name="co_applicants_list")
     private String coApplicantsList;
 
     @Column(name="collaborators_list")
-    private String collaboratorsList;
+    private String collaboratorsList; */
 
     @Column(name="scientific_abstract")
     private String scientificAbstract;
@@ -156,7 +156,7 @@ public class Proposal {
 		this.applicantLocationStatement = applicantLocationStatement;
 	}
 
-	public String getCoApplicantsList() {
+	/* public String getCoApplicantsList() {
 		return coApplicantsList;
 	}
 
@@ -170,7 +170,7 @@ public class Proposal {
 
 	public void setCollaboratorsList(String collaboratorsList) {
 		this.collaboratorsList = collaboratorsList;
-	}
+	} */
 
 	public String getScientificAbstract() {
 		return scientificAbstract;
@@ -227,8 +227,8 @@ public class Proposal {
             ", legalRemitAlignment='" + getLegalRemitAlignment() + "'" +
             ", ethicalIssues='" + getEthicalIssues() + "'" +
             ", applicantLocationStatement='" + getApplicantLocationStatement() + "'" +
-            ", coApplicantsList='" + getCoApplicantsList() + "'" +
-            ", collaboratorsList='" + getCollaboratorsList() + "'" +
+            /* ", coApplicantsList='" + getCoApplicantsList() + "'" +
+            ", collaboratorsList='" + getCollaboratorsList() + "'" + */
             ", scientificAbstract='" + getScientificAbstract() + "'" +
             ", layAbtract='" + getLayAbstract() + "'" +
             ", fileLocation='" + getFileLocation() + "'" +
