@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
 
 import java.time.LocalDate;
 
