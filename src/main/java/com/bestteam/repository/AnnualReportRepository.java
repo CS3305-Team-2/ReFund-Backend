@@ -1,9 +1,10 @@
 package com.bestteam.repository;
 
-import com.bestteam.models.ProjectReport;
+import com.bestteam.models.AnnualReport;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProjectReportRepository extends CrudRepository<ProjectReport, Long> {}
+public interface AnnualReportRepository extends CrudRepository<AnnualReport, Long> {
+}

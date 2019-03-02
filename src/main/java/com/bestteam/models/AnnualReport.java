@@ -10,15 +10,19 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="ProjectReport")
-public class ProjectReport {
+@Table(name="AnnualReport")
+public class AnnualReport {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name="project_id")
-    private Long projectId;
+    @Column(name="user_id")
+    private Long userId;
+
+    @NotNull
+    @Column(name="year")
+    private Long year;
 
     @NotNull
     @Column(name="plan_deviation")
@@ -36,13 +40,14 @@ public class ProjectReport {
     @Column(name="planned_activities")
     private String plannedActivities;
 
-	public ProjectReport() {}
+	public AnnualReport() {}
 
-	public ProjectReport(Long id, Long projectId, String planDeviation,
-                         String threeHighlights, String challenges,
-                         String plannedActivities) {
+	public AnnualReport(Long id, Long userId, Long year,
+                         String planDeviation, String threeHighlights,
+                         String challenges, String plannedActivities) {
 		this.id = id;
-		this.projectId = projectId;
+		this.userId = userId;
+        this.year = year;
 		this.planDeviation = planDeviation;
 		this.threeHighlights = threeHighlights;
 		this.challenges = challenges;
@@ -57,12 +62,20 @@ public class ProjectReport {
 		this.id = id;
 	}
 
-	public Long getProjectId() {
-		return projectId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getYear() {
+		return year;
+	}
+
+	public void setYear(Long year) {
+		this.year = year;
 	}
 
 	public String getPlanDeviation() {
@@ -101,7 +114,8 @@ public class ProjectReport {
     public String toString() {
         return "{" +
         " id='" + getId() + "'" +
-        ", projectId='" + getProjectId() + "'" +
+        ", userId='" + getUserId() + "'" +
+        ", year='" + getYear() + "'" +
         ", planDeviation='" + getPlanDeviation() + "'" +
         ", threeHighlights='" + getThreeHighlights() + "'" +
         ", challenges='" + getChallenges() + "'" +
