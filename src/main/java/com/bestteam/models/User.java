@@ -113,7 +113,15 @@ public class User {
     //@JsonIgnore
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
+    private Set<AcademicCollaborations> academicCollaborations = new LinkedHashSet<>();
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
     private Set<TeamMember> members = new LinkedHashSet<>();
+    
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<NonAcademicCollaborations> nonAcademicCollaborations = new LinkedHashSet<>();
 
     public User() {}
 
@@ -205,11 +213,11 @@ public class User {
         this.orcid = orcid;
     }
 
-    public HostInstitution getHostInstitutionId() {
+    public HostInstitution getHostInstitution() {
         return hostInstitution;
     }
 
-    public void setHostInstitutionId(HostInstitution hostInstitution) {
+    public void setHostInstitution(HostInstitution hostInstitution) {
         this.hostInstitution = hostInstitution;
     }
 
@@ -293,6 +301,34 @@ public class User {
         this.members = members;
     }
 
+    /**
+     * @return the academicCollaborations
+     */
+    public Set<AcademicCollaborations> getAcademicCollaborations() {
+        return academicCollaborations;
+    }
+
+    /**
+     * @param academicCollaborations the academicCollaborations to set
+     */
+    public void setAcademicCollaborations(Set<AcademicCollaborations> academicCollaborations) {
+        this.academicCollaborations = academicCollaborations;
+    }
+    
+    /**
+     * @return the nonAcademicCollaborations
+     */
+    public Set<NonAcademicCollaborations> getNonAcademicCollaborations() {
+        return nonAcademicCollaborations;
+    }
+
+    /**
+     * @param nonAcademicCollaborations the nonAcademicCollaborations to set
+     */
+    public void setNonAcademicCollaborations(Set<NonAcademicCollaborations> nonAcademicCollaborations) {
+        this.nonAcademicCollaborations = nonAcademicCollaborations;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -307,7 +343,7 @@ public class User {
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", phoneCountryCode='" + getPhoneCountryCode() + "'" +
             ", orcid='" + getOrcid() + "'" +
-            ", hostInstitution='" + getHostInstitutionId() + "'" +
+            ", hostInstitution='" + getHostInstitution() + "'" +
             ", type='" + getType() + "'" +
             ", educations='" + getEducations() + "'" +
             ", employments='" + getEmployments() + "'" +

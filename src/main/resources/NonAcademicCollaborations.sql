@@ -20,6 +20,3 @@ CREATE TABLE `NonAcademicCollaborations`
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );
-
-
-insert into NonAcademicCollaborations values (NULL,1,"2019-02-01",NULL,"UCC","Comp Sci","Cork","Dude","ACCESS_TO_SOFTWARE_DATA_MATERIAL_EQUIPMENT","too much",1);
