@@ -107,6 +107,13 @@ public class ProposalController {
             proposal.get().setStatus(ProposalStatus.DRAFT);
         } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
             proposal.get().setStatus(ProposalStatus.REJECTED);
+            Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+            if (!project.isPresent()) {
+                throw new ProjectNotFoundException(proposal.get().getProjectId());
+            }
+
+            project.get().setProposal(null);
+            projectRepository.save(project.get());
         }
         
         /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
@@ -212,12 +219,14 @@ public class ProposalController {
         }
         repository.deleteById(proposalId);
 
-        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
+        project.get().setProposal(null);
+        projectRepository.save(project.get());
+        /*User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
 
         MailHelper.send(
             user.getEmail(), "Proposal Rejection", 
