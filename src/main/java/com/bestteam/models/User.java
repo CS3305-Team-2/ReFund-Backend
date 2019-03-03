@@ -64,7 +64,6 @@ public class User {
     @Column(name="phone_country_code")
     private String phoneCountryCode;
 
-    @NotNull
     @Column(name="orcid")
     private String orcid;
 
