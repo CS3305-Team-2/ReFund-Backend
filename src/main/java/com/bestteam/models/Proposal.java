@@ -27,9 +27,11 @@ public class Proposal {
     @Enumerated(EnumType.STRING)
     private ProposalStatus status;
 
+    @NotNull
     @Column(name="primary_attribution")
     private Long primaryAttribution;
 
+    @NotNull
     @Column(name="project_id")
     private Long projectId;
 

@@ -1,8 +1,8 @@
 CREATE TABLE `Proposal` (
 	`id` INT PRIMARY KEY AUTO_INCREMENT,
 	`status` VARCHAR(30) NOT NULL,
-	`primary_attribution` INT,
-	`project_id` INT,
+	`primary_attribution` INT NOT NULL,
+	`project_id` INT NOT NULL,
     `title` TEXT,
     `duration` INT ,
     `nrp_area` TEXT ,
