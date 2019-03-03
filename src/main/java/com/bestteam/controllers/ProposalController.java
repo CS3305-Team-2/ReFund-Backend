@@ -135,7 +135,7 @@ public class ProposalController {
     @ApiOperation(
         value="/api/proposal/{proposalId}/approve", 
         notes="If proposal state = RO_SUBMITTED, state becomes RO_APPROVED. If proposal state = RO_APPROVED, state becomes SFI_APPROVED")
-    public void approveProposal(@PathVariable("projectId") Long proposalId) throws IOException {
+    public void approveProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
