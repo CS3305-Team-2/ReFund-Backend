@@ -14,14 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.bestteam.exceptions.ProposalNotFoundException;
 import com.bestteam.exceptions.ProposalWithoutFileException;
+import com.bestteam.exceptions.NoJWTFound;
 import com.bestteam.exceptions.ProjectNotFoundException;
 import com.bestteam.exceptions.ProposalNotDraftException;
 import com.bestteam.models.Project;
@@ -29,6 +32,7 @@ import com.bestteam.models.Proposal;
 import com.bestteam.models.User;
 import com.bestteam.helpers.Response;
 import com.bestteam.helpers.UploadFileResponse;
+import com.bestteam.helpers.JWTKey;
 import com.bestteam.helpers.MailHelper;
 import com.bestteam.helpers.ProposalStatus;
 import com.bestteam.repository.ProjectRepository;
@@ -209,6 +213,21 @@ public class ProposalController {
             throw new ProposalNotFoundException(proposalId);
         }
         return new Response<>(proposal.get());
+    }
+
+    @GetMapping("/owned")
+    public Response<List<Proposal>> getMyProposals(HttpServletRequest request) {
+        String token = request.getHeader("JWT-TOKEN");
+        if(token == null) {
+            throw new NoJWTFound();
+        }
+        Integer userId = (Integer)JWTKey.getClaim(token, "user");
+        List<Project> projectsForPI = projectRepository.findAllProjectsForPI(userId.longValue());
+        List<Proposal> proposalsForPI = new ArrayList<>();
+        for(Project project: projectsForPI) {
+            proposalsForPI.add(project.getProposal());
+        }
+        return new Response<>(proposalsForPI);
     }
 
     @RequestMapping(value="/{proposalId}/delete", method={RequestMethod.POST, RequestMethod.DELETE})
