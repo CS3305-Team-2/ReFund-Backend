@@ -9,8 +9,6 @@ CREATE TABLE `Proposal` (
     `legal_remit_alignment` TEXT ,
     `ethical_issues` TEXT ,
     `applicant_location_statement` TEXT ,
-    `co_applicants_list` TEXT ,
-    `collaborators_list` TEXT ,
     `scientific_abstract` TEXT ,
     `lay_abstract` TEXT ,
     `file_location` VARCHAR(60)  UNIQUE,
@@ -26,21 +24,19 @@ CREATE TABLE `Proposal` (
 );
 
 insert into `Proposal` values (
-    NULL,
+    1,
     "DRAFT",
     1,
     1,
-    "TITLE",
+    "Orion proposal",
     20,
     "PRIORITY_AREA_A",
-    "kegak",
-    "ethi",
-    "aoo",
-    "coapp",
-    "coll",
-    "sci",
-    "lay",
-    "hi.pdf",
+    "The research effort adheres to the SFI's legal remit. After thorough reading of the legal remit documentation provided, we can say we plan to adhere to every single point mentioned in the document.",
+    "No animals will be harmed in our research effort, and involves no human participation without their consent.",
+    "Currently in Ireland, good country. 10/10.",
+    "Curabitur et quam semper, commodo nibh sit amet, auctor velit. Sed eget vulputate metus. Curabitur pharetra pharetra nisl, ac gravida risus posuere et. Phasellus tincidunt velit et fringilla maximus. Proin magna augue, sagittis in massa vel, pulvinar semper erat. Mauris in vulputate arcu, vel consequat sem. Cras feugiat at nibh a commodo. Vestibulum sed sollicitudin metus. Praesent placerat hendrerit dui quis congue. Nulla tristique fermentum porttitor. Nunc vehicula tincidunt semper. Nunc sollicitudin libero et orci fermentum, a tempus.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis, nisl at vulputate rhoncus, tellus ante commodo ligula, ac imperdiet est lectus a tellus. Nullam vehicula dolor maximus accumsan congue. Suspendisse viverra interdum nibh eget porta. Ut iaculis purus ac risus porttitor, nec consequat tellus rutrum. Sed molestie molestie congue. Vestibulum at faucibus sapien. Proin semper mauris facilisis congue facilisis. Fusce neque sapien, sollicitudin quis tristique sed, pharetra et eros. Donec ornare augue eu lectus rhoncus lacinia ut in metus. Morbi cursus magna ut ultricies tristique. Curabitur eget tempor arcu. Donec hendrerit vestibulum nisl sed malesuada. Nam sagittis leo vel risus viverra condimentum. Duis pulvinar justo velit, sed ullamcorper ligula vulputate ut. Phasellus leo ante, lacinia ac efficitur nec, vestibulum faucibus arcu.",
+    "proposal_1.pdf",
     TRUE
 );
 
