@@ -140,25 +140,27 @@ public class ProposalController {
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
         }
-
+        System.out.println(proposal.get().getStatus());
         if (proposal.get().getStatus() == ProposalStatus.RO_SUBMITTED) {
+            System.out.println("Approving RO");
             proposal.get().setStatus(ProposalStatus.RO_APPROVED);
         } else if (proposal.get().getStatus() == ProposalStatus.RO_APPROVED) {
+            System.out.println("Approving SFI");
             proposal.get().setStatus(ProposalStatus.SFI_APPROVED);
         }
 
-        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        repository.save(proposal.get());
+        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
         User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
 
-        repository.save(proposal.get());
 
         MailHelper.send(
             user.getEmail(), "Proposal Approved", 
-            "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved.");
+            "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved."); */
     }
 
     @PostMapping
