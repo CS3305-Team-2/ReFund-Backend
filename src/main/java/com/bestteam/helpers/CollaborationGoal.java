@@ -4,10 +4,10 @@ public enum CollaborationGoal {
 
     ACCESS_TO_SOFTWARE_DATA_MATERIAL_EQUIPMENT("Access to software/data/material/equipment"),
     TRAINING_AND_CAREER_DEVELOPMENT("Training and career development"),
-    JOIN_PUBLICATION("Joint publication"),
+    JOINT_PUBLICATION("Joint publication"),
     STARTUP_DEVELOPMENT("Startup development"),
     LICENSE_DEVELOPMENT("License development"),
-    BUILDING_NETWORK_AND_RELATIONSHIPS("Building networks and relationships");
+    BUILDING_NETWORKS_AND_RELATIONSHIPS("Building networks and relationships");
 
     private String content;
 
