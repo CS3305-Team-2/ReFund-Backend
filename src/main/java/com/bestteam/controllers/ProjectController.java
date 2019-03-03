@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -59,7 +60,7 @@ public class ProjectController {
         return new Response<>(repository.findAllAssociatedProjects(userId));
     }
 
-    @PatchMapping("/addTeamMember")
+    @RequestMapping(value="/addTeamMember", method={RequestMethod.POST, RequestMethod.PATCH})
     public Response<Project> addTeamMember(@Valid @RequestBody TeamMember teamMember) throws IOException {
         Optional<Project> project = repository.findById(teamMember.getProjectId());
         if (!project.isPresent()) {
@@ -77,7 +78,7 @@ public class ProjectController {
         return new Response<>(project.get());
     }
 
-    @PatchMapping("/{projectId}/status/{status}")
+    @RequestMapping(value="/{projectId}/status/{status}", method={RequestMethod.POST, RequestMethod.PATCH})
     public void setProjectStatus(@PathVariable("projectId") Long projectId, @PathVariable("status") String status) {
         Optional<Project> project = repository.findById(projectId);
         if (!project.isPresent()) {
@@ -87,7 +88,7 @@ public class ProjectController {
         repository.save(project.get());
     }
 
-    @PatchMapping("/{projectId}/markAsRc")
+    @RequestMapping(value="/{projectId}/markAsRc", method={RequestMethod.POST, RequestMethod.PATCH})
     public void markAsResearchCenter(@PathVariable("projectId") Long projectId) {
         Optional<Project> project = repository.findById(projectId);
         if (!project.isPresent()) {
@@ -97,7 +98,7 @@ public class ProjectController {
         repository.save(project.get());
     }
 
-    @PatchMapping("/{projectId}/markAsNotRc")
+    @RequestMapping(value="/{projectId}/markAsNotRc", method={RequestMethod.POST, RequestMethod.PATCH})
     public void markAsNotResearchCenter(@PathVariable("projectId") Long projectId) {
         Optional<Project> project = repository.findById(projectId);
         if (!project.isPresent()) {

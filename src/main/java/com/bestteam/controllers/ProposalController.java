@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +57,7 @@ public class ProposalController {
         return new Response<>(repository.findByStatus(status));
     }
 
-    @PatchMapping("/update")
+    @RequestMapping(value="/update", method={RequestMethod.POST, RequestMethod.PATCH})
     public Response<Proposal> updateProposalDraft(@RequestParam(name="file", required=false) @Valid MultipartFile file, @RequestPart("proposal") @Valid Proposal proposal) {
         Optional<Proposal> oldProposal = repository.findById(proposal.getId());
         if (!oldProposal.isPresent()) {
@@ -93,7 +94,7 @@ public class ProposalController {
         repository.save(proposal.get());
     }
 
-    @PatchMapping("/{proposalId}/reject")
+    @RequestMapping(value="/{proposalId}/reject", method={RequestMethod.POST, RequestMethod.PATCH})
     @ApiOperation(
         value="/api/proposal/{proposalId}/reject", 
         notes="If proposal state = RO_SUBMITTED, state becomes DRAFT. If proposal state = RO_APPROVED, state becomes REJECTED")
@@ -130,11 +131,11 @@ public class ProposalController {
             "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage);
     }
 
-    @PatchMapping("/{proposalId}/approve")
+    @RequestMapping(value="/{proposalId}/approve", method={RequestMethod.POST, RequestMethod.PATCH})
     @ApiOperation(
         value="/api/proposal/{proposalId}/approve", 
         notes="If proposal state = RO_SUBMITTED, state becomes RO_APPROVED. If proposal state = RO_APPROVED, state becomes SFI_APPROVED")
-    public void approveProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
+    public void approveProposal(@PathVariable("projectId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {
             throw new ProposalNotFoundException(proposalId);
@@ -200,7 +201,7 @@ public class ProposalController {
         return new Response<>(proposal.get());
     }
 
-    @DeleteMapping("/{proposalId}/delete")
+    @RequestMapping(value="/{proposalId}/delete", method={RequestMethod.POST, RequestMethod.DELETE})
     public Response<String> deleteProposal(@PathVariable("proposalId") Long proposalId) throws IOException {
         Optional<Proposal> proposal = repository.findById(proposalId);
         if (!proposal.isPresent()) {

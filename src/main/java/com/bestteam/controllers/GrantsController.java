@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +56,7 @@ public class GrantsController {
         return new Response<>(repository.save(grant));
     }
 
-    @PatchMapping("/{grantId}/{status}")
+    @RequestMapping(value="/{grantId}/{status}", method={RequestMethod.POST, RequestMethod.PATCH})
     public void updateStatus(@PathVariable("grantId") Long grantId, @PathVariable("status") String status) {
         Optional<Grants> grant = repository.findById(grantId);
         if (!grant.isPresent()) {
