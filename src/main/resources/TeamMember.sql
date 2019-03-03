@@ -6,6 +6,7 @@ CREATE TABLE `TeamMember`
     `end_date` datetime,
     `role` VARCHAR(20) NOT NULL,
     `project_id` INT NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
     FOREIGN KEY `member_to_user`(`user_id`)
     REFERENCES `User`(`id`)
     ON UPDATE CASCADE
