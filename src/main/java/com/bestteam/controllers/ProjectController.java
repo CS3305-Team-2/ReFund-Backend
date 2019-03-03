@@ -22,7 +22,6 @@ import com.google.common.collect.Sets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -116,6 +115,8 @@ public class ProjectController {
         project.setTeamMembers(null);
         Project newProject = repository.save(project);
         for(TeamMember teamMember: teamMembers) {
+            User user = teamMemberRepo.getUserFromTeamMemberId(teamMember.getUserId());
+            teamMember.setName(user.getFirstName() + " " + user.getLastName());
             teamMember.setProjectId(newProject.getId());
         }
         Iterable<TeamMember> newTeamMembers = teamMemberRepo.saveAll(() -> teamMembers.iterator());

@@ -22,6 +22,9 @@ public class TeamMember {
     @Column(name="user_id")
     private Long userId;
 
+    @Column(name="name")
+    private String name;
+
     @NotNull
     @Column(name="start_date")  
     private Date startDate;
@@ -50,6 +53,14 @@ public class TeamMember {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getStartDate() {
@@ -87,11 +98,13 @@ public class TeamMember {
     @Override
     public String toString() {
         return "{" +
-            //" teamMemberIdentity='" + getTeamMemberIdentity() + "'" +
+            " id='" + getId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", name='" + getName() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", role='" + getRole() + "'" +
             ", projectId='" + getProjectId() + "'" +
             "}";
-    }    
+    }
 }
