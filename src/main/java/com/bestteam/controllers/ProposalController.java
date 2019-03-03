@@ -3,7 +3,6 @@ package com.bestteam.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,16 +109,16 @@ public class ProposalController {
             proposal.get().setStatus(ProposalStatus.REJECTED);
         }
         
-        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
+        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId())); */
 
         repository.save(proposal.get());
 
-        String proposalStateMessage = "";
+        /* String proposalStateMessage = "";
         if(proposal.get().getStatus() == ProposalStatus.DRAFT) {
             proposalStateMessage = "by your Host Institution. It has been returned to your dashboard as a draft where you may make edits to it.";
         } else {
@@ -128,7 +127,7 @@ public class ProposalController {
 
         MailHelper.send(
             user.getEmail(), "Proposal Approved", 
-            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage);
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage); */
     }
 
     @RequestMapping(value="/{proposalId}/approve", method={RequestMethod.POST, RequestMethod.PATCH})
@@ -147,12 +146,16 @@ public class ProposalController {
             proposal.get().setStatus(ProposalStatus.SFI_APPROVED);
         }
 
-        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId())); */
+        /* Long piId = projectRepository.getPITeamMemberIdFromProjectId(project.get().getId());
+        System.out.println("Proposal ID: " + proposalId);
+        System.out.println("Project ID: " + project.get().getId());
+        System.out.println("PI ID: " + piId);
+        User user = teamMemberRepository.getUserFromTeamMemberId(piId); */
 
         repository.save(proposal.get());
 
@@ -209,7 +212,7 @@ public class ProposalController {
         }
         repository.deleteById(proposalId);
 
-        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
@@ -218,7 +221,7 @@ public class ProposalController {
 
         MailHelper.send(
             user.getEmail(), "Proposal Rejection", 
-            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted");
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted"); */
 
         fileController.deleteFile(proposal.get().getFileLocation());
 
