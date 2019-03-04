@@ -18,6 +18,7 @@ import com.bestteam.models.TeamMember;
 import com.bestteam.models.User;
 import com.bestteam.repository.ProjectRepository;
 import com.bestteam.repository.TeamMemberRepository;
+import com.bestteam.repository.UserRepository;
 import com.google.common.collect.Sets;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class ProjectController {
 
     @Autowired
     private TeamMemberRepository teamMemberRepo;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     @ApiOperation(value="/api/project", notes="Returns the list of projects where user is the Principal Instigator", authorizations={
@@ -107,6 +111,11 @@ public class ProjectController {
         repository.save(project.get());
     }
 
+    /* @GetMapping("/test")
+    public void test() {
+
+    } */
+
     @PostMapping
     public Response<Project> createProject(HttpServletRequest request, @Valid @RequestBody Project project) {
         project.setIsResearchCenter(false);
@@ -115,7 +124,8 @@ public class ProjectController {
         project.setTeamMembers(null);
         Project newProject = repository.save(project);
         for(TeamMember teamMember: teamMembers) {
-            User user = teamMemberRepo.getUserFromTeamMemberId(teamMember.getUserId());
+            
+            User user = userRepository.findById(teamMember.getUserId()).get();//teamMemberRepo.getUserFromTeamMemberId(teamMember.getId());
             teamMember.setName(user.getFirstName() + " " + user.getLastName());
             teamMember.setProjectId(newProject.getId());
         }
