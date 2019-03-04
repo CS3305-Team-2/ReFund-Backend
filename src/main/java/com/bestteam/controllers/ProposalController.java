@@ -129,7 +129,7 @@ public class ProposalController {
 
         repository.save(proposal.get());
 
-        /* String proposalStateMessage = "";
+        String proposalStateMessage = "";
         if(proposal.get().getStatus() == ProposalStatus.DRAFT) {
             proposalStateMessage = "by your Host Institution. It has been returned to your dashboard as a draft where you may make edits to it.";
         } else {
@@ -137,8 +137,8 @@ public class ProposalController {
         }
 
         MailHelper.send(
-            user.getEmail(), "Proposal Approved", 
-            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage); */
+            "116361061@umail.ucc.ie", "Proposal Approved", 
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage);
     }
 
     @RequestMapping(value="/{proposalId}/approve", method={RequestMethod.POST, RequestMethod.PATCH})
@@ -170,9 +170,9 @@ public class ProposalController {
 
         repository.save(proposal.get());
 
-        /* MailHelper.send(
-            user.getEmail(), "Proposal Approved", 
-            "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved."); */
+        MailHelper.send(
+            "116361061@umail.ucc.ie", "Proposal Approved", 
+            "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved.");
     }
 
     @PostMapping
@@ -245,11 +245,11 @@ public class ProposalController {
 
         project.get().setProposal(null);
         projectRepository.save(project.get());
-        /*User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));
+        /*User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));*/
 
         MailHelper.send(
-            user.getEmail(), "Proposal Rejection", 
-            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted"); */
+            "116361061@umail.ucc.ie", "Proposal Rejection", 
+            "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted");
 
         fileController.deleteFile(proposal.get().getFileLocation());
 
