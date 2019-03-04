@@ -17,7 +17,7 @@ public class MailHelper implements EnvironmentAware {
     public static void send(String recipient, String subject, String content) throws IOException {
         Email from = new Email("sesame@refund.noahsc.xyz");
         Email to = new Email(recipient);
-        Content body = new Content("text/plain", content);
+        Content body = new Content("text/html", content);
         Mail email = new Mail(from, subject, to, body);
         SendGrid sg = new SendGrid(environment.getProperty("sendgrid_key"));
         Request request = new Request();

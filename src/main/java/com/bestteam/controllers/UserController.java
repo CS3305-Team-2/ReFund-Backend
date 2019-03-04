@@ -103,11 +103,11 @@ public class UserController {
         MailHelper.send(
             newUser.getEmail(), "Account created", 
             "Dear " + newUser.getFirstName() + " " + newUser.getLastName() +
-            "\nWelcome to your Sesame account.\n" +
+            "<br/>Welcome to your Sesame account.<br/><br/>" +
             "You will be able to login with your ORCID account by clicking the same button or withy our Sesame details. We highly recommend " +
             "that you change your password when you sign-in. It has been set to new-user-password by default." +
-            "\nKind Regards" +
-            "\nSFI Administration");
+            "<br/>Kind Regards" +
+            "<br/>SFI Administration");
 
         return new Response<>(newUser);
     }

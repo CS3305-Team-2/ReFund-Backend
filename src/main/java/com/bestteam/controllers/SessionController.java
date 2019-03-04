@@ -113,11 +113,11 @@ public class SessionController {
             MailHelper.send(
                 newUser.getEmail(), "Sesame Account Created", 
                 "Dear " + newUser.getFirstName() + " " + newUser.getLastName() +
-                "\nWelcome to your Sesame account. Your account was automatically created when you signed up with your ORCID account " +
+                "<br/>Welcome to your Sesame account.<br/><br/>Your account was automatically created when you signed up with your ORCID account " +
                 "You will be able to login with your ORCID account by clicking the same button or withy our Sesame details. We highly recommend " +
                 "that you change your password when you sign-in. It has been set to new-user-password by default." +
-                "\nKind Regards" +
-                "\nSFI Administration");
+                "<br/>Kind Regards" +
+                "<br/>SFI Administration");
         } else {
             newUser = repository.findByOrcid(orcid).get();
         }
