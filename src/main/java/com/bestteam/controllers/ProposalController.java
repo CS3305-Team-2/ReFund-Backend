@@ -38,6 +38,7 @@ import com.bestteam.helpers.ProposalStatus;
 import com.bestteam.repository.ProjectRepository;
 import com.bestteam.repository.ProposalRepository;
 import com.bestteam.repository.TeamMemberRepository;
+import com.bestteam.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/proposal")
@@ -51,6 +52,9 @@ public class ProposalController {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     private FileController fileController;
@@ -120,13 +124,13 @@ public class ProposalController {
             projectRepository.save(project.get());
         }
         
-        /* Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
+        Optional<Project> project = projectRepository.findById(proposal.get().getProjectId());
         if (!project.isPresent()) {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
-
-        User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId())); */
-
+        Long piMemberId = projectRepository.getPITeamMemberIdFromProjectId(project.get().getId());
+        Long userId = teamMemberRepository.getUserIdFromTeamMemberId(piMemberId);
+        User user = userRepository.findById(userId).get();
         repository.save(proposal.get());
 
         String proposalStateMessage = "";
@@ -137,7 +141,7 @@ public class ProposalController {
         }
 
         MailHelper.send(
-            "116361061@umail.ucc.ie", "Proposal Approved", 
+            user.getEmail(), "Proposal Approved", 
             "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was rejected " + proposalStateMessage);
     }
 
@@ -162,16 +166,13 @@ public class ProposalController {
             throw new ProjectNotFoundException(proposal.get().getProjectId());
         }
 
-        /* Long piId = projectRepository.getPITeamMemberIdFromProjectId(project.get().getId());
-        System.out.println("Proposal ID: " + proposalId);
-        System.out.println("Project ID: " + project.get().getId());
-        System.out.println("PI ID: " + piId);
-        User user = teamMemberRepository.getUserFromTeamMemberId(piId); */
-
+        Long piMemberId = projectRepository.getPITeamMemberIdFromProjectId(project.get().getId());
+        Long userId = teamMemberRepository.getUserIdFromTeamMemberId(piMemberId);
+        User user = userRepository.findById(userId).get();
         repository.save(proposal.get());
 
         MailHelper.send(
-            "116361061@umail.ucc.ie", "Proposal Approved", 
+            user.getEmail(), "Proposal Approved", 
             "We are delighted to inform you that your project proposal '" + proposal.get().getTitle() + "' was approved.");
     }
 
@@ -245,10 +246,12 @@ public class ProposalController {
 
         project.get().setProposal(null);
         projectRepository.save(project.get());
-        /*User user = teamMemberRepository.getUserFromTeamMemberId(projectRepository.getPITeamMemberIdFromProjectId(project.get().getId()));*/
+        Long piMemberId = projectRepository.getPITeamMemberIdFromProjectId(project.get().getId());
+        Long userId = teamMemberRepository.getUserIdFromTeamMemberId(piMemberId);
+        User user = userRepository.findById(userId).get();
 
         MailHelper.send(
-            "116361061@umail.ucc.ie", "Proposal Rejection", 
+            user.getEmail(), "Proposal Rejection", 
             "We regret to inform you that your project proposal '" + proposal.get().getTitle() + "' was deleted");
 
         fileController.deleteFile(proposal.get().getFileLocation());
