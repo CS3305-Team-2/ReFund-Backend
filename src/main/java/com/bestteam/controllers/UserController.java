@@ -52,8 +52,18 @@ import com.google.common.collect.Sets;
 import com.mashape.unirest.http.Unirest;
 import com.bestteam.repository.SocietyMembershipRepository;
 import com.bestteam.repository.EducationRepository;
+import com.bestteam.repository.AcademicCollaborationsRepository;
 import com.bestteam.repository.AwardsRepository;
+import com.bestteam.repository.CommunicationOverviewRepository;
+import com.bestteam.repository.EducationAndPublicEngagementRepository;
 import com.bestteam.repository.EmploymentRepository;
+import com.bestteam.repository.EventRepository;
+import com.bestteam.repository.ImpactRepository;
+import com.bestteam.repository.InnovationRepository;
+import com.bestteam.repository.NonAcademicCollaborationsRepository;
+import com.bestteam.repository.PresentationRepository;
+import com.bestteam.repository.PublicationRepository;
+import com.bestteam.repository.SfiFundingRatioRepository;
 
 @RestController
 @RequestMapping("/api/users")
@@ -66,13 +76,43 @@ public class UserController {
     private EducationRepository educationRepository;
 
     @Autowired
-    private AwardsRepository awardsRepository;
-
-    @Autowired
     private EmploymentRepository employmentRepository;
 
     @Autowired
     private SocietyMembershipRepository societyMembershipRepository;
+
+    @Autowired
+    private AwardsRepository awardsRepository;
+
+    @Autowired
+    private ImpactRepository impactRepository;
+
+    @Autowired
+    private InnovationRepository innovationRepository;
+
+    @Autowired
+    private PresentationRepository presentationRepository;
+
+    @Autowired
+    private NonAcademicCollaborationsRepository nonAcademicRepository;
+
+    @Autowired
+    private AcademicCollaborationsRepository academicRepository;
+
+    @Autowired
+    private PublicationRepository publicationRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private CommunicationOverviewRepository communicationsRepository;
+    
+    @Autowired
+    private SfiFundingRatioRepository sfiFundingRepository;
+
+    @Autowired
+    private EducationAndPublicEngagementRepository eduacationEngagementRepository;
 
     @Autowired
     private Environment env;
@@ -138,6 +178,25 @@ public class UserController {
             .header("Accept", "application/json")
             .queryString("q", field + ":" + value)
             .asJson().getBody().getObject().toString());
+    }
+
+    @RequestMapping(value="/update", method={RequestMethod.POST, RequestMethod.PATCH})
+    public Response<User> update(@RequestBody User user) {
+        educationRepository.saveAll(() -> user.getEducations().iterator());
+        employmentRepository.saveAll(() -> user.getEmployments().iterator());
+        societyMembershipRepository.saveAll(() -> user.getSocietyMemberships().iterator());
+        awardsRepository.saveAll(() -> user.getAwards().iterator());
+        impactRepository.saveAll(() -> user.getImpact().iterator());
+        innovationRepository.saveAll(() -> user.getInnovation().iterator());
+        presentationRepository.saveAll(() -> user.getPresentation().iterator());
+        nonAcademicRepository.saveAll(() -> user.getNonAcademicCollaborations().iterator());
+        academicRepository.saveAll(() -> user.getAcademicCollaborations().iterator());
+        publicationRepository.saveAll(() -> user.getPublication().iterator());
+        eventRepository.saveAll(() -> user.getEvent().iterator());
+        communicationsRepository.saveAll(() -> user.getCommunicationOverview().iterator());
+        sfiFundingRepository.saveAll(() -> user.getSfiFundingRatio().iterator());
+        eduacationEngagementRepository.saveAll(() -> user.getEducationAndPublicEngagement().iterator());
+        return new Response<>(repository.findById(user.getId()).get());
     }
 
     @GetMapping("/{userId}")

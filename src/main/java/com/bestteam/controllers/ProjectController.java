@@ -75,7 +75,7 @@ public class ProjectController {
         Long piMemberId = repository.getPITeamMemberIdFromProjectId(project.get().getId());
         Long userId = teamMemberRepo.getUserIdFromTeamMemberId(piMemberId);
         User user = userRepository.findById(userId).get();
-
+        
         MailHelper.send(
             user.getEmail(), "Team Member added to Project", 
             "A user has been added as a team member to your project");
