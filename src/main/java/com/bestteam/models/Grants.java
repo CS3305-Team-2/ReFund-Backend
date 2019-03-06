@@ -6,6 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import java.time.LocalDate;
 
@@ -52,6 +59,11 @@ public class Grants {
 
     @Column(name="url")
     private String url;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="primary_attribution")
+    private Set<Proposal> proposal = new LinkedHashSet<>();
+
 
     public Long getId() {
         return id;
@@ -133,6 +145,14 @@ public class Grants {
         this.url = url;
     }
 
+    public Set<Proposal> getProposal() {
+        return proposal;
+    }
+
+    public void setProposal(Set<Proposal> proposal) {
+        this.proposal = proposal;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -146,6 +166,7 @@ public class Grants {
             ", fundingProgramme='" + getFundingProgramme() + "'" +
             ", status='" + getStatus() + "'" +
             ", url='" + getUrl() + "'" +
+            ", proposal='" + getProposal() + "'" +
             "}";
     }
 }
