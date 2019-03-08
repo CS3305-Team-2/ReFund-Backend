@@ -27,6 +27,12 @@ public class HostInstitution {
     @Column(name="address_2")
     private String address2;
 
+    @Column(name="address_3")
+    private String address3;
+
+    @Column(name="description")
+    private String description;
+
     @Column(name="post_code")
     private String postCode;
 
@@ -68,7 +74,23 @@ public class HostInstitution {
 
 	public void setAddress2(String address2) {
 		this.address2 = address2;
-	}
+    }
+    
+    public String getAddress3() {
+        return address3;
+    }
+
+    public void setAddress3(String address3) {
+        this.address3 = address3;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 	public String getPostCode() {
 		return postCode;
