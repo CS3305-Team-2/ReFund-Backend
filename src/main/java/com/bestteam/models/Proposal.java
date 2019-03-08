@@ -8,10 +8,17 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 
 import com.bestteam.helpers.ProposalStatus;
 import com.bestteam.helpers.NRPArea;
 import com.bestteam.exceptions.WordCountOverLimitException;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -71,6 +78,10 @@ public class Proposal {
 
     @Column(name="declaration")
     private boolean declaration;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="proposal_id")
+    private Set<ProposalReviews> proposalReviews = new LinkedHashSet<>();
 
 	public Long getId() {
 		return id;
@@ -214,6 +225,14 @@ public class Proposal {
 
 	public void setDeclaration(boolean declaration) {
 		this.declaration = declaration;
+	}
+
+    public Set<ProposalReviews> getProposalReviews() {
+    	return proposalReviews;
+    }
+
+	public void setProposalReviews(Set<ProposalReviews> proposalReviews) {
+		this.proposalReviews = proposalReviews;
 	}
 
     @Override
