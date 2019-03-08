@@ -105,6 +105,7 @@ public class SessionController {
             }
 
             newUser.setPassword("new-user-password");
+            newUser.hashPassword();
             newUser.setJobTitle("Not Specified");
             newUser.setTitle("Not Specified");
             newUser = repository.save(newUser);
