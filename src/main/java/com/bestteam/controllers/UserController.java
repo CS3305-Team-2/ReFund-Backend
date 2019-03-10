@@ -107,7 +107,7 @@ public class UserController {
 
     @Autowired
     private CommunicationOverviewRepository communicationsRepository;
-    
+
     @Autowired
     private SfiFundingRatioRepository sfiFundingRepository;
 
@@ -141,7 +141,7 @@ public class UserController {
         User newUser = repository.save(user);
 
         MailHelper.send(
-            newUser.getEmail(), "Account created", 
+            newUser.getEmail(), "Account created",
             "Dear " + newUser.getFirstName() + " " + newUser.getLastName() +
             "<br/>Welcome to your Sesame account.<br/><br/>" +
             "You will be able to login with your ORCID account by clicking the same button or withy our Sesame details. We highly recommend " +
@@ -172,7 +172,7 @@ public class UserController {
         } else if(token.expirationDate().before(DateTime.now())) {
             token = new TokenRefreshGrant(client, token).accessToken(executor);
         }
-        
+
         return new Response<String>(Unirest.get("https://pub.orcid.org/v2.1/search")
             .header("Authorization", "Bearer " + token.accessToken())
             .header("Accept", "application/json")
@@ -238,5 +238,10 @@ public class UserController {
     @GetMapping("/{userId}/societymemberships")
     public Response<List<SocietyMembership>> getUserSocietyMemberships(@PathVariable("userId") Long userId) {
         return new Response<>(societyMembershipRepository.findByUserId(userId));
+    }
+
+    @GetMapping("/{userId}/proposalIdsForReview")
+    public Response<List<Long>> getUserProposalIdsForReview(@PathVariable("userId") Long userId) {
+        return new Response<>(repository.getProposalIdFromProposalReviews(userId));
     }
 }

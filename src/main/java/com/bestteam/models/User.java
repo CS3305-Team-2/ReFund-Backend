@@ -22,6 +22,25 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.ConstructorResult;
+import javax.persistence.ColumnResult;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.EntityResult;
+import javax.persistence.FieldResult;
+
+@SqlResultSetMapping(name = "ProposalIdLongMapping",
+                     columns = {
+                         @ColumnResult(name="proposal_id",type = Long.class),
+                     }
+)
+
+@NamedNativeQuery(
+    name="User.getProposalIdFromProposalReviews",
+    query="SELECT p.proposal_id FROM User AS u JOIN ProposalReviews AS p ON u.id = p.user_id WHERE p.user_id = ?1",
+    resultSetMapping = "ProposalIdLongMapping"
+)
+
 @Entity
 @Table(name="User")
 public class User {
